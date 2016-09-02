@@ -1,0 +1,24 @@
+{
+  "name": "dearpiggy",
+  "description": "nodejs+express+jade+mysql",
+  "main": "app",
+  "authors": [
+    "zhanyunzhi <540562332@qq.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "进出货管理"
+  ],
+  "homepage": "/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "weui": "^0.4.3"
+  }
+}
