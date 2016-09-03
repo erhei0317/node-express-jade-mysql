@@ -1,8 +1,14 @@
 doctype html
 html
   head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1,user-scalable=0')
     title= title
     //- 引入公共网页模块
     include ./includes/head
-  body
-    block content
+  body(ontouchstart)
+    include ./includes/header
+    .container
+      block content
+
+    include ./includes/footer

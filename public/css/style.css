@@ -1,0 +1,89 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+/*字体图标star*/
+@font-face {
+    font-family: 'tiny';
+    src:  url('../fonts/tiny.eot?ui2uo9');
+    src:  url('../fonts/tiny.eot?ui2uo9#iefix') format('embedded-opentype'),
+    url('../fonts/tiny.ttf?ui2uo9') format('truetype'),
+    url('../fonts/tiny.woff?ui2uo9') format('woff'),
+    url('../fonts/tiny.svg?ui2uo9#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'tiny' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    font-size: 24px;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-home:before {
+    content: "\e900";
+}
+.icon-cog:before {
+    content: "\e994";
+}
+.icon-pie-chart:before {
+    content: "\e99a";
+}
+.icon-stats-dots:before {
+    content: "\e99b";
+}
+.icon-truck:before {
+    content: "\e9b0";
+}
+
+.weui_tabbar_item{
+    color: #888;
+}
+.weui_tabbar_label{
+    margin-bottom:5px;
+}
+.icon-active{
+    color: #09bb07;
+}
+.icon-active p{
+    color: #09bb07;
+}
+/*字体图标end*/
+/*头部start*/
+.weui_navbar{
+    background-color: #09bb07;
+    color: #ffffff;
+}
+.arrow-left{
+    position: absolute;
+    left: 20px;
+}
+.arrow-left:before{
+    content:"";
+    width: 12px;
+    height: 12px;
+    border-top: 1px solid #ffffff;  /* 左边框的宽 */
+    border-right: 1px solid #ffffff; /* 右边框的宽 */
+    display: inline-block;
+    -webkit-transform: rotate(-135deg);
+    -moz-transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+}
+/*头部end*/
+a {
+  color: #00B7FF;
+}
+
+.container {
+    padding: 20px;
+    margin-top: 44px;
+}
