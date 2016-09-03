@@ -8,6 +8,10 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');   //首页路由，包含底部四个菜单的路由
 var users = require('./routes/users');    //平台用户
 var agents = require('./routes/agents');   //代理管理
+var levels = require('./routes/levels');   //界别管理
+var products = require('./routes/products');   //产品管理
+var deals = require('./routes/deals');   //进出货管理
+var statisticss = require('./routes/statisticss');   //进出货统计管理
 
 var app = express();
 
@@ -31,6 +35,10 @@ app.use(logger('combined', {stream: accessLogStream}));
 app.use('/', routes);
 app.use('/users', users); // 自定义cgi路径
 app.use('/agents', agents); // 自定义cgi路径
+app.use('/levels', levels); // 自定义cgi路径
+app.use('/products', products); // 自定义cgi路径
+app.use('/deals', deals); // 自定义cgi路径
+app.use('/statisticss', statisticss); // 自定义cgi路径
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

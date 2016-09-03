@@ -1,0 +1,20 @@
+extends ../../layout
+
+block content
+  .weui_panel.weui_panel_access
+    .weui_panel_hd 点击可以查看（编辑）产品详情
+      a.weui_btn.weui_btn_mini.weui_btn_primary.list-add-btn(href='javascript:;') 新增
+    .weui_panel_bd
+      //- a(href='javascript:void(0);')
+      .weui_media_box.weui_media_text
+        h4.weui_media_title 奢悦水光针
+          span (总出货量-12343)
+        p.weui_media_desc 产品介绍此处省略一万字产品介绍此处省略一万字产品介绍此处省略一万字
+      //- a(href='javascript:void(0);')
+      .weui_media_box.weui_media_text
+        h4.weui_media_title 奢悦面膜
+          span (总出货量-12343)
+        p.weui_media_desc 产品介绍此处省略一万字产品介绍此处省略一万字产品介绍此处省略一万字
+    a.weui_panel_ft(href='javascript:void(0);') 查看更多
+
+  script(src='/js/product.js' type='text/javascript')

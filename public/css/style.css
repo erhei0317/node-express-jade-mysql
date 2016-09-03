@@ -3,10 +3,13 @@ body {
   background-color: #fbf9fe;
 }
 a {
-    color: #00B7FF;
+    color: #09bb07;;
 }
 .container {
     padding-top: 44px;
+}
+.primary-color{
+    color: #09bb07;
 }
 /*字体图标star*/
 @font-face {
@@ -107,5 +110,12 @@ a {
     color: #999;
     font-size: 13px;
     margin-left: 8px;
+}
+.list-add-btn{
+    float: right;
+    margin-top: -7px;
+}
+.weui_media_box:active{
+    background-color: #ededed;
 }
 /*anget list end*/

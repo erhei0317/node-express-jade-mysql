@@ -1,0 +1,40 @@
+extends ../../layout
+block content
+
+  .weui_cells.weui_cells_form
+      .weui_cell.weui_cell_select
+          .weui_cell_bd.weui_cell_primary
+              select.weui_select(name='select1')
+                  option(selected='', value='1') 请选择产品名称
+                  option(value='2') 奢悦面膜
+                  option(value='3') 奢悦溶脂针
+      .weui_cell
+          .weui_cell_hd
+              label.weui_label 数量
+          .weui_cell_bd.weui_cell_primary
+              input.weui_input(type='number', pattern="[0-9]*", placeholder='请输入数量')
+      .weui_cell
+          .weui_cell_hd
+              label.weui_label 进货单价
+          .weui_cell_bd.weui_cell_primary
+              input.weui_input(type='number', pattern="[0-9]*", placeholder='请输入进货单价')
+      .weui_cell
+        .weui_cell_bd.weui_cell_primary
+          p 按进货单价算得总额
+        .weui_cell_ft ￥4545
+      .weui_cell
+        .weui_cell_hd
+          label.weui_label 实际成交总额
+        .weui_cell_bd.weui_cell_primary
+          input.weui_input(type='number', pattern="[0-9]*", placeholder='请输入实际成交总额')
+      .weui_cell
+          .weui_cell_hd
+              label.weui_label 已付款
+          .weui_cell_bd.weui_cell_primary
+              input.weui_input(type='number', pattern="[0-9]*", placeholder='请输入已付款')
+  .weui_btn_area
+      button#showTooltips.weui_btn.weui_btn_primary 保存
+      button.weui_btn.weui_btn_warn 取消
+
+  script(src='/js/deal.js' type='text/javascript')
+                      

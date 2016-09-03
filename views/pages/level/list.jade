@@ -1,0 +1,35 @@
+extends ../../layout
+block content
+  .weui_cells.weui_cells_access
+    .weui_panel_hd 点击可以编辑代理级别
+      a.weui_btn.weui_btn_mini.weui_btn_primary.list-add-btn(href='/levels/add') 新增
+    .weui_cell
+      .weui_cell_bd.weui_cell_primary
+        p.primary-color
+         b 奢悦水光针
+      //- a.weui_btn.weui_btn_mini.weui_btn_primary(href='/levels/add') 新增
+    a.weui_cell(href='javascript:;')
+      .weui_cell_bd.weui_cell_primary
+        p 市代
+      .weui_cell_ft 55/盒
+    a.weui_cell(href='javascript:;')
+      .weui_cell_bd.weui_cell_primary
+        p 省代
+      .weui_cell_ft 45/盒
+    .weui_cell
+      .weui_cell_bd.weui_cell_primary
+        p.primary-color
+         b 奢悦面膜
+      //- a.weui_btn.weui_btn_mini.weui_btn_primary(href='/levels/add') 新增
+    a.weui_cell(href='javascript:;')
+      .weui_cell_bd.weui_cell_primary
+        p 市代
+      .weui_cell_ft 90/盒
+    a.weui_cell(href='javascript:;')
+      .weui_cell_bd.weui_cell_primary
+        p 省代
+      .weui_cell_ft 80/盒
+    .weui_panel_access
+      a.weui_panel_ft(href='javascript:void(0);') 查看更多
+
+  script(src='/js/level.js' type='text/javascript')

@@ -4,23 +4,22 @@ block content
   .weui_cells.weui_cells_form
     .weui_cell
       .weui_cell_hd
-        label.weui_label 代理名称
+        label.weui_label 级别名称
       .weui_cell_bd.weui_cell_primary
-        input.weui_input(type='text', placeholder='请输入代理名称')
+        input.weui_input(type='text', placeholder='请输入级别名称')
     .weui_cell.weui_cell_select
       .weui_cell_bd.weui_cell_primary
         select.weui_select(name='select1')
           option(selected='', value='1') 奢悦水光针
           option(value='2') 奢悦面膜
           option(value='3') 奢悦溶脂针
-    .weui_cell.weui_cell_select
+    .weui_cell
+      .weui_cell_hd
+        label.weui_label 级别价格
       .weui_cell_bd.weui_cell_primary
-        select.weui_select(name='select2')
-          option(selected='', value='1') 天使
-          option(value='2') 省代
-          option(value='3') 总代
+        input.weui_input(type='number', pattern='[0-9]*', placeholder='请输入级别价格')
   .weui_btn_area
     button#showTooltips.weui_btn.weui_btn_primary 保存
     button.weui_btn.weui_btn_warn 取消
 
-  script(src='/js/agent.js' type='text/javascript')
+  script(src='/js/level.js' type='text/javascript')

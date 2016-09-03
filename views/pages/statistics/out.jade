@@ -2,19 +2,23 @@ extends ../../layout
 
 block content
   .weui_panel.weui_panel_access
-    .weui_panel_hd 点击可以查看（编辑）代理详情
+    //- .weui_panel_hd 点击可以查看（编辑）代理详情
       a.weui_btn.weui_btn_mini.weui_btn_primary.list-add-btn(href='/agents/add') 新增
     .weui_panel_bd
       //- a(href='javascript:void(0);')
       .weui_media_box.weui_media_text
         h4.weui_media_title Tiny
-          span (奢悦水光针-总代)
-        p.weui_media_desc 2016年进入累积进货100万
+          span (2016-8-30)
+        p.weui_media_desc 奢悦水光针-￥2200
       //- a(href='javascript:void(0);')
       .weui_media_box.weui_media_text
         h4.weui_media_title Dearpiggy
-          span (奢悦面膜-总代)
-        p.weui_media_desc 2014年进入累积进货600万
+          span (2016-8-30)
+        p.weui_media_desc 奢悦水光针-￥2200
+      .weui_cell
+        .weui_cell_bd.weui_cell_primary
+          p 总额
+        .weui_cell_ft ￥54000
     a.weui_panel_ft(href='javascript:void(0);') 查看更多
 
-  script(src='/js/agent.js' type='text/javascript')
+  script(src='/js/statistics.js' type='text/javascript')
