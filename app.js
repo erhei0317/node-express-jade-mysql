@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
+var routes = require('./routes/index');   //首页路由，包含底部四个菜单的路由
 var users = require('./routes/users');    //平台用户
 var agents = require('./routes/agents');   //代理管理
 

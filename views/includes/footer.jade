@@ -1,17 +1,17 @@
 .weui_tabbar
-   a.weui_tabbar_item(href='javascript:;')
+   a.weui_tabbar_item#deal(href='/deal')
       .weui_tabbar_icon
          span.icon-truck
-      p.weui_tabbar_label 进出货
-   a.weui_tabbar_item#index(href='/')
+      p.weui_tabbar_label 交易
+   a.weui_tabbar_item#index(href='/index')
       .weui_tabbar_icon
          span.icon-home
       p.weui_tabbar_label 首页
-   a.weui_tabbar_item#admin(href='/agents/add')
+   a.weui_tabbar_item#manage(href='/manage')
       .weui_tabbar_icon
          span.icon-cog
       p.weui_tabbar_label 管理
-   a.weui_tabbar_item(href='javascript:;')
+   a.weui_tabbar_item#statistics(href='/statistics')
       .weui_tabbar_icon
-         span.icon-pie-chart
+         span.icon-stats-dots
       p.weui_tabbar_label 统计

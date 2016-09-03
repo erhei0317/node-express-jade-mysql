@@ -1,5 +1,12 @@
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #fbf9fe;
+}
+a {
+    color: #00B7FF;
+}
+.container {
+    padding-top: 44px;
 }
 /*字体图标star*/
 @font-face {
@@ -61,14 +68,24 @@ body {
     background-color: #09bb07;
     color: #ffffff;
 }
+.weui_navbar_item{
+    font-size:16px;
+    padding:12px 0;
+}
+.weui_navbar_item:active {
+    background-color: #039702;
+}
 .arrow-left{
     position: absolute;
-    left: 20px;
+    left: 30px;
+    font-size: 14px;
+    top: 14px;
+    color: #ffffff;
 }
 .arrow-left:before{
     content:"";
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     border-top: 1px solid #ffffff;  /* 左边框的宽 */
     border-right: 1px solid #ffffff; /* 右边框的宽 */
     display: inline-block;
@@ -77,13 +94,18 @@ body {
     -ms-transform: rotate(-135deg);
     -o-transform: rotate(-135deg);
     transform: rotate(-135deg);
+    position: absolute;
+    left: -12px;
+    top:1px;
 }
 /*头部end*/
-a {
-  color: #00B7FF;
+/*anget list start*/
+.weui_panel:first-child {
+    margin-top: 20px;
 }
-
-.container {
-    padding: 20px;
-    margin-top: 44px;
+.weui_media_title span{
+    color: #999;
+    font-size: 13px;
+    margin-left: 8px;
 }
+/*anget list end*/

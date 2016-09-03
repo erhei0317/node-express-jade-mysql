@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  .weui_cells.weui_cells_access
+    a.weui_cell(href='javascript:;')
+      .weui_cell_bd.weui_cell_primary
+        p 进货
+      .weui_cell_ft
+    a.weui_cell(href='javascript:;')
+      .weui_cell_bd.weui_cell_primary
+        p 出货
+      .weui_cell_ft
+
+  script.
+    $(function () {
+      $('#deal').addClass('icon-active')
+    })
