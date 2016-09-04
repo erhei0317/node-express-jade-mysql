@@ -1,5 +1,16 @@
 extends ../layout
 
 block content
-  h1 操作失败！
-  pre #{JSON.stringify(result)}
+  .msg
+    .weui_msg
+      .weui_icon_area
+        i.weui_icon_success.weui_icon_msg
+      .weui_text_area
+        h2.weui_msg_title 操作成功
+        p.weui_msg_desc #{msg}
+      .weui_opr_area
+        p.weui_btn_area
+          a.weui_btn.weui_btn_primary(href='javascript:;') 确定
+          //- a.weui_btn.weui_btn_default(href='javascript:;') 取消
+      .weui_extra_area
+        a(href='') 查看详情
