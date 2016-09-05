@@ -1,20 +1,22 @@
 extends ../../layout
 
 block content
+  //- #{JSON.stringify(result)}
   .weui_panel.weui_panel_access
     .weui_panel_hd 点击可以查看（编辑）产品详情
       a.weui_btn.weui_btn_mini.weui_btn_primary.list-add-btn(href='/products/add') 新增
-    .weui_panel_bd
-      //- a(href='javascript:void(0);')
-      .weui_media_box.weui_media_text
-        h4.weui_media_title 奢悦水光针
-          span (总出货量-12343)
-        p.weui_media_desc 产品介绍此处省略一万字产品介绍此处省略一万字产品介绍此处省略一万字
-      //- a(href='javascript:void(0);')
-      .weui_media_box.weui_media_text
-        h4.weui_media_title 奢悦面膜
-          span (总出货量-12343)
-        p.weui_media_desc 产品介绍此处省略一万字产品介绍此处省略一万字产品介绍此处省略一万字
-    a.weui_panel_ft(href='javascript:void(0);') 查看更多
+    - if (result.length > 0)
+      each item in result
+        .weui_panel_bd(onclick='jumpToUrl("/products/edit/#{item.id}")')
+          //- a(href='javascript:void(0);')
+          .weui_media_box.weui_media_text
+            h4.weui_media_title= item.name
+              span (总出货量：#{item.totalCount||0})
+            p.weui_media_desc= item.remark
+      a.weui_panel_ft(href='javascript:void(0);') 查看更多
+    - else
+      .weui_cell
+        .weui_cell_bd.weui_cell_primary
+          p.primary-color 暂无数据
 
   script(src='/js/product.js' type='text/javascript')

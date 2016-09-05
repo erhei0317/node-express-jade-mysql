@@ -5,24 +5,31 @@ var productDao = require('../dao/productDao');
 
 /* GET products listing. */
 router.get('/list', function(req, res, next) {
-    //res.send('respond with a resource');
-    res.render('product/list', {title: '产品管理'});
+   // res.render('product/list', {title: '产品管理'});
+    productDao.queryAll(req, res, next);
 });
 /* GET products add 打开添加页面. */
 router.get('/add', function(req, res, next) {
   //res.send('respond with a resource');
-    res.render('product/admin', {title: '添加产品'});
+    res.render('product/admin', {title: '添加产品', result:[{
+        id: '',
+        name: '',
+        remark: ''
+    }]});
+});
+/* POST products add 提交新增的信息. */
+router.post('/add', function(req, res, next) {
+    productDao.add(req, res, next);
 });
 /* GET products edit 打开修改页面. */
 router.get('/edit/:id', function(req, res, next) {
     //res.send('respond with a resource');
-    res.render('product/admin', {title: '修改产品'});
+    productDao.queryById(req, res, next);
 });
-/* POST products add&edit 提交新增或者修改的信息. */
-router.post('/submit', function(req, res, next) {
-    productDao.add(req, res, next);
+/* POST products edit 修改信息. */
+router.post('/edit', function(req, res, next) {
+    productDao.edit(req, res, next);
 });
-
 /*// 增加用户
 //TODO 同时支持get,post
 router.get('/addUser', function(req, res, next) {

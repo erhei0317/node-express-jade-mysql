@@ -7,6 +7,7 @@ a {
 }
 .container {
     padding-top: 44px;
+    padding-bottom: 56px;
 }
 .primary-color{
     color: #09bb07;
@@ -64,7 +65,9 @@ a {
 .icon-cross:before {
     content: "\ea0f";
 }
-
+.weui_tabbar {
+    position: fixed;
+}
 .weui_tabbar_item{
     color: #888;
 }
@@ -82,6 +85,7 @@ a {
 .weui_navbar{
     background-color: #09bb07;
     color: #ffffff;
+    position: fixed;
 }
 .weui_navbar_item{
     font-size:16px;

@@ -42,6 +42,10 @@ var showWarnMsg = function(msg){
         $('#toast').hide();
     }, msgOverTime);
 };
+//显示提示信息，1.5秒后隐藏
+var jumpToUrl = function(url){
+    window.location.href = url;
+};
 
 $(function(){
     $('#dialog1ok').click(function(){       //dialog1点击确定关闭提示框
