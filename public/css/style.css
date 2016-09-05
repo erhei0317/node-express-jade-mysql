@@ -102,6 +102,11 @@ a {
     top:1px;
 }
 /*头部end*/
+/*底部start*/
+.weui_dialog_confirm {
+    display: none;
+}
+/*底部end*/
 /*anget list start*/
 .weui_panel:first-child {
     margin-top: 20px;
