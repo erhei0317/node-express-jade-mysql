@@ -34,17 +34,20 @@ var accessLogStream = fs.createWriteStream(__dirname + '/log/access.log', {flags
 app.use(logger('combined', {stream: accessLogStream}));
 
 app.use(session({   //session初始化
+  resave: false,//添加这行
+  saveUninitialized: true,//添加这行
   secret: 'secret',
-  cookie:{      //有效时间
-    maxAge: 1000*60*30
+  rolling: true,   //刷新后session有效期重置，saveUninitialized必须为true，不然无效
+  cookie:{
+    //expires: new Date(Date.now() + 1000*10),     //session有效期，页面刷新后会重新计算
+    maxAge: 1000*10      //有效时间，貌似和expire一样
   }
 }));
 app.use('/', routes);
 //在所有路由之前加一个登录的拦截，如果没登录，则跳转到home，登录后会将向session存入user属性
 app.all('*', function(req, res, next) {
-  console.log('app--'+req.session.name);
-  if(!req.session.name){
-    console.log('no login');
+  //if(!req.session.name){
+  if(false){
     res.redirect("/login");
   }else{
     next();
@@ -59,7 +62,7 @@ app.use('/statisticss', statisticss); // 自定义cgi路径
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function(req, res, next) {      //访问地址不存在时进入这里
   var err = new Error('Not Found');
   err.status = 404;
   next(err);

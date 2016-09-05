@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var userDao = require('../dao/userDao');
+var productDao = require('../dao/productDao');
 
 /* GET products listing. */
 router.get('/list', function(req, res, next) {
@@ -18,9 +18,12 @@ router.get('/edit/:id', function(req, res, next) {
     //res.send('respond with a resource');
     res.render('product/admin', {title: '修改产品'});
 });
+/* POST products add&edit 提交新增或者修改的信息. */
+router.post('/submit', function(req, res, next) {
+    productDao.add(req, res, next);
+});
 
-
-// 增加用户
+/*// 增加用户
 //TODO 同时支持get,post
 router.get('/addUser', function(req, res, next) {
     userDao.add(req, res, next);
@@ -42,7 +45,7 @@ router.get('/deleteUser', function(req, res, next) {
 
 router.post('/updateUser', function(req, res, next) {
     userDao.update(req, res, next);
-});
+});*/
 
 module.exports = router;
 

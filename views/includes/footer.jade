@@ -15,3 +15,14 @@
       .weui_tabbar_icon
          span.icon-stats-dots
       p.weui_tabbar_label 统计
+
+
+#dialog1.weui_dialog_confirm
+   .weui_mask
+   .weui_dialog
+      .weui_dialog_hd
+         strong.weui_dialog_title#dialog1title 提示
+      .weui_dialog_bd#dialog1body 自定义弹窗内容，居左对齐显示，告知需要确认的信息等
+      .weui_dialog_ft
+         a.weui_btn_dialog.default(href='javascript:;')#dialog1cancel 取消
+         a.weui_btn_dialog.primary(href='javascript:;')#dialog1ok 确定

@@ -1,21 +1,22 @@
 extends ../../layout
 
 block content
-  .weui_cells.weui_cells_form
-    .weui_cell
-      .weui_cell_hd
-        label.weui_label 产品名称
-      .weui_cell_bd.weui_cell_primary
-        input.weui_input(type='text', placeholder='请输入产品名称')
-    .weui_cell
-      .weui_cell_bd.weui_cell_primary
-        textarea.weui_textarea(placeholder='请输入备注信息', rows='3')
-        .weui_textarea_counter
-          span 0
-          | /200
+  form
+    .weui_cells.weui_cells_form
+      .weui_cell
+        .weui_cell_hd
+          label.weui_label 产品名称
+        .weui_cell_bd.weui_cell_primary
+          input.weui_input(type='text', placeholder='请输入产品名称', name='name')
+      .weui_cell
+        .weui_cell_bd.weui_cell_primary
+          textarea.weui_textarea(placeholder='请输入备注信息', rows='3', name='remark')
+          .weui_textarea_counter
+            span 0
+            | /200
 
-  .weui_btn_area
-    button#showTooltips.weui_btn.weui_btn_primary 保存
-    button.weui_btn.weui_btn_warn 取消
+    .weui_btn_area
+      button#save.weui_btn.weui_btn_primary(type='button') 保存
+      button.weui_btn.weui_btn_warn(onclick='history.go(-1);') 取消
 
   script(src='/js/product.js' type='text/javascript')
