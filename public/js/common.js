@@ -22,11 +22,11 @@ var showDialogTwoMsg = function(title, body, ok){       //设置显示dialog2的
     $('#dialog2ok').html(ok);
 };
 
-//显示提示信息，1.5秒后隐藏
+//显示提示信息，1.5秒后隐藏，某个name为参数name的输入框为空的时候
 var isEmptyByName = function(name, msg){
     if($("[name=name]").val()=='' || $("[name=name]").val()=='undefined'){
         $('#toast').show();
-        $('#toast p').html(msg +'不能为空');
+        $('#toast p').html(msg);
         window.setTimeout(function(){
             $('#toast').hide();
         }, msgOverTime);
@@ -49,5 +49,8 @@ $(function(){
     });
     $('#dialog2ok').click(function(){       //dialog2点击确定关闭提示框
         $('#dialog2').hide();
+    });
+    $('#toast').click(function(){       //toast点击周围关闭提示框
+        $('#toast').hide();
     });
 });
