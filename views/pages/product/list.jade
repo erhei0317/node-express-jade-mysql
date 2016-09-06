@@ -9,7 +9,7 @@ block content
       each item in result
         .weui_panel_bd(onclick='jumpToUrl("/products/edit/#{item.id}")', class="item-id-#{item.id}")
           .weui_media_box.weui_media_text
-            a.weui_btn.weui_btn_mini.weui_btn_warn.list-del-btn.del(href='javascript:void(0);', data-id="#{item.id}") 删除
+            //- a.weui_btn.weui_btn_mini.weui_btn_warn.list-del-btn.del(href='javascript:void(0);', data-id="#{item.id}") 删除
             h4.weui_media_title= item.name
               span (总出货量：#{item.totalCount||0})
             p.weui_media_desc.list-mr50= item.remark
