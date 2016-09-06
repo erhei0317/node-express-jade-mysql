@@ -63,6 +63,7 @@ module.exports = {
                     res.send(500);
                     console.log(err);
                 }
+                result[0].name = '';
                 res.render('level/admin', {title: '添加代理级别', result: result});   //如果查不到数据，那么result返回[]空数组
                 connection.release();
             });
@@ -72,16 +73,17 @@ module.exports = {
         $dbc.pool.getConnection(function(err, connection) {
             var editTime = new Date();
             var param = req.body;       // 获取前台页面传过来的参数
-            if(param.name == '' || param.name == 'undefined') {      //产品名称为空
+            if(param.name == '' || param.name == 'undefined' || param.price == '' || param.price == 'undefined') {      //级别名称和价格为空
                 var result = {
                     code: 3,
-                    msg:'产品名称不能为空'
+                    msg:'级别名称或价格不能为空'
                 };
                 $dbc.jsonWrite(res, result);        // 以json形式，把操作结果返回给前台页面
                 connection.release();   // 释放连接
             } else {
-                //修改产品
-                connection.query($sql.edit, [param.name, param.remark, editTime, param.uid], function(err, result) {
+                //修改代理级别
+                var sqlData = [param.name, param.productId, param.productName, param.price, editTime];
+                connection.query($sql.edit, sqlData, function(err, result) {
                     if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
                         res.send(500);
                         console.log(err);

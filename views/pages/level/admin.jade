@@ -1,6 +1,7 @@
 extends ../../layout
 
 block content
+  #{JSON.stringify(result)}
   form
     .weui_cells.weui_cells_form
       .weui_cell
@@ -20,7 +21,10 @@ block content
         .weui_cell_bd.weui_cell_primary
           input.weui_input(type='number', pattern='[0-9]*', placeholder='请输入级别价格', name='price', value='', id='price')
     .weui_btn_area
-      button#add.weui_btn.weui_btn_primary(type='button') 添加
-      button.weui_btn.weui_btn_warn 取消
+      -if (result[0].name == '')
+        button#add.weui_btn.weui_btn_primary(type='button') 添加
+      -else
+        button#edit.weui_btn.weui_btn_primary(type='button') 修改
+      button.weui_btn.weui_btn_warn(onclick='history.go(-1);') 取消
 
   script(src='/js/level.js' type='text/javascript')
