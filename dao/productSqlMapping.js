@@ -7,7 +7,6 @@ var product = {
     queryById: 'select * from product where id=?',
     edit:'update product set name=?, remark=?, editTime=? where id=?',
     delete: 'delete from product where id=?',
-    submit: 'select * from product where name=? and password=?'
 };
 
 module.exports = product;

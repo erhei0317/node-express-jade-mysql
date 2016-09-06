@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var userDao = require('../dao/userDao');
+var levelDao = require('../dao/levelDao');
 
 /* GET levels listing. */
 router.get('/list', function(req, res, next) {
@@ -11,7 +11,12 @@ router.get('/list', function(req, res, next) {
 /* GET levels add 打开添加页面. */
 router.get('/add', function(req, res, next) {
   //res.send('respond with a resource');
-    res.render('level/admin', {title: '添加代理级别'});
+    levelDao.queryProductByUId(req, res, next);
+    //res.render('level/admin', {title: '添加代理级别'});
+});
+/* POST products add 提交新增的信息. */
+router.post('/add', function(req, res, next) {
+    levelDao.add(req, res, next);
 });
 /* GET levels edit 打开修改页面. */
 router.get('/edit/:id', function(req, res, next) {
@@ -20,29 +25,6 @@ router.get('/edit/:id', function(req, res, next) {
 });
 
 
-// 增加用户
-//TODO 同时支持get,post
-router.get('/addUser', function(req, res, next) {
-    userDao.add(req, res, next);
-});
-
-
-router.get('/queryAll', function(req, res, next) {
-    console.log('查询所有user');
-    userDao.queryAll(req, res, next);
-});
-
-router.get('/query', function(req, res, next) {
-    userDao.queryById(req, res, next);
-});
-
-router.get('/deleteUser', function(req, res, next) {
-    userDao.delete(req, res, next);
-});
-
-router.post('/updateUser', function(req, res, next) {
-    userDao.update(req, res, next);
-});
 
 module.exports = router;
 

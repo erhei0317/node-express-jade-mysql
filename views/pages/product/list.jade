@@ -7,12 +7,12 @@ block content
       a.weui_btn.weui_btn_mini.weui_btn_primary.list-add-btn(href='/products/add') 新增
     - if (result.length > 0)
       each item in result
-        .weui_panel_bd(onclick='jumpToUrl("/products/edit/#{item.id}")')
-          //- a(href='javascript:void(0);')
+        .weui_panel_bd(onclick='jumpToUrl("/products/edit/#{item.id}")', class="item-id-#{item.id}")
           .weui_media_box.weui_media_text
+            a.weui_btn.weui_btn_mini.weui_btn_warn.list-del-btn.del(href='javascript:void(0);', data-id="#{item.id}") 删除
             h4.weui_media_title= item.name
               span (总出货量：#{item.totalCount||0})
-            p.weui_media_desc= item.remark
+            p.weui_media_desc.list-mr50= item.remark
       a.weui_panel_ft(href='javascript:void(0);') 查看更多
     - else
       .weui_cell

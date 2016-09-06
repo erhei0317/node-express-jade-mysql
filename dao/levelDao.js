@@ -1,6 +1,6 @@
 // dao/userDao.js
 // 实现与MySQL交互
-var $sql = require('./productSqlMapping');
+var $sql = require('./levelSqlMapping');
 var $dbc = require('./dbCommon');
 
 module.exports = {
@@ -11,15 +11,15 @@ module.exports = {
             var addTime = new Date();
             var editTime = new Date();
             var param = req.body;       // 获取前台页面传过来的参数
-            if(param.name == '' || param.name == 'undefined') {      //产品名称为空
+            if(param.name == '' || param.name == 'undefined' || param.price == '' || param.price == 'undefined') {      //级别名称和价格为空
                 var result = {
                     code: 3,
-                    msg:'产品名称不能为空'
+                    msg:'级别名称或价格不能为空'
                 };
                 $dbc.jsonWrite(res, result);        // 以json形式，把操作结果返回给前台页面
                 connection.release();   // 释放连接
             } else {
-                //查询产品名称是否存在
+                //查询级别名称是否存在
                 connection.query($sql.queryByName, [param.name, uId], function(err, result) {
                     if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
                         res.send(500);
@@ -34,7 +34,8 @@ module.exports = {
                         connection.release();   // 释放连接
                     } else {        //记录不存在
                         // 建立连接，向表中插入数据
-                        connection.query($sql.add, [param.name, param.remark, uId, uName, addTime, editTime], function(err, result) {
+                        var sqlData = [param.name, param.productId, param.productName, uId, uName,param.price, addTime, editTime];
+                        connection.query($sql.add, sqlData, function(err, result) {
                             if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
                                 res.send(500);
                                 console.log(err);
@@ -51,6 +52,20 @@ module.exports = {
                     }
                 });
             }
+        });
+    },
+    //根据uId查询产品列表
+    queryProductByUId: function (req, res, next) {
+        $dbc.pool.getConnection(function(err, connection) {
+            var uId = req.session.uid;
+            connection.query($sql.queryProductByUId, uId, function(err, result) {
+                if(err){                                         //错误就返回给原post处 状态码为500的错误
+                    res.send(500);
+                    console.log(err);
+                }
+                res.render('level/admin', {title: '添加代理级别', result: result});   //如果查不到数据，那么result返回[]空数组
+                connection.release();
+            });
         });
     },
     edit: function (req, res, next) {        //修改

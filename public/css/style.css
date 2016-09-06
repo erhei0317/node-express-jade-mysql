@@ -150,7 +150,31 @@ a {
     float: right;
     margin-top: -7px;
 }
+.list-del-btn{
+    float: right;
+}
 .weui_media_box:active{
     background-color: #ededed;
 }
+.list-mr50{
+    margin-right: 50px;
+}
 /*anget list end*/
+/*product list start*/
+.weui_media_box{
+    border-bottom: 1px solid #e5e5e5;
+    margin-left: 15px;
+    padding-left: 0;
+}
+.weui_media_box:before{
+    left: 0;
+}
+.weui_panel_bd:last-of-type .weui_media_box{
+    border-bottom: none;
+}
+/*product list end*/
+/*level list start*/
+.level-clear-bor-b:after{
+    border-bottom: none;
+}
+/*level list end*/

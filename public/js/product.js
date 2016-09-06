@@ -23,12 +23,11 @@ $(function(){
             } else if(data.code == 3) {
                 showWarnMsg('产品名称不能为空');
             } else{
-                showDialogTwoMsg('添加失败','请联系管理员','确定');
+                showDialogTwoMsg('添加失败','请稍后重试','确定');
             }
         }).fail(function() {
-            showDialogTwoMsg('添加失败','请联系管理员','确定');
-        })
-        .always(function() {
+            showDialogTwoMsg('添加失败','请稍后重试','确定');
+        }).always(function() {
             $('#loadingToast').hide();
         });
     });
@@ -53,13 +52,42 @@ $(function(){
             } else if(data.code == 3) {
                 showWarnMsg('产品名称不能为空');
             } else{
-                showDialogTwoMsg('修改失败','请联系管理员','确定');
+                showDialogTwoMsg('修改失败','请稍后重试','确定');
             }
         }).fail(function() {
-            showDialogTwoMsg('修改失败','请联系管理员','确定');
-        })
-            .always(function() {
+            showDialogTwoMsg('修改失败','请稍后重试','确定');
+        }).always(function() {
+            $('#loadingToast').hide();
+        });
+    });
+    $('.del').click(function(e) {
+        //e.preventDefault();
+        e.stopPropagation();  //阻止事件冒泡
+        var c = confirm("删除之后无法恢复，确定删除吗？");
+        if(c == true) {       //确定删除
+            var target = $(e.target);
+            var id = target.data('id');
+            var div = $('.item-id-' + id);
+            $('#loadingToast').show();
+            $.ajax({
+                type: 'DELETE',
+                url: '/products/delete/' + id
+            }).done(function(data) {
+                if(data.code == 200) {
+                    if(div.length > 0) {
+                        showDialogTwoMsg('删除成功','已生成的此产品订单不会被删除','确定');
+                        div.remove();
+                    }
+                } else if(data.code == 2) {
+                    showDialogTwoMsg('删除失败','请稍后重试','确定');
+                }else{
+                    showDialogTwoMsg('删除失败','请稍后重试','确定');
+                }
+            }) .fail(function() {
+                showDialogTwoMsg('删除失败','请稍后重试','确定');
+            }).always(function() {
                 $('#loadingToast').hide();
             });
-    });
+        }
+    }) ;
 })
