@@ -8,10 +8,10 @@ block content
         .weui_cell_hd
           label.weui_label 产品名称
         .weui_cell_bd.weui_cell_primary
-          input.weui_input(type='text', placeholder='请输入产品名称', name='name', value='#{result[0].name}')
+          input.weui_input(type='text', placeholder='请输入产品名称', name='name', value='#{result[0].name}', id='name')
       .weui_cell
         .weui_cell_bd.weui_cell_primary
-          textarea.weui_textarea(placeholder='请输入备注信息', rows='3', name='remark') #{result[0].remark}
+          textarea.weui_textarea(placeholder='请输入备注信息', rows='3', name='remark', id='remark') #{result[0].remark}
           .weui_textarea_counter
             span 0
             | /200

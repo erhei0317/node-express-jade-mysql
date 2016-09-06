@@ -5,17 +5,21 @@ $(function(){
     setFootOn('#manage');  //设置底部选中
     $('#add').click(function() {       //保存添加的内容
         var formParam = $("form").serialize();//序列化表格内容为字符串
-        if(isNaN($("[name='price']").val())){       //价格只能输入数字
+        formParam += '&productName=' + $("[name='productId']").find("option:selected").text();   //将选择框的文本（即产品的名称）加入提交的参数中
+        if(!isEmptyById('name', '级别名称不能为空')){
+            return false;
+        };
+        if($("#productId").val() == 0){       //必须选择产品
+            showWarnMsg('请选择产品名称');
+            return false;
+        };
+        if(!isEmptyById('price', '价格不能为空')){
+            return false;
+        };
+        if(isNaN($("#price").val())){       //价格只能输入数字
             showWarnMsg('价格只能输入数字');
-        }
-        console.log($("[name='productId']").find("option:selected").text());
-        return false;
-        if(!isEmptyByName('name', '代理级别名称不能为空')){
             return false;
-        }
-        if(!isEmptyByName('price', '价格不能为空')){
-            return false;
-        }
+        };
         $('#loadingToast').show();
         $.ajax({
             type:'POST',
@@ -29,7 +33,7 @@ $(function(){
             } else if(data.code == 2) {
                 showDialogTwoMsg('添加失败','当前产品名称已存在','确定');
             } else if(data.code == 3) {
-                showWarnMsg('代理级别名称不能为空');
+                showWarnMsg('级别名称不能为空');
             } else{
                 showDialogTwoMsg('添加失败','请稍后重试','确定');
             }

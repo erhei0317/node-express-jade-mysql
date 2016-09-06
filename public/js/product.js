@@ -5,7 +5,7 @@ $(function(){
     setFootOn('#manage');  //设置底部选中
     $('#add').click(function() {       //保存添加的内容
         var formParam = $("form").serialize();//序列化表格内容为字符串
-        if(!isEmptyByName('name', '产品名称不能为空')){
+        if(!isEmptyById('name', '产品名称不能为空')){
             return false;
         }
         $('#loadingToast').show();
@@ -34,7 +34,7 @@ $(function(){
     //修改内容
     $('#edit').click(function() {
         var formParam = $("form").serialize();//序列化表格内容为字符串
-        if(!isEmptyByName('name', '产品名称不能为空')){
+        if(!isEmptyById('name', '产品名称不能为空')){
             return false;
         }
         $('#loadingToast').show();
