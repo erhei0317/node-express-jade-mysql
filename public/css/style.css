@@ -7,6 +7,7 @@ a {
 }
 .container {
     padding-top: 44px;
+    padding-bottom: 56px;
 }
 .primary-color{
     color: #09bb07;
@@ -52,7 +53,21 @@ a {
 .icon-truck:before {
     content: "\e9b0";
 }
-
+.icon-info:before {
+    content: "\ea0c";
+}
+.icon-blocked:before {
+    content: "\ea0e";
+}
+.icon-cancel-circle:before {
+    content: "\ea0d";
+}
+.icon-cross:before {
+    content: "\ea0f";
+}
+.weui_tabbar {
+    position: fixed;
+}
 .weui_tabbar_item{
     color: #888;
 }
@@ -70,6 +85,7 @@ a {
 .weui_navbar{
     background-color: #09bb07;
     color: #ffffff;
+    position: fixed;
 }
 .weui_navbar_item{
     font-size:16px;
@@ -105,6 +121,20 @@ a {
 /*底部start*/
 .weui_dialog_confirm {
     display: none;
+}
+.weui_dialog_alert {
+    display: none;
+}
+.weui_toast {
+    width: 10.6em;
+    margin-left: -5.3em;
+}
+.weui_icon_toast {
+    margin: 11px 0;
+}
+.weui_icon_toast:before {
+    font-size: 50px;
+    content: "\ea0c";
 }
 /*底部end*/
 /*anget list start*/

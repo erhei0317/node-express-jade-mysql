@@ -14,7 +14,7 @@ module.exports = {
                     res.send(500);
                     console.log(err);
                 }else if(result.length>0&&result[0].name==param.name&&result[0].password==param.password) {    //账号密码验证通过
-                    req.session.id = result[0].id;
+                    req.session.uid = result[0].id;
                     req.session.name = result[0].name;
                     res.redirect("/index");
                 }else{      //账号密码验证失败

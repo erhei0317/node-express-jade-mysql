@@ -27,4 +27,37 @@
          a.weui_btn_dialog.default(href='javascript:;')#dialog1cancel 取消
          a.weui_btn_dialog.primary(href='javascript:;')#dialog1ok 确定
 
+#dialog2.weui_dialog_alert
+   .weui_mask
+   .weui_dialog
+      .weui_dialog_hd
+         strong.weui_dialog_title#dialog2title 提示
+      .weui_dialog_bd#dialog2body 弹窗内容，告知当前页面信息等
+      .weui_dialog_ft
+         a.weui_btn_dialog.primary(href='javascript:;')#dialog2ok 确定
+
+#toast(style='display: none;')
+   .weui_mask_transparent
+   .weui_toast
+      i.weui_icon_toast
+      p.weui_toast_content 已完成
+
+#loadingToast.weui_loading_toast(style='display: none;')
+   .weui_mask_transparent
+   .weui_toast
+      .weui_loading
+         .weui_loading_leaf.weui_loading_leaf_0
+         .weui_loading_leaf.weui_loading_leaf_1
+         .weui_loading_leaf.weui_loading_leaf_2
+         .weui_loading_leaf.weui_loading_leaf_3
+         .weui_loading_leaf.weui_loading_leaf_4
+         .weui_loading_leaf.weui_loading_leaf_5
+         .weui_loading_leaf.weui_loading_leaf_6
+         .weui_loading_leaf.weui_loading_leaf_7
+         .weui_loading_leaf.weui_loading_leaf_8
+         .weui_loading_leaf.weui_loading_leaf_9
+         .weui_loading_leaf.weui_loading_leaf_10
+         .weui_loading_leaf.weui_loading_leaf_11
+      p.weui_toast_content 数据加载中
+
 script(src='/js/common.js' type='text/javascript')

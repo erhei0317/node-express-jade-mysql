@@ -40,14 +40,15 @@ app.use(session({   //session初始化
   rolling: true,   //刷新后session有效期重置，saveUninitialized必须为true，不然无效
   cookie:{
     //expires: new Date(Date.now() + 1000*10),     //session有效期，页面刷新后会重新计算
-    maxAge: 1000*10      //有效时间，貌似和expire一样
+    maxAge: 1000*60*30      //有效时间，貌似和expire一样
   }
 }));
 app.use('/', routes);
 //在所有路由之前加一个登录的拦截，如果没登录，则跳转到home，登录后会将向session存入user属性
 app.all('*', function(req, res, next) {
-  //if(!req.session.name){
-  if(false){
+  req.session.name = 'zyz';
+  req.session.uid = '1';
+  if(!req.session.name){
     res.redirect("/login");
   }else{
     next();
