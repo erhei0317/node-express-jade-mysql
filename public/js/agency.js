@@ -80,15 +80,17 @@ $(function(){
     });
     //点击页面空白区域隐藏下拉框内容
     $('body').click(function($event){
-        $tmp = $('#productList','#levelList');
+        $tmp = $('#productList,#levelList');
         if( $tmp.filter($event.target).length > 0|| $tmp.find($event.target).length>0){
             return false;
         }
         $('#productList').hide();
+        $('#levelList').hide();
     });
     $('#product').click(function(e){
         e = e || event;
         e.stopPropagation();  //阻止事件冒泡
+        $('#levelList').hide();
         $('#productList').show();
     });
     $('#productList li').click(function(){
@@ -98,6 +100,7 @@ $(function(){
     $('#level').click(function(e){
         e = e || event;
         e.stopPropagation();  //阻止事件冒泡
+        $('#productList').hide();
         $('#levelList').show();
     });
     $('#levelList li').click(function(){
