@@ -33,7 +33,7 @@ $(function(){
             } else if(data.code == 2) {
                 showDialogTwoMsg('添加失败','当前代理级别已存在','确定');
             } else if(data.code == 3) {
-                showWarnMsg('级别名称不能为空');
+                showWarnMsg('级别名称、产品、价格不能为空');
             } else{
                 showDialogTwoMsg('添加失败','请稍后重试','确定');
             }
@@ -72,9 +72,9 @@ $(function(){
             if(data.code == 200) {
                 showDialogOneMsg('修改成功','已生成的订单不受影响','留在本页','返回上一级', '/levels/list');
             } else if(data.code == 2) {
-                showDialogTwoMsg('修改失败','当前代理级别已存在','确定');
+                showDialogTwoMsg('修改失败','当前代理级别不存在','确定');
             } else if(data.code == 3) {
-                showWarnMsg('级别名称不能为空');
+                showWarnMsg('级别名称、产品、价格不能为空');
             } else{
                 showDialogTwoMsg('修改失败','请稍后重试','确定');
             }

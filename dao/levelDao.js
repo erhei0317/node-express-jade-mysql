@@ -96,10 +96,10 @@ module.exports = {
         $dbc.pool.getConnection(function(err, connection) {
             var editTime = new Date();
             var param = req.body;       // 获取前台页面传过来的参数
-            if(param.name == '' || param.name == 'undefined' || param.price == '' || param.price == 'undefined') {      //级别名称和价格为空
+            if(param.name == '' || param.name == 'undefined' || param.price == '' || param.price == 'undefined' || param.productId == '0') {      //级别名称、产品、价格不能为空
                 var result = {
                     code: 3,
-                    msg:'级别名称或价格不能为空'
+                    msg:'级别名称、产品、价格不能为空'
                 };
                 $dbc.jsonWrite(res, result);        // 以json形式，把操作结果返回给前台页面
                 connection.release();   // 释放连接

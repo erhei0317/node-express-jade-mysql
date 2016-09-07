@@ -11,15 +11,15 @@ module.exports = {
             var addTime = new Date();
             var editTime = new Date();
             var param = req.body;       // 获取前台页面传过来的参数
-            if(param.name == '' || param.name == 'undefined' || param.price == '' || param.price == 'undefined') {      //级别名称和价格为空
+            if(param.name == '' || param.name == 'undefined' || param.productId == '0' || param.levelId == '0') {      //代理名称或者产品或者级别为空
                 var result = {
                     code: 3,
-                    msg:'级别名称或价格不能为空'
+                    msg:'级别名称、产品、价格不能为空'
                 };
                 $dbc.jsonWrite(res, result);        // 以json形式，把操作结果返回给前台页面
                 connection.release();   // 释放连接
             } else {
-                //查询级别名称是否存在
+                //查询代理名称是否存在，同一个产品不能出现相同名字
                 connection.query($sql.queryByName, [param.name, uId, param.productId], function(err, result) {
                     if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
                         res.send(500);
@@ -34,7 +34,7 @@ module.exports = {
                         connection.release();   // 释放连接
                     } else {        //记录不存在
                         // 建立连接，向表中插入数据
-                        var sqlData = [param.name, param.productId, param.productName, uId, uName,param.price, addTime, editTime];
+                        var sqlData = [param.name, param.levelId, param.levelName, param.productId, param.productName, uId, uName, addTime, editTime];
                         connection.query($sql.add, sqlData, function(err, result) {
                             if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
                                 res.send(500);
@@ -116,7 +116,7 @@ module.exports = {
             if(param.name == '' || param.name == 'undefined' || param.price == '' || param.price == 'undefined') {      //级别名称和价格为空
                 var result = {
                     code: 3,
-                    msg:'级别名称或价格不能为空'
+                    msg:'级别名称、产品、价格不能为空'
                 };
                 $dbc.jsonWrite(res, result);        // 以json形式，把操作结果返回给前台页面
                 connection.release();   // 释放连接

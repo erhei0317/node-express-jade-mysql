@@ -14,6 +14,11 @@ router.get('/add', function(req, res, next) {
     agentDao.openAdd(req, res, next);
     //res.render('agent/admin', {title: '添加代理'});
 });
+router.post('/add', function(req, res, next) {
+    //res.send('respond with a resource');
+    agentDao.add(req, res, next);
+    //res.render('agent/admin', {title: '添加代理'});
+});
 /* GET agent edit 打开修改页面. */
 router.get('/edit/:id', function(req, res, next) {
     //res.send('respond with a resource');
