@@ -67,7 +67,7 @@ app.use(function(req, res, next) {      //访问地址不存在时进入这里
   var err = new Error('Not Found');
   err.status = 404;
   req.session.error = '您所访问的地址不存在';
-  res.redirect("/fail");
+  //res.redirect("/fail");
   next(err);
 });
 

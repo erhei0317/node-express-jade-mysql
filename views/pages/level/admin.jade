@@ -1,25 +1,28 @@
 extends ../../layout
 
 block content
-  #{JSON.stringify(result)}
   form
+    input(type='hidden' value='#{result[0].id}' name='uid')
     .weui_cells.weui_cells_form
       .weui_cell
         .weui_cell_hd
           label.weui_label 级别名称
         .weui_cell_bd.weui_cell_primary
-          input.weui_input(type='text', placeholder='请输入级别名称', name='name', value='', id='name')
+          input.weui_input(type='text', placeholder='请输入级别名称', name='name', value='#{result[0].name}', id='name')
       .weui_cell.weui_cell_select
         .weui_cell_bd.weui_cell_primary
           select.weui_select(name='productId', id='productId')
             option(selected='', value='0') 请选择产品
-            each item in result
-              option(value='#{item.id}') #{item.name}
+            each product in products
+              - if (result[0].productId == product.id)
+                option(selected='', value='#{product.id}') #{product.name}
+              - else
+                option(value='#{product.id}') #{product.name}
       .weui_cell
         .weui_cell_hd
           label.weui_label 级别价格
         .weui_cell_bd.weui_cell_primary
-          input.weui_input(type='number', pattern='[0-9]*', placeholder='请输入级别价格', name='price', value='', id='price')
+          input.weui_input(type='number', pattern='[0-9]*', placeholder='请输入级别价格', name='price', value='#{result[0].price}', id='price')
     .weui_btn_area
       -if (result[0].name == '')
         button#add.weui_btn.weui_btn_primary(type='button') 添加

@@ -5,7 +5,7 @@ $(function(){
     setFootOn('#manage');  //设置底部选中
     $('#add').click(function() {       //保存添加的内容
         var formParam = $("form").serialize();//序列化表格内容为字符串
-        formParam += '&productName=' + $("[name='productId']").find("option:selected").text();   //将选择框的文本（即产品的名称）加入提交的参数中
+        formParam += '&productName=' + $("#productId").find("option:selected").text();   //将选择框的文本（即产品的名称）加入提交的参数中
         if(!isEmptyById('name', '级别名称不能为空')){
             return false;
         };
@@ -46,7 +46,7 @@ $(function(){
     //修改内容
     $('#edit').click(function() {
         var formParam = $("form").serialize();//序列化表格内容为字符串
-        formParam += '&productName=' + $("[name='productId']").find("option:selected").text();   //将选择框的文本（即产品的名称）加入提交的参数中
+        formParam += '&productName=' + $("#productId").find("option:selected").text();   //将选择框的文本（即产品的名称）加入提交的参数中
         if(!isEmptyById('name', '级别名称不能为空')){
             return false;
         };

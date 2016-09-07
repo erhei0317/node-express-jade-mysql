@@ -1,26 +1,33 @@
 extends ../../layout
 
 block content
-  .weui_cells.weui_cells_form
-    .weui_cell
-      .weui_cell_hd
-        label.weui_label 代理名称
-      .weui_cell_bd.weui_cell_primary
-        input.weui_input(type='text', placeholder='请输入代理名称')
-    .weui_cell.weui_cell_select
-      .weui_cell_bd.weui_cell_primary
-        select.weui_select(name='select1')
-          option(selected='', value='1') 奢悦水光针
-          option(value='2') 奢悦面膜
-          option(value='3') 奢悦溶脂针
-    .weui_cell.weui_cell_select
-      .weui_cell_bd.weui_cell_primary
-        select.weui_select(name='select2')
-          option(selected='', value='1') 天使
-          option(value='2') 省代
-          option(value='3') 总代
-  .weui_btn_area
-    button#showTooltips.weui_btn.weui_btn_primary 保存
-    button.weui_btn.weui_btn_warn 取消
+   form
+    .weui_cells.weui_cells_form
+      .weui_cell
+        .weui_cell_hd
+          label.weui_label 代理名称
+        .weui_cell_bd.weui_cell_primary
+          input.weui_input(type='text', placeholder='请输入代理名称', value='#{result[0].name}', name='name', id='name')
+      .weui_cell.weui_cell_select
+        .weui_cell_bd.weui_cell_primary
+          select.weui_select(name='productId', id='productId')
+            option(selected='', value='0') 请选择产品
+            - each product in products
+              - if (result[0].productId == product.id)
+                option(selected='', value='#{product.id}') #{product.name}
+              - else
+                option(value='#{product.id}') #{product.name}
+      .weui_cell.weui_cell_select
+        .weui_cell_bd.weui_cell_primary
+          select.weui_select(name='levelId', id='levelId')
+            option(selected='', value='0') 请选择代理级别
+            - each level in levels
+              - if (result[0].levelId == level.id)
+                option(selected='', value='#{level.id}', data-productId='#{level.productId}') #{level.name}
+              - else
+                option(value='#{level.id}') #{level.name}
+    .weui_btn_area
+      button#add.weui_btn.weui_btn_primary 添加
+      button.weui_btn.weui_btn_warn 取消
 
   script(src='/js/agent.js' type='text/javascript')

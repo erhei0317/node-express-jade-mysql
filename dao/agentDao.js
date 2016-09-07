@@ -1,6 +1,6 @@
 // dao/userDao.js
 // 实现与MySQL交互
-var $sql = require('./levelSqlMapping');
+var $sql = require('./agentSqlMapping');
 var $dbc = require('./dbCommon');
 
 module.exports = {
@@ -56,9 +56,12 @@ module.exports = {
     },
     //打开添加页面，需要获取产品的信息，回填信息全部为空
     openAdd: function (req, res, next) {
-        this.queryProductByUId(req, res, next, function(products){
-            var result = [{name:'',productId:0, price:''}];      //回填的信息，添加的时候都是空的
-            res.render('level/admin', {title: '添加代理级别', result: result, products: products});   //如果查不到数据，那么result返回[]空数组
+        var _self = this;
+        _self.queryProductByUId(req, res, next, function(products){     //获取产品
+            _self.queryLevelByUId(req, res, next, function(levels){       //获取等级
+                var result = [{name: '', productId: '', levelId: ''}];      //回填的信息，添加的时候都是空的
+                res.render('agent/admin', {title: '添加代理', result: result, products: products, levels: levels});   //如果查不到数据，那么result返回[]空数组
+            });
         });
     },
     //根据id查询
@@ -66,15 +69,29 @@ module.exports = {
         var _self = this;
         $dbc.pool.getConnection(function(err, connection) {
             var id = req.params.id;
-            _self.queryProductByUId(req, res, next, function(products){
+            _self.queryProductByUId(req, res, next, function(backData){
                 connection.query($sql.queryById, id, function(err, result) {
                     if(err){                                         //错误就返回给原post处 状态码为500的错误
                         res.send(500);
                         console.log(err);
                     }
-                    res.render('level/admin', {title: '修改代理级别', result: result, products: products});
+                    res.render('level/admin', {title: '修改代理级别', result: result, products: backData});
                     connection.release();
                 });
+            });
+        });
+    },
+    //根据uId查询代理等级
+    queryLevelByUId: function (req, res, next, fn) {
+        $dbc.pool.getConnection(function(err, connection) {
+            var uId = req.session.uid;
+            connection.query($sql.queryLevelByUId, uId, function(err, result) {
+                if(err){                                         //错误就返回给原post处 状态码为500的错误
+                    res.send(500);
+                    console.log(err);
+                }
+                fn(result);
+                connection.release();
             });
         });
     },
