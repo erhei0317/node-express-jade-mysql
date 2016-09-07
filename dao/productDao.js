@@ -55,6 +55,7 @@ module.exports = {
     },
     edit: function (req, res, next) {        //修改
         $dbc.pool.getConnection(function(err, connection) {
+            var uId = req.session.uid;
             var editTime = new Date();
             var param = req.body;       // 获取前台页面传过来的参数
             if(param.name == '' || param.name == 'undefined') {      //产品名称为空
@@ -66,7 +67,7 @@ module.exports = {
                 connection.release();   // 释放连接
             } else {
                 //修改产品
-                connection.query($sql.edit, [param.name, param.remark, editTime, param.uid], function(err, result) {
+                connection.query($sql.edit, [param.name, param.remark, editTime, param.uid, uId], function(err, result) {
                     if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
                         res.send(500);
                         console.log(err);
@@ -92,8 +93,9 @@ module.exports = {
     //根据id查询
     queryById: function (req, res, next) {
         $dbc.pool.getConnection(function(err, connection) {
+            var uId = req.session.uid;
             var id = req.params.id;
-            connection.query($sql.queryById, id, function(err, result) {
+            connection.query($sql.queryById, [id,uId], function(err, result) {
                 if(err){                                         //错误就返回给原post处 状态码为500的错误
                     res.send(500);
                     console.log(err);
@@ -120,8 +122,9 @@ module.exports = {
     //根据id删除
     deleteById: function (req, res, next) {
         $dbc.pool.getConnection(function(err, connection) {
+            var uId = req.session.uid;
             var id = req.params.id;
-            connection.query($sql.delete, id, function(err, result) {
+            connection.query($sql.delete, [id,uId], function(err, result) {
                 if(err){                                         //错误就返回给原post处 状态码为500的错误
                     res.send(500);
                     console.log(err);

@@ -34,6 +34,7 @@ router.post('/login', function(req, res, next) {
 router.get('/fail', function(req, res, next) {
   var err = req.session.error;   //获取错误信息
   delete req.session.error;
-  res.render('fail', { msg: err });
+  res.render('fail', { title:'操作异常', msg: err, backUrl:'/'});
 });
+
 module.exports = router;

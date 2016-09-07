@@ -24,8 +24,6 @@ var showDialogTwoMsg = function(title, body, ok){       //设置显示dialog2的
 
 //显示提示信息，1.5秒后隐藏，某个name为参数name的输入框为空的时候
 var isEmptyById = function(id, msg){
-    console.log(id)
-    console.log($("#"+id).val())
     if($("#"+id).val()=='' || $("#"+id).val()=='undefined'){
         $('#toast').show();
         $('#toast p').html(msg);

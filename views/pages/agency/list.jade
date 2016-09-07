@@ -1,0 +1,20 @@
+extends ../../layout
+
+block content
+  .weui_panel.weui_panel_access
+    .weui_panel_hd 点击可以查看（编辑）代理详情
+      a.weui_btn.weui_btn_mini.weui_btn_primary.list-add-btn(href='/agency/add') 新增
+    - if (result.length > 0)
+      each item in result
+        .weui_panel_bd(onclick='jumpToUrl("/agency/edit/#{item.id}")')
+          .weui_media_box.weui_media_text
+            h4.weui_media_title #{item.name}
+              span (#{item.productName}：#{item.levelName}：￥#{item.price})
+            p.weui_media_desc #{item.remark}
+      a.weui_panel_ft(href='javascript:void(0);') 查看更多
+    - else
+      .weui_cell
+        .weui_cell_bd.weui_cell_primary
+          p.primary-color 暂无数据
+
+  script(src='/js/agency.js' type='text/javascript')

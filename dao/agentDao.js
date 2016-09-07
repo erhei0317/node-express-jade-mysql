@@ -68,14 +68,15 @@ module.exports = {
     queryById: function (req, res, next) {
         var _self = this;
         $dbc.pool.getConnection(function(err, connection) {
+            var uId = req.session.uid;
             var id = req.params.id;
-            _self.queryProductByUId(req, res, next, function(backData){
-                connection.query($sql.queryById, id, function(err, result) {
+            _self.queryProductByUId(req, res, next, function(products){
+                connection.query($sql.queryById, [id,uId], function(err, result) {
                     if(err){                                         //错误就返回给原post处 状态码为500的错误
                         res.send(500);
                         console.log(err);
                     }
-                    res.render('level/admin', {title: '修改代理级别', result: result, products: backData});
+                    res.render('level/admin', {title: '修改代理级别', result: result, products: products});
                     connection.release();
                 });
             });
@@ -111,6 +112,7 @@ module.exports = {
     },
     edit: function (req, res, next) {        //修改
         $dbc.pool.getConnection(function(err, connection) {
+            var uId = req.session.uid;
             var editTime = new Date();
             var param = req.body;       // 获取前台页面传过来的参数
             if(param.name == '' || param.name == 'undefined' || param.price == '' || param.price == 'undefined') {      //级别名称和价格为空
@@ -122,7 +124,7 @@ module.exports = {
                 connection.release();   // 释放连接
             } else {
                 //修改代理级别
-                var sqlData = [param.name, param.productId, param.productName, param.price, editTime, param.uid];
+                var sqlData = [param.name, param.productId, param.productName, param.price, editTime, param.uid, uId];
                 console.log(sqlData)
                 connection.query($sql.edit, sqlData, function(err, result) {
                     if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
@@ -167,8 +169,9 @@ module.exports = {
     //根据id删除
     deleteById: function (req, res, next) {
         $dbc.pool.getConnection(function(err, connection) {
+            var uId = req.session.uid;
             var id = req.params.id;
-            connection.query($sql.delete, id, function(err, result) {
+            connection.query($sql.delete, [id,uId], function(err, result) {
                 if(err){                                         //错误就返回给原post处 状态码为500的错误
                     res.send(500);
                     console.log(err);

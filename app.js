@@ -13,6 +13,7 @@ var levels = require('./routes/levels');   //界别管理
 var products = require('./routes/products');   //产品管理
 var deals = require('./routes/deals');   //进出货管理
 var statisticss = require('./routes/statisticss');   //进出货统计管理
+var agency = require('./routes/agency');   //代理管理
 
 var app = express();
 
@@ -60,6 +61,7 @@ app.use('/levels', levels); // 自定义cgi路径
 app.use('/products', products); // 自定义cgi路径
 app.use('/deals', deals); // 自定义cgi路径
 app.use('/statisticss', statisticss); // 自定义cgi路径
+app.use('/agency', agency); // 自定义cgi路径
 
 
 // catch 404 and forward to error handler
@@ -78,10 +80,12 @@ app.use(function(req, res, next) {      //访问地址不存在时进入这里
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    /*res.render('error', {
+      title: '出错啦',
       message: err.message,
       error: err
-    });
+    });*/
+    res.render('fail', { title:'404', msg: '您所访问的地址不存在', backUrl:'/'});
   });
 }
 
@@ -89,10 +93,12 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  /*res.render('error', {
+    title: '出错啦',
     message: err.message,
     error: {}
-  });
+  });*/
+  res.render('fail', { title:'404', msg: '您所访问的地址不存在', backUrl:'/'});
 });
 
 

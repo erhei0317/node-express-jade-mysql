@@ -1,0 +1,43 @@
+extends ../../layout
+
+block content
+  #{JSON.stringify(result)}
+  #{JSON.stringify(products)}
+  #{JSON.stringify(levels)}
+   form
+    input(type='hidden' value='#{result[0].id}' name='uid')
+    .weui_cells.weui_cells_form
+      .weui_cell
+        .weui_cell_hd
+          label.weui_label 代理名称
+        .weui_cell_bd.weui_cell_primary
+          input.weui_input(type='text', placeholder='请输入代理名称', value='#{result[0].name}', name='name', id='name')
+      .weui_cell
+        .weui_cell_hd
+          label.weui_label 产品名称
+        .weui_cell_bd.weui_cell_primary
+          input.weui_input(type='text', placeholder='请输入产品名称', value='#{result[0].productName}', name='product', id='product')
+      .weui_cell
+        .weui_cell_hd
+          label.weui_label 代理级别
+        .weui_cell_bd.weui_cell_primary
+          input.weui_input(type='text', placeholder='请输入代理级别', value='#{result[0].levelName}', name='level', id='level')
+      .weui_cell
+        .weui_cell_hd
+          label.weui_label 级别价格
+        .weui_cell_bd.weui_cell_primary
+          input.weui_input(type='number', pattern='[0-9]*', placeholder='请输入级别价格', name='price', value='#{result[0].price}', id='price')
+      .weui_cell
+        .weui_cell_bd.weui_cell_primary
+          textarea.weui_textarea(placeholder='请输入备注信息', rows='3', name='remark', id='remark') #{result[0].remark}
+          .weui_textarea_counter
+            span 0
+            | /200
+    .weui_btn_area
+      - if (result[0].name=='')
+        button#add.weui_btn.weui_btn_primary(type='button') 添加
+      - else
+        button#edit.weui_btn.weui_btn_primary(type='button') 修改
+      button.weui_btn.weui_btn_warn 取消
+
+    script(src='/js/agency.js' type='text/javascript')
