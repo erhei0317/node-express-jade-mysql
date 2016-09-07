@@ -62,6 +62,7 @@ $(function(){
     });
     $('.del').click(function(e) {
         //e.preventDefault();
+        e = e || event;
         e.stopPropagation();  //阻止事件冒泡
         var c = confirm("删除之后无法恢复，确定删除吗？");
         if(c == true) {       //确定删除

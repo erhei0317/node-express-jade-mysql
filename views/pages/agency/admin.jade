@@ -1,9 +1,6 @@
 extends ../../layout
 
 block content
-  #{JSON.stringify(result)}
-  #{JSON.stringify(products)}
-  #{JSON.stringify(levels)}
    form
     input(type='hidden' value='#{result[0].id}' name='uid')
     .weui_cells.weui_cells_form
@@ -17,11 +14,17 @@ block content
           label.weui_label 产品名称
         .weui_cell_bd.weui_cell_primary
           input.weui_input(type='text', placeholder='请输入产品名称', value='#{result[0].productName}', name='product', id='product')
+          ul.like-select#productList
+            each pr in products
+              li #{pr.name}
       .weui_cell
         .weui_cell_hd
           label.weui_label 代理级别
         .weui_cell_bd.weui_cell_primary
           input.weui_input(type='text', placeholder='请输入代理级别', value='#{result[0].levelName}', name='level', id='level')
+          ul.like-select#levelList
+            each le in levels
+              li #{le.name}
       .weui_cell
         .weui_cell_hd
           label.weui_label 级别价格

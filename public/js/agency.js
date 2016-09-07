@@ -78,5 +78,40 @@ $(function(){
             $('#loadingToast').hide();
         });
     });
+    //点击页面空白区域隐藏下拉框内容
+    $('body').click(function($event){
+        $tmp = $('#productList','#levelList');
+        if( $tmp.filter($event.target).length > 0|| $tmp.find($event.target).length>0){
+            return false;
+        }
+        $('#productList').hide();
+    });
+    $('#product').click(function(e){
+        e = e || event;
+        e.stopPropagation();  //阻止事件冒泡
+        $('#productList').show();
+    });
+    $('#productList li').click(function(){
+        $('#product').val(this.innerHTML);
+        $('#productList').hide();
+    });
+    $('#level').click(function(e){
+        e = e || event;
+        e.stopPropagation();  //阻止事件冒泡
+        $('#levelList').show();
+    });
+    $('#levelList li').click(function(){
+        $('#level').val(this.innerHTML);
+        $('#levelList').hide();
+    });
+    /*var oProductList = $('#productList').find('li');
+    console.log(oProductList[1].html())
+    for(var i=0; i<oProductList.length; i++) {
+        oProductList[i].click(function(){
+            console.log(11)
+            $('#productList').val(this.html());
+            $('#productList').hide();
+        });
+    }*/
 
 })

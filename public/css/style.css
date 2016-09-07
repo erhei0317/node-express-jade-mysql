@@ -178,3 +178,28 @@ a {
     border-bottom: none;
 }
 /*level list end*/
+/*agency start*/
+.like-select{
+    position: absolute;
+    border: 1px solid #d9d9d9;
+    background-color: #ffffff;
+    top: 44px;
+    min-width:150px;
+    max-height:200px;
+    z-index: 99;
+    border-radius: 5px;
+    overflow-y: scroll;
+    display: none;
+}
+.like-select li{
+    list-style: none;
+    padding: 4px 6px;
+    border-bottom: 1px solid #d9d9d9;
+}
+.like-select li:active{
+    background-color: #d9d9d9;
+}
+.like-select li:last-child{
+    border-bottom: none;
+}
+/*agency end*/
