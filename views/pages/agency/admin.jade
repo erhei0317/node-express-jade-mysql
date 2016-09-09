@@ -41,6 +41,6 @@ block content
         button#add.weui_btn.weui_btn_primary(type='button') 添加
       - else
         button#edit.weui_btn.weui_btn_primary(type='button') 修改
-      button.weui_btn.weui_btn_warn 取消
+      button.weui_btn.weui_btn_warn(type='button' onclick='history.go(-1);') 取消
 
     script(src='/js/agency.js' type='text/javascript')

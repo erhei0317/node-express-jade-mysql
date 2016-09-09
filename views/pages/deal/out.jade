@@ -1,13 +1,16 @@
 extends ../../layout
 
 block content
+  '产品：'#{JSON.stringify(products)}
+  br
+  '代理：'#{JSON.stringify(agents)}
   .weui_cells.weui_cells_form
     .weui_cell.weui_cell_select
       .weui_cell_bd.weui_cell_primary
-        select.weui_select(name='select1')
-          option(selected='', value='1') 请选择产品名称
-          option(value='2') 奢悦面膜
-          option(value='3') 奢悦溶脂针
+        select.weui_select(name='product', id='product')
+          option(selected='', value='0') 请选择产品
+          each product in products
+            option(value='#{product.name}') #{product.name}
     .weui_cell.weui_cell_select
       .weui_cell_bd.weui_cell_primary
         select.weui_select(name='select1')
@@ -35,7 +38,7 @@ block content
         input.weui_input(type='number', pattern="[0-9]*", placeholder='请输入已收款')
 
   .weui_btn_area
-    button#showTooltips.weui_btn.weui_btn_primary 保存
-    button.weui_btn.weui_btn_warn 取消
+    button#showTooltips.weui_btn.weui_btn_primary(type='button') 保存
+    button.weui_btn.weui_btn_warn(type='button' onclick='history.go(-1);') 取消
 
   script(src='/js/deal.js' type='text/javascript')
