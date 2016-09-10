@@ -5,7 +5,7 @@ var dealDao = require('../dao/dealDao');
 
 /* GET deals in 打开进货页面. */
 router.get('/in', function(req, res, next) {
-    res.render('deal/in', {title: '进货'});
+    dealDao.openAddIn(req, res, next);
 });
 /* GET deals edit 打开出货页面. */
 router.get('/out', function(req, res, next) {

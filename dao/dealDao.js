@@ -5,7 +5,6 @@ var $dbc = require('./dbCommon');
 
 module.exports = {
     addOut: function (req, res, next) {        //添加
-        var _self = this;
         $dbc.pool.getConnection(function(err, connection) {
             var uId = req.session.uid;
             var uName = req.session.name;
@@ -22,7 +21,7 @@ module.exports = {
                 //查询代理名称是否存在，同一个产品不能出现相同名字   查询语句中已经做了当前用户当前产品只能有一个相同的代理名称的限制，如果添加返回的影响行数是1，表示插入成功，如果是0，表示记录已存在
                 // 建立连接，向表中插入数据
                 var sqlData = [param.product, param.agent, param.count, uId, uName, param.price, param.totalPrice, param.realPrice, param.receipt, addTime, param.remark];
-                connection.query($sql.add, sqlData, function(err, result) {         //异步的执行
+                connection.query($sql.addOut, sqlData, function(err, result) {         //异步的执行
                     if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
                         res.send(500);
                         console.log(err);
@@ -51,6 +50,52 @@ module.exports = {
             _self.queryAgentByUId(req, res, next, function(agents){       //获取等级
                 res.render('deal/out', {title: '出货',  products: products, agents: agents});   //如果查不到数据，那么result返回[]空数组
             });
+        });
+    },
+    addIn: function (req, res, next) {        //添加
+        $dbc.pool.getConnection(function(err, connection) {
+            var uId = req.session.uid;
+            var uName = req.session.name;
+            var addTime = new Date();
+            var param = req.body;       // 获取前台页面传过来的参数
+            if(param.product == 0 || param.product == 'undefined' || param.count == '' || param.count == 'undefined' || param.price == '' || param.price == 'undefined' || param.realPrice == '' || param.realPrice == 'undefined' || param.receipt == '' || param.receipt == 'undefined') {      //代理名称或者产品或者级别或者价格为空
+                var result = {
+                    code: 2,
+                    msg:'产品、数量、成交总额、已收款不能为空'
+                };
+                $dbc.jsonWrite(res, result);        // 以json形式，把操作结果返回给前台页面
+                connection.release();   // 释放连接
+            } else {
+                //查询代理名称是否存在，同一个产品不能出现相同名字   查询语句中已经做了当前用户当前产品只能有一个相同的代理名称的限制，如果添加返回的影响行数是1，表示插入成功，如果是0，表示记录已存在
+                // 建立连接，向表中插入数据
+                var sqlData = [param.product, param.count, uId, uName, param.price, param.totalPrice, param.realPrice, param.receipt, addTime, param.remark];
+                connection.query($sql.add, sqlData, function(err, result) {         //异步的执行
+                    if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
+                        res.send(500);
+                        console.log(err);
+                    }
+                    if(result.affectedRows > 0){
+                        result = {
+                            code: 200,
+                            msg:'增加成功'
+                        };
+                    }else{
+                        result = {
+                            code: 4,
+                            msg:'其他错误'
+                        };
+                    }
+                    $dbc.jsonWrite(res, result);    // 以json形式，把操作结果返回给前台页面
+                    connection.release();   // 释放连接
+                });
+            }
+        });
+    },
+    //打开添加页面，需要获取产品的信息，代理信息回填信息全部为空
+    openAddIn: function (req, res, next) {
+        var _self = this;
+        _self.queryProductByUId(req, res, next, function(products){     //获取产品
+            res.render('deal/in', {title: '进货',  products: products});   //如果查不到数据，那么result返回[]空数组
         });
     },
     //根据id查询
