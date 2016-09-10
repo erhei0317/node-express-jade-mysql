@@ -93,11 +93,23 @@ $(function(){
         $('#levelList').hide();
         $('#productList').show();
     });
+    $('#product').focus(function(e){
+        e = e || event;
+        e.stopPropagation();  //阻止事件冒泡
+        $('#levelList').hide();
+        $('#productList').show();
+    });
     $('#productList li').click(function(){
         $('#product').val(this.innerHTML);
         $('#productList').hide();
     });
     $('#level').click(function(e){
+        e = e || event;
+        e.stopPropagation();  //阻止事件冒泡
+        $('#productList').hide();
+        $('#levelList').show();
+    });
+    $('#level').focus(function(e){
         e = e || event;
         e.stopPropagation();  //阻止事件冒泡
         $('#productList').hide();
@@ -116,5 +128,32 @@ $(function(){
             $('#productList').hide();
         });
     }*/
+    $("#remark").keyup(function(){
+        $("#remark").next().find('span').html($("#remark").val().length);
+    });
+    //产品输入框输入内容后，下拉框做筛选
+    var oProductList = $('#productList li');
+    $('#product').keyup(function(){
+        var key = $(this).val();
+        oProductList.each(function(index) {
+            if($(this).html().indexOf(key) >=0){
+                $(this).show();
+            }else{
+                $(this).hide();
+            }
+        })
+    });
+    //代理级别输入框输入内容后，下拉框做筛选
+    var oLevelList = $('#levelList li');
+    $('#level').keyup(function(){
+        var key = $(this).val().toLowerCase();
+        oLevelList.each(function(index) {
+            if($(this).html().toLowerCase().indexOf(key) >=0){
+                $(this).show();
+            }else{
+                $(this).hide();
+            }
+        })
+    });
 
 })

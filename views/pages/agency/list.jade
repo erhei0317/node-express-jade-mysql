@@ -9,7 +9,7 @@ block content
         .weui_panel_bd(onclick='jumpToUrl("/agency/edit/#{item.id}")')
           .weui_media_box.weui_media_text
             h4.weui_media_title #{item.name}
-              span (#{item.productName}：#{item.levelName}：￥#{item.price})
+              span (#{item.productName}/#{item.levelName}/￥#{item.price})
             p.weui_media_desc #{item.remark}
       a.weui_panel_ft(href='javascript:void(0);') 查看更多
     - else

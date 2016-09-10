@@ -80,12 +80,12 @@ app.use(function(req, res, next) {      //访问地址不存在时进入这里
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    /*res.render('error', {
+    res.render('error', {
       title: '出错啦',
       message: err.message,
       error: err
-    });*/
-    res.render('fail', { title:'404', msg: '您所访问的地址不存在', backUrl:'/'});
+    });
+    //res.render('fail', { title:'404', msg: '您所访问的地址不存在', backUrl:'/'});
   });
 }
 
@@ -93,12 +93,12 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  /*res.render('error', {
+  res.render('error', {
     title: '出错啦',
     message: err.message,
     error: {}
-  });*/
-  res.render('fail', { title:'404', msg: '您所访问的地址不存在', backUrl:'/'});
+  });
+  //res.render('fail', { title:'404', msg: '您所访问的地址不存在', backUrl:'/'});
 });
 
 

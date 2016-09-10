@@ -10,30 +10,24 @@ module.exports = {
             var uId = req.session.uid;
             var uName = req.session.name;
             var addTime = new Date();
-            var editTime = new Date();
             var param = req.body;       // 获取前台页面传过来的参数
-            if(param.name == '' || param.name == 'undefined' || param.product == '' || param.product == 'undefined' || param.level == '' || param.level == 'undefined' || param.price == '' || param.price == 'undefined') {      //代理名称或者产品或者级别或者价格为空
+            if(param.product == 0 || param.product == 'undefined' || param.agent == 0 || param.agent == 'undefined' || param.count == '' || param.count == 'undefined' || param.price == '' || param.price == 'undefined' || param.realPrice == '' || param.realPrice == 'undefined' || param.receipt == '' || param.receipt == 'undefined') {      //代理名称或者产品或者级别或者价格为空
                 var result = {
                     code: 2,
-                    msg:'代理名称、产品、代理级别、代理价格不能为空'
+                    msg:'代理名称、产品、数量、成交总额、已收款不能为空'
                 };
                 $dbc.jsonWrite(res, result);        // 以json形式，把操作结果返回给前台页面
                 connection.release();   // 释放连接
             } else {
                 //查询代理名称是否存在，同一个产品不能出现相同名字   查询语句中已经做了当前用户当前产品只能有一个相同的代理名称的限制，如果添加返回的影响行数是1，表示插入成功，如果是0，表示记录已存在
                 // 建立连接，向表中插入数据
-                var sqlData = [param.name, param.level, param.product, uId, uName, param.price, addTime, editTime, param.remark];
+                var sqlData = [param.product, param.agent, param.count, uId, uName, param.price, param.totalPrice, param.realPrice, param.receipt, addTime, param.remark];
                 connection.query($sql.add, sqlData, function(err, result) {         //异步的执行
                     if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
                         res.send(500);
                         console.log(err);
                     }
-                    if(result.affectedRows == 0){       //affectdRows影响行数
-                        result = {
-                            code: 3,
-                            msg:'代理名称已存在'
-                        };
-                    }else if(result.affectedRows > 0){
+                    if(result.affectedRows > 0){
                         result = {
                             code: 200,
                             msg:'增加成功'
@@ -45,8 +39,6 @@ module.exports = {
                         };
                     }
                     $dbc.jsonWrite(res, result);    // 以json形式，把操作结果返回给前台页面
-                    _self.addProduct(req, res, next);       //添加产品名称到数据库
-                    _self.addLevel(req, res, next);         //添加代理级别到数据库
                     connection.release();   // 释放连接
                 });
             }

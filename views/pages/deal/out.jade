@@ -1,44 +1,50 @@
 extends ../../layout
 
 block content
-  '产品：'#{JSON.stringify(products)}
-  br
-  '代理：'#{JSON.stringify(agents)}
-  .weui_cells.weui_cells_form
-    .weui_cell.weui_cell_select
-      .weui_cell_bd.weui_cell_primary
-        select.weui_select(name='product', id='product')
-          option(selected='', value='0') 请选择产品
-          each product in products
-            option(value='#{product.name}') #{product.name}
-    .weui_cell.weui_cell_select
-      .weui_cell_bd.weui_cell_primary
-        select.weui_select(name='select1')
-          option(selected='', value='1') 请选择代理名字
-          option(value='2') 奢悦面膜
-          option(value='3') 奢悦溶脂针
-    .weui_cell
-      .weui_cell_hd
-        label.weui_label 数量
-      .weui_cell_bd.weui_cell_primary
-        input.weui_input(type='number', pattern="[0-9]*", placeholder='请输入数量')
-    .weui_cell
-      .weui_cell_bd.weui_cell_primary
-        p 按代理价算得总额
-      .weui_cell_ft ￥4545
-    .weui_cell
-      .weui_cell_hd
-        label.weui_label 实际成交总额
-      .weui_cell_bd.weui_cell_primary
-        input.weui_input(type='number', pattern="[0-9]*", placeholder='请输入实际成交总额')
-    .weui_cell
-      .weui_cell_hd
-        label.weui_label 已收款
-      .weui_cell_bd.weui_cell_primary
-        input.weui_input(type='number', pattern="[0-9]*", placeholder='请输入已收款')
-
-  .weui_btn_area
-    button#showTooltips.weui_btn.weui_btn_primary(type='button') 保存
-    button.weui_btn.weui_btn_warn(type='button' onclick='history.go(-1);') 取消
+  //-#{JSON.stringify(products)}
+  //-#{JSON.stringify(agents)}
+  form
+    input(type='hidden' name='price', id='price', value='0')
+    .weui_cells.weui_cells_form
+      .weui_cell.weui_cell_select
+        .weui_cell_bd.weui_cell_primary
+          select.weui_select(name='product', id='product')
+            option(selected='', value='0') 请选择产品
+            each product in products
+              option(value='#{product.name}') #{product.name}
+      .weui_cell.weui_cell_select
+        .weui_cell_bd.weui_cell_primary
+          select.weui_select(name='agent', id='agent')
+            option(selected='', value='0', pName='0', aPrice='0') 请选择代理
+            each agent in agents
+              option(value='#{agent.name}', pName='#{agent.productName}', aPrice='#{agent.price}') #{agent.name}
+      .weui_cell
+        .weui_cell_hd
+          label.weui_label 数量
+        .weui_cell_bd.weui_cell_primary
+          input.weui_input(type='number', pattern="[0-9]*", placeholder='请输入数量', name='count', id='count')
+      .weui_cell
+        .weui_cell_bd.weui_cell_primary
+          p 按代理价算得总额￥
+        #totalPrice.weui_cell_ft(style='font-size: 17px') 0
+      .weui_cell
+        .weui_cell_hd
+          label.weui_label 实际成交总额
+        .weui_cell_bd.weui_cell_primary
+          input.weui_input(type='number', pattern="[0-9]*", placeholder='请输入实际成交总额', name='realPrice', id='realPrice')
+      .weui_cell
+        .weui_cell_hd
+          label.weui_label 已收款
+        .weui_cell_bd.weui_cell_primary
+          input.weui_input(type='number', pattern="[0-9]*", placeholder='请输入已收款', name='receipt', id='receipt')
+      .weui_cell
+        .weui_cell_bd.weui_cell_primary
+          textarea.weui_textarea(placeholder='请输入备注信息', rows='2', name='remark', id='remark')
+          .weui_textarea_counter
+            span 0
+            | /200
+    .weui_btn_area
+      button#add.weui_btn.weui_btn_primary(type='button') 保存
+      button.weui_btn.weui_btn_warn(type='button' onclick='history.go(-1);') 取消
 
   script(src='/js/deal.js' type='text/javascript')
