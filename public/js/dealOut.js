@@ -6,7 +6,6 @@ $(function(){
     $('#add').click(function() {       //保存添加的内容
         var formParam = $("form").serialize();//序列化表格内容为字符串
         formParam += "&totalPrice=" + $('#totalPrice').html();
-        console.log(formParam)
         if($('#product').val() == 0){
             showWarnMsg('请选择产品');
             return false;
@@ -51,7 +50,7 @@ $(function(){
     });
     //数字输入框改变时，计算代理价格总额
     $('#count').keyup(function(){
-        $('#totalPrice').html((parseInt($('#count').val())||0) * parseInt($('#price').val()));
+        $('#totalPrice').html((parseFloat($('#count').val())||0) * parseFloat($('#price').val()));
         $('#realPrice').val($('#totalPrice').html());
     });
     //点击选择代理，如果还没选择产品，则提示先选择产品
@@ -81,7 +80,7 @@ $(function(){
     });
     $('#agent').change(function(){      //选择代理的时候，获取代理价格
         $('#price').val($('#agent').find("option:selected").attr('aPrice'));
-        $('#totalPrice').html((parseInt($('#count').val())||0) * parseInt($('#price').val()));
+        $('#totalPrice').html((parseFloat($('#count').val())||0) * parseFloat($('#price').val()));
         $('#realPrice').val($('#totalPrice').html());
     });
 })

@@ -58,7 +58,7 @@ module.exports = {
             var uName = req.session.name;
             var addTime = new Date();
             var param = req.body;       // 获取前台页面传过来的参数
-            if(param.product == 0 || param.product == 'undefined' || param.count == '' || param.count == 'undefined' || param.price == '' || param.price == 'undefined' || param.realPrice == '' || param.realPrice == 'undefined' || param.receipt == '' || param.receipt == 'undefined') {      //代理名称或者产品或者级别或者价格为空
+            if(param.product == 0 || param.product == 'undefined' || param.count == '' || param.count == 'undefined' || param.price == '' || param.price == 'undefined' || param.payment == '' || param.payment == 'undefined') {      //代理名称或者产品或者级别或者价格为空
                 var result = {
                     code: 2,
                     msg:'产品、数量、成交总额、已收款不能为空'
@@ -68,8 +68,8 @@ module.exports = {
             } else {
                 //查询代理名称是否存在，同一个产品不能出现相同名字   查询语句中已经做了当前用户当前产品只能有一个相同的代理名称的限制，如果添加返回的影响行数是1，表示插入成功，如果是0，表示记录已存在
                 // 建立连接，向表中插入数据
-                var sqlData = [param.product, param.count, uId, uName, param.price, param.totalPrice, param.realPrice, param.receipt, addTime, param.remark];
-                connection.query($sql.add, sqlData, function(err, result) {         //异步的执行
+                var sqlData = [param.product, param.count, uId, uName, param.price, param.totalPrice, param.payment, addTime, param.remark];
+                connection.query($sql.addIn, sqlData, function(err, result) {         //异步的执行
                     if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
                         res.send(500);
                         console.log(err);
