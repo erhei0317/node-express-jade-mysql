@@ -1,12 +1,18 @@
 extends ../layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  p 我的
+  .main
+    h1= title
+    p 亲爱的“Tiny”欢迎使用xx微商管理平台，您可以根据下面的说明进行操作哦。
+    p 1、您可以从底部的“管理”进入代理管理，如果您第一次使用，请先添加代理，点击
+      a(href='/agency/add') “立即添加”。
+    p 2、您可以从底部的“交易”进入进出货管理，但是进出货管理前，必须先添加代理哦。
+    p 3、统计功能将会在下一期更新。
+    p 4、更多问题可以加微信“zhanyunzhi”反馈。
 
   //- script(src='/js/index.js' type='text/javascript')
   script.
     $(function () {
-      $('#index').addClass('icon-active')
+      $('#index').addClass('icon-active');
+      $('#back').hide();
     })

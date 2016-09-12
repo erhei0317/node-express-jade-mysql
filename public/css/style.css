@@ -209,3 +209,11 @@ a {
     text-align: right;
 }
 /*deals end*/
+/*index start*/
+.main{
+    padding:15px;
+}
+.main p{
+    line-height: 2;
+}
+/*index end*/
