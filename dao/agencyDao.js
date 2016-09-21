@@ -141,7 +141,7 @@ module.exports = {
                     res.send(500);
                     console.log(err);
                 }
-                res.render('agency/list', {title: '代理级别管理', result: result});
+                res.render('agency/list', {title: '代理管理', result: result});
                 connection.release();
             });
         });
