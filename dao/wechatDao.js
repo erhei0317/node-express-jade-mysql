@@ -3,12 +3,18 @@
 var $sql = require('./wechatSqlMapping');
 var $dbc = require('./dbCommon');
 var weixin = require('weixin-api');
-var config = require('config.json');
+var config = require('../conf/config.json');
+var wechatUtil = require('../util/wechatUtil');
 
 weixin.token = config.wechat.token;
+wechatUtil.appid = config.wechat.appID;
+wechatUtil.secret = config.wechat.appSecret;
+wechatUtil.apiPrefix = config.wechat.apiPrefix;
+wechatUtil.mpPrefix = config.wechat.mpPrefix;
 
 module.exports = {
     checkToken: function (req, res, next) {
+        wechatUtil.refreshToken();
         if (weixin.checkSignature(req)) {
             res.status(200).send(req.query.echostr);
         } else {
