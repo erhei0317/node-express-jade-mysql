@@ -14,6 +14,7 @@ var products = require('./routes/products');   //产品管理
 var deals = require('./routes/deals');   //进出货管理
 var statisticss = require('./routes/statisticss');   //进出货统计管理
 var agency = require('./routes/agency');   //代理管理
+var wechat = require('./routes/wechat');   //微信接口管理
 
 var app = express();
 
@@ -62,6 +63,7 @@ app.use('/products', products); // 自定义cgi路径
 app.use('/deals', deals); // 自定义cgi路径
 app.use('/statisticss', statisticss); // 自定义cgi路径
 app.use('/agency', agency); // 自定义cgi路径
+app.use('/wechat', wechat); // 自定义cgi路径
 
 
 // catch 404 and forward to error handler
