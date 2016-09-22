@@ -7,6 +7,10 @@ var wechatDao = require('../dao/wechatDao');
 router.get('/interface', function(req, res, next) {
     wechatDao.checkToken(req, res, next);
 });
+//获取微信基础接口token
+router.get('/getAccessToken', function(req, res, next) {
+    wechatDao.getAccessToken(req, res, next);
+});
 
 /*router.get('/interface', function(req, res, next) {
     wechatDao.openAddIn(req, res, next);

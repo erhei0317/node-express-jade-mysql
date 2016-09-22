@@ -2,19 +2,22 @@
  * Created by fujunou on 2015/3/6.
  */
 'use strict';
-var qs = require('querystring');
-var fs = require('fs');
-var request = require('request');
+var qs = require('querystring'),
+fs = require('fs'),
+request = require('request'),
+events = require('events'),
+emitter = new events.EventEmitter();
 
 var wechatUtil = function() {
     this.appid = '';
     this.secret = '';
     this.apiPrefix = '';
     this.mpPrefix = '';
+    this.timestamp = new Date().getTime();       //获取当前时间戳
 };
 
-// 获取微信基础接口access_token
-wechatUtil.prototype.getAccessToken = function() {
+// 从微信服务器上获取微信基础接口access_token
+wechatUtil.prototype.getAccessTokenByService = function() {
     this.grant_type = 'client_credential';
     var queryParams = {
         'grant_type': this.grant_type,
@@ -37,22 +40,34 @@ wechatUtil.prototype.getAccessToken = function() {
     });
 };
 //保存基础access_token到指定文件
-wechatUtil.prototype.saveToken = function () {
-    this.getAccessToken().then(res => {
+wechatUtil.prototype.saveToken = function (callback) {
+    this.getAccessTokenByService().then(res => {    //重新获取access_token , 这里面的也是异步的
         var msg = {
             access_token:res['access_token'],
-            expires_in:res['expires_in']
+            expires_in:parseInt(res['expires_in'])*1000+this.timestamp                  //将过期时间计算出来，保存起来，使用的时候比较当前时间与存入的时间，存入时间比较大则可以继续使用，否则重新获取
         };
-        fs.writeFile('./token', JSON.stringify(msg), function (err) {
-        });
+        fs.writeFile('./token.json', JSON.stringify(msg), function (err) {});       //将数据写入指定文件
+        callback(res['access_token']);
     });
 };
-//更新基础access_token
-wechatUtil.prototype.refreshToken = function () {
-    this.saveToken();
-    /*setInterval(function () {
-        this.saveToken();
-    }, 7000*1000);*/
+//获取本地保存的access_token，如果还在有效期就直接使用，不在有效期就重新到微信服务器上获取
+wechatUtil.prototype.getAccessToken = function (callback) {
+    var _self = this;
+    fs.readFile('./token.json',function(err, data){
+        if(err){            //读取文件失败
+            ('file not found');         //文件不存在
+        }
+        else{
+            var jsonData = JSON.parse(data);
+            if(jsonData.expires_in > _self.timestamp) {     //保存在文件的token还在有效期
+                callback(jsonData.access_token);        //fs.readFile是异步请求，使用回调函数返回结果
+            } else {            //已过有效期
+                _self.saveToken(function(msg){      //重新获取access_token
+                    callback(msg);          //通过回调函数返回
+                });
+            }
+        }
+    });
 };
 
 module.exports = new wechatUtil();

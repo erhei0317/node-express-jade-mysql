@@ -14,12 +14,16 @@ wechatUtil.mpPrefix = config.wechat.mpPrefix;
 
 module.exports = {
     checkToken: function (req, res, next) {
-        wechatUtil.refreshToken();
         if (weixin.checkSignature(req)) {
             res.status(200).send(req.query.echostr);
         } else {
-            res.status(200).send('fail');
+            res.status(200).send('非法请求');
         }
+    },
+    getAccessToken: function (req, res, next) {
+        wechatUtil.getAccessToken(function(accessToken){
+            res.status(200).send(accessToken);
+        });
     }
-    
+
 };
