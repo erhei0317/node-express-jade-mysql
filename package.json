@@ -16,6 +16,8 @@
     "mysql": "latest",
     "request": "^2.75.0",
     "serve-favicon": "~2.2.0",
-    "weixin-api": "^0.1.7"
+    "wechat-oauth": "^1.1.1",
+    "weixin-api": "^0.1.7",
+    "wx_jsapi_sign": "^1.0.4"
   }
 }
