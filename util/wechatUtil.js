@@ -8,6 +8,8 @@ config = require('../conf/config.json'),
 fs = require('fs'),
 request = require('request'),
 events = require('events'),
+$dbc = require('../dao/dbCommon'),
+$sql = require('../dao/wechatSqlMapping'),
 emitter = new events.EventEmitter();
 
 weixin.token = config.wechat.token;
@@ -95,6 +97,15 @@ weixin.eventMsg(function(msg) {
             funcFlag : 0
         };
         weixin.sendMsg(resMsg);
+        //将用户的数据存入数据库
+        $dbc.pool.getConnection(function(err, connection) {
+            var addTime = new Date();
+            var editTime = addTime;
+            var openId = resMsg.toUserName;
+            connection.query($sql.addWxOpenId, [openId, addTime, editTime], function(err, result) {
+                connection.release();           //用户关注订阅号后，将用户的openId存入数据库中
+            });
+        });
     }
     if(msg.event === 'unsubscribe'){          //关注订阅号
         resMsg = {
