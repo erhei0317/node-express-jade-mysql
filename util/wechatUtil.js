@@ -3,19 +3,26 @@
  */
 'use strict';
 var qs = require('querystring'),
+weixin = require('weixin-api'),
+config = require('../conf/config.json'),
 fs = require('fs'),
 request = require('request'),
 events = require('events'),
 emitter = new events.EventEmitter();
 
+weixin.token = config.wechat.token;
+
 var wechatUtil = function() {
-    this.appid = '';
-    this.secret = '';
-    this.apiPrefix = '';
-    this.mpPrefix = '';
+    this.appid = config.wechat.appID;
+    this.secret = config.wechat.appSecret;
+    this.apiPrefix = config.wechat.apiPrefix;
+    this.mpPrefix = config.wechat.mpPrefix;
     this.timestamp = new Date().getTime();       //获取当前时间戳
 };
-
+//验证微信服务器签名，及服务器配置的时候填写的接口验证
+wechatUtil.prototype.checkSignature = function(req) {
+    return weixin.checkSignature(req)
+};
 // 从微信服务器上获取微信基础接口access_token
 wechatUtil.prototype.getAccessTokenByService = function() {
     this.grant_type = 'client_credential';
@@ -69,5 +76,37 @@ wechatUtil.prototype.getAccessToken = function (callback) {
         }
     });
 };
+//启动微信事件接收监听
+wechatUtil.prototype.getWechatMsg = function(req, res) {
+    weixin.loop(req, res);
+};
+
+// 监听事件消息  关注和取消关注
+weixin.eventMsg(function(msg) {
+    console.log("eventMsg received");
+    console.log(JSON.stringify(msg));
+    var resMsg = {};
+    if(msg.event === 'subscribe'){          //关注订阅号
+        resMsg = {
+            fromUserName : msg.toUserName,
+            toUserName : msg.fromUserName,
+            msgType : "text",
+            content : "猪猪霞早点休息，爱你，啵啵！",
+            funcFlag : 0
+        };
+        weixin.sendMsg(resMsg);
+    }
+    if(msg.event === 'unsubscribe'){          //关注订阅号
+        resMsg = {
+            fromUserName : msg.toUserName,
+            toUserName : msg.fromUserName,
+            msgType : "text",
+            content : "欢迎下次再来",
+            funcFlag : 0
+        };
+        weixin.sendMsg(resMsg);
+    }
+});
+
 
 module.exports = new wechatUtil();

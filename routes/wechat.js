@@ -3,9 +3,13 @@ var router = express.Router();
 
 var wechatDao = require('../dao/wechatDao');
 
-/* 微信接口严重页面 需要正确响应微信发送的Token验证 */
+/* 微信接口验证页面 需要正确响应微信发送的Token验证 */
 router.get('/interface', function(req, res, next) {
     wechatDao.checkToken(req, res, next);
+});
+/* 接收微信发送过了的事件 */
+router.post('/interface', function(req, res, next) {
+    wechatDao.getWechatMsg(req, res, next);
 });
 //获取微信基础接口token
 router.get('/getAccessToken', function(req, res, next) {
