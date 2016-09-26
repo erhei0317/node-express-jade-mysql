@@ -24,8 +24,8 @@ module.exports = {
     getWechatMsg: function (req, res, next) {
         wechatUtil.getWechatMsg(req, res);
     },
-    goOauth: function (req, res, next) {
-        var url = client.getAuthorizeURL('http://' + config.wechat.domain + '/wechat/callback','state','snsapi_userinfo');
+    oauth: function (req, res, next) {
+        var url = client.getAuthorizeURL('http://' + config.wechat.domain + '/wechat/oauthCallback','STATE','snsapi_base');
         res.redirect(url)
     },
     oauthCallback: function (req, res, next) {

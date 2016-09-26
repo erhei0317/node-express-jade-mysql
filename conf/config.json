@@ -7,6 +7,6 @@
     "token": "dearpiggy",
     "apiPrefix": "https://api.weixin.qq.com/cgi-bin/",
     "mpPrefix": "https://mp.weixin.qq.com/cgi-bin/",
-    "domain": "120.25.58.101"
+    "domain": "a.mcasio.com"
   }
 }  

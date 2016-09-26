@@ -16,8 +16,8 @@ router.get('/getAccessToken', function(req, res, next) {
     wechatDao.getAccessToken(req, res, next);
 });
 //用户进入此访问地址，会重定向到网页授权发起页面
-router.get('/goOauth', function(req, res, next) {
-    wechatDao.goOauth(req, res, next);
+router.get('/oauth', function(req, res, next) {
+    wechatDao.oauth(req, res, next);
 });
 //用户进入此访问地址，会重定向到网页授权发起页面
 router.get('/oauthCallback', function(req, res, next) {
