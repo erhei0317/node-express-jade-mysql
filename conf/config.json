@@ -6,6 +6,7 @@
     "appSecret1": "a0a45415623775a4beff534055215f4c ",
     "token": "dearpiggy",
     "apiPrefix": "https://api.weixin.qq.com/cgi-bin/",
-    "mpPrefix": "https://mp.weixin.qq.com/cgi-bin/"
+    "mpPrefix": "https://mp.weixin.qq.com/cgi-bin/",
+    "domain": "120.25.58.101"
   }
 }  

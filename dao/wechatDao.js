@@ -2,41 +2,12 @@
 // 实现与MySQL交互
 var $sql = require('./wechatSqlMapping');
 var $dbc = require('./dbCommon');
-/*var weixin = require('weixin-api');
-var config = require('../conf/config.json');*/
 var wechatUtil = require('../util/wechatUtil');
+var OAuth = require('wechat-oauth');            //微信网页授权
+var config = require('../conf/config.json');
 
-/*weixin.token = config.wechat.token;
-wechatUtil.appid = config.wechat.appID;
-wechatUtil.secret = config.wechat.appSecret;
-wechatUtil.apiPrefix = config.wechat.apiPrefix;
-wechatUtil.mpPrefix = config.wechat.mpPrefix;*/
-/*// 监听事件消息
-weixin.eventMsg(function(msg) {
-    console.log("eventMsg received");
-    console.log(JSON.stringify(msg));
-    var resMsg = {};
-    if(msg.event === 'subscribe'){          //关注订阅号
-        resMsg = {
-            fromUserName : msg.toUserName,
-            toUserName : msg.fromUserName,
-            msgType : "text",
-            content : "欢迎关注我们的订阅号",
-            funcFlag : 0
-        };
-        weixin.sendMsg(resMsg);
-    }
-    if(msg.event === 'unsubscribe'){          //关注订阅号
-        resMsg = {
-            fromUserName : msg.toUserName,
-            toUserName : msg.fromUserName,
-            msgType : "text",
-            content : "欢迎下次再来",
-            funcFlag : 0
-        };
-        weixin.sendMsg(resMsg);
-    }
-});*/
+var client = new OAuth(config.wechat.appID, config.wechat.appSecret);
+
 module.exports = {
     checkToken: function (req, res, next) {
         if (wechatUtil.checkSignature(req)) {
@@ -52,6 +23,14 @@ module.exports = {
     },
     getWechatMsg: function (req, res, next) {
         wechatUtil.getWechatMsg(req, res);
+    },
+    goOauth: function (req, res, next) {
+        var url = client.getAuthorizeURL('http://' + config.wechat.domain + '/wechat/callback','state','snsapi_userinfo');
+        res.redirect(url)
+    },
+    oauthCallback: function (req, res, next) {
+        var code = req.query.code;
+        res.status(200).send(code);
     }
 
 };
