@@ -48,6 +48,30 @@ wechatUtil.prototype.getAccessTokenByService = function() {
             });
     });
 };
+// 根据微信用户的openId从微信服务器上获取微信用户的基本信息
+wechatUtil.prototype.getUserInfoByOpenId = function(openId) {
+    this.getAccessToken(function(accessToken){
+        var queryParams = {
+            'access_token': accessToken,
+            'openid': openId,
+            'lang':'zh_CN'
+        };
+        var wxGetUserInfoBaseUrl = this.apiPrefix + 'user/info?' + qs.stringify(queryParams);
+        var options = {
+            method: 'GET',
+            url: wxGetUserInfoBaseUrl
+        };
+        return new Promise((resolve, reject) => {
+                request(options, function (err, res, body) {
+                    if (res) {
+                        resolve(JSON.parse(body));
+                    } else {
+                        reject(err);
+                    }
+                });
+        });
+    });
+};
 //保存基础access_token到指定文件
 wechatUtil.prototype.saveToken = function (callback) {
     this.getAccessTokenByService().then(res => {    //重新获取access_token , 这里面的也是异步的
@@ -85,8 +109,8 @@ wechatUtil.prototype.getWechatMsg = function(req, res) {
 
 // 监听事件消息  关注和取消关注
 weixin.eventMsg(function(msg) {
-    console.log("eventMsg received");
-    console.log(JSON.stringify(msg));
+/*    console.log("eventMsg received");
+    console.log(JSON.stringify(msg));*/
     var resMsg = {};
     if(msg.event === 'subscribe'){          //关注订阅号
         resMsg = {
@@ -97,13 +121,16 @@ weixin.eventMsg(function(msg) {
             funcFlag : 0
         };
         weixin.sendMsg(resMsg);
-        //将用户的数据存入数据库
-        $dbc.pool.getConnection(function(err, connection) {
-            var addTime = new Date();
-            var editTime = addTime;
-            var openId = resMsg.toUserName;
-            connection.query($sql.addWxOpenId, [openId, addTime, editTime], function(err, result) {
-                connection.release();           //用户关注订阅号后，将用户的openId存入数据库中
+        wechatUtil.getUserInfoByOpenId(resMsg.toUserName).then(res => {    //重新获取access_token , 这里面的也是异步的
+            //将用户的数据存入数据库
+            $dbc.pool.getConnection(function(err, connection) {
+                var addTime = new Date();
+                var editTime = addTime;
+                var openId = resMsg.toUserName;
+                var user = [openId, addTime, editTime,res.nickname, res.sex, res.province, res.city, res.country, res.headimgurl];
+                connection.query($sql.addWxOpenId, [openId, addTime, editTime], function(err, result) {
+                    connection.release();           //用户关注订阅号后，将用户的openId存入数据库中
+                });
             });
         });
     }
