@@ -49,7 +49,7 @@ module.exports = {
                     if(result == ''){       //查询不到,说明还没有关注公众号
                         res.render('fail', {title: '没有关注公众号', msg: '您还没有关注我们的公众号哦，可搜索微信公众号“微商记账小能手”',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
                     }else{
-                        if(result[0].nickname){     //微信获取到的信息已经存入数据库中
+                        if(result[0].id){     //微信获取到的信息已经存入数据库中
                             res.redirect('../index')
                         }
                     };
@@ -93,8 +93,7 @@ weixin.eventMsg(function(msg) {
                     if(!body.errmsg){   //没有返回错误码，即获取用户信息成功
                         $dbc.pool.getConnection(function(err, connection) {
                             connection.query($sql.queryByOpenId, [openId], function(err, result) {   //查询openId是否存在，存在的话就更新数据库
-                                console.log(result)
-                                if(result&&result.length>0&&result[0].nickname){         //更新数据可的数据
+                                if(result&&result.length>0&&result[0].id){         //openid已经存在，更新数据库的数据
                                     var editTime = new Date();
                                     var user = [editTime,body.nickname, body.sex, body.province, body.city, body.country, body.headimgurl,body.subscribe, body.subscribe_time, openId];
                                     console.log('update' + user);
@@ -147,5 +146,24 @@ weixin.eventMsg(function(msg) {
             funcFlag : 0
         };
         weixin.sendMsg(resMsg);
+        $dbc.pool.getConnection(function(err, connection) {
+            connection.query($sql.queryByOpenId, [openId], function(err, result) {   //查询openId是否存在，存在的话就更新数据库
+                if(result&&result.length>0&&result[0].id){         //取消关注的时候把subscribe字段重置为0
+                    var user = [0, openId];
+                    connection.query($sql.unsubscribe, user, function(err, result) {
+                        if(err){
+                            console.log(err);
+                        }
+                        if(result.affectedRows>0){          //插入成功的时候
+                            console.log('affectedRows');
+                        }
+                        if(result.changedRows>0){
+                            console.log('changedRows');
+                        }
+                        connection.release();           //用户关注订阅号后，将用户的openId存入数据库中
+                    });
+                }
+            });
+        });
     }
 });
