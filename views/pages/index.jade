@@ -2,8 +2,13 @@ extends ../layout
 
 block content
   .main
-    h1= title
-    p 亲爱的“Tiny”欢迎使用xx微商管理平台，您可以根据下面的说明进行操作哦。
+    img.head-img(src='#{result[0].headimgurl}')
+    p
+      | 亲爱的
+      span.primary-font “#{result[0].nickname}”
+      | 欢迎使用
+      span.primary-font “微商记账小能手”
+      | ，您可以根据下面的说明进行操作哦。
     p 1、您可以从底部的“管理”进入代理管理，如果您第一次使用，请先添加代理，点击
       a(href='/agency/add') “立即添加”。
     p 2、您可以从底部的“交易”进入进出货管理，但是进出货管理前，必须先添加代理哦。

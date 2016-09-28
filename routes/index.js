@@ -2,13 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 var loginDao = require('../dao/loginDao');
+var indexDao = require('../dao/indexDao');
 
 /* GET home pages. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Welcome' });
+  indexDao.getUserById(req, res, next);
 });
 router.get('/index', function(req, res, next) {
-  res.render('index', { title: 'Welcome' });
+  indexDao.getUserById(req, res, next);
 });
 //交易首页
 router.get('/deal', function(req, res, next) {

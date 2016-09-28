@@ -216,4 +216,15 @@ a {
 .main p{
     line-height: 2;
 }
+.primary-font{
+    color: #09bb07;
+    font-weight: bold;
+}
+.head-img{
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    display: block;
+    margin: 10px auto;
+}
 /*index end*/
