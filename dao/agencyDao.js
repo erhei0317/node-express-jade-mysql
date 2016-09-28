@@ -11,6 +11,7 @@ module.exports = {
             var uName = req.session.name;
             var addTime = new Date();
             var editTime = new Date();
+            var openid = req.session.openid;
             var param = req.body;       // 获取前台页面传过来的参数
             if(param.name == '' || param.name == 'undefined' || param.product == '' || param.product == 'undefined' || param.level == '' || param.level == 'undefined' || param.price == '' || param.price == 'undefined') {      //代理名称或者产品或者级别或者价格为空
                 var result = {
@@ -22,7 +23,7 @@ module.exports = {
             } else {
                 //查询代理名称是否存在，同一个产品不能出现相同名字   查询语句中已经做了当前用户当前产品只能有一个相同的代理名称的限制，如果添加返回的影响行数是1，表示插入成功，如果是0，表示记录已存在
                 // 建立连接，向表中插入数据
-                var sqlData = [param.name, param.level, param.product, uId, uName, param.price, addTime, editTime, param.remark];
+                var sqlData = [param.name, param.level, param.product, uId, uName, param.price, addTime, editTime, param.remark, openid];
                 connection.query($sql.add, sqlData, function(err, result) {         //异步的执行
                     if(err){                                         //错误就返回给原post处（login.html) 状态码为500的错误
                         res.send(500);
@@ -179,8 +180,9 @@ module.exports = {
             var uId = req.session.uid;
             var uName = req.session.name;
             var addTime = new Date();
+            var openid = req.session.openid;
             var param = req.body;       // 获取前台页面传过来的参数
-            connection.query($sql.addProduct, [param.product, uId, uName, addTime], function(err, result) {
+            connection.query($sql.addProduct, [param.product, uId, uName, addTime,openid], function(err, result) {
                 connection.release();           //执行一下添加产品名称的语句，不用管是否添加成功，这里记录只是为了方便用户输入提醒
             });
         });
@@ -191,8 +193,9 @@ module.exports = {
             var uId = req.session.uid;
             var uName = req.session.name;
             var addTime = new Date();
+            var openid = req.session.openid;
             var param = req.body;       // 获取前台页面传过来的参数
-            connection.query($sql.addLevel, [param.level, uId, uName, addTime], function(err, result) {
+            connection.query($sql.addLevel, [param.level, uId, uName, addTime,openid], function(err, result) {
                 connection.release();           //执行一下添加代理级别的语句，不用管是否添加成功，这里记录只是为了方便用户输入提醒
             });
         });

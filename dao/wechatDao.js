@@ -31,15 +31,14 @@ module.exports = {
         weixin.loop(req, res);
     },
     oauth: function (req, res, next) {
-        var url = client.getAuthorizeURL('http://' + config.wechat.domain + '/wechat/oauthCallback','STATE','snsapi_userinfo');
+        var url = client.getAuthorizeURL('http://' + config.wechat.domain + '/wechat/oauthCallback','STATE','snsapi_base');
         res.redirect(url)
     },
-    oauthCallback: function (req, res, next) {
+    oauthCallback: function (req, res, next) {          //微信网页授权
         var code = req.query.code;;
         client.getAccessToken(code, function(err, result) {  //根据code获取token
             var accessToken = result.data.access_token;
             var openid = result.data.openid;
-            console.log('token:'+accessToken);
             $dbc.pool.getConnection(function(err, connection) {
                 connection.query($sql.queryByOpenId, [openid], function(err, result) {
                     if(err){                                         //错误就返回给原post处 状态码为500的错误
@@ -49,8 +48,13 @@ module.exports = {
                     if(result == ''){       //查询不到,说明还没有关注公众号
                         res.render('fail', {title: '没有关注公众号', msg: '您还没有关注我们的公众号哦，可搜索微信公众号“微商记账小能手”',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
                     }else{
-                        if(result[0].id){     //微信获取到的信息已经存入数据库中
+                        if(result[0].subscribe==1){     //微信获取到的信息已经存入数据库中，并且是已关注
+                            req.session.uid = result[0].id;
+                            req.session.name = result[0].nickname;
+                            req.session.openid = openid;
                             res.redirect('../index')
+                        }else{
+                            res.render('fail', {title: '没有关注公众号', msg: '您还没有关注我们的公众号哦，可搜索微信公众号“微商记账小能手”',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
                         }
                     };
                     connection.release();
@@ -65,7 +69,7 @@ module.exports = {
 // 监听事件消息  关注和取消关注
 weixin.eventMsg(function(msg) {
     var resMsg = {};
-    var openId = msg.fromUserName;
+    var openid = msg.fromUserName;
     if(msg.event === 'subscribe'){          //关注订阅号
         resMsg = {
             fromUserName : msg.toUserName,
@@ -75,11 +79,11 @@ weixin.eventMsg(function(msg) {
             funcFlag : 0
         };
         weixin.sendMsg(resMsg);
-        // 根据微信用户的openId从微信服务器上获取微信用户的基本信息
+        // 根据微信用户的openid从微信服务器上获取微信用户的基本信息
         wechatUtil.getAccessToken(function(accessToken){
             var queryParams = {
                 'access_token': accessToken,
-                'openid': openId,
+                'openid': openid,
                 'lang':'zh_CN'
             };
             var wxGetUserInfoBaseUrl = wechatUtil.apiPrefix + 'user/info?' + qs.stringify(queryParams);
@@ -92,11 +96,10 @@ weixin.eventMsg(function(msg) {
                 if (body) {
                     if(!body.errmsg){   //没有返回错误码，即获取用户信息成功
                         $dbc.pool.getConnection(function(err, connection) {
-                            connection.query($sql.queryByOpenId, [openId], function(err, result) {   //查询openId是否存在，存在的话就更新数据库
+                            connection.query($sql.queryByOpenId, [openid], function(err, result) {   //查询openid是否存在，存在的话就更新数据库
                                 if(result&&result.length>0&&result[0].id){         //openid已经存在，更新数据库的数据
                                     var editTime = new Date();
-                                    var user = [editTime,body.nickname, body.sex, body.province, body.city, body.country, body.headimgurl,body.subscribe, body.subscribe_time, openId];
-                                    console.log('update' + user);
+                                    var user = [editTime,body.nickname, body.sex, body.province, body.city, body.country, body.headimgurl,body.subscribe, body.subscribe_time, openid];
                                     connection.query($sql.updateWxUser, user, function(err, result) {
                                         if(err){
                                             console.log(err);
@@ -107,13 +110,12 @@ weixin.eventMsg(function(msg) {
                                         if(result.changedRows>0){
                                             console.log('changedRows');
                                         }
-                                        connection.release();           //用户关注订阅号后，将用户的openId存入数据库中
+                                        connection.release();           //用户关注订阅号后，将用户的openid存入数据库中
                                     });
                                 }else{          //插入数据库数据
                                     var addTime = new Date();
                                     var editTime = addTime;
-                                    var user = [openId, addTime, editTime,body.nickname, body.sex, body.province, body.city, body.country, body.headimgurl, body.subscribe_time,body.subscribe];
-                                    console.log('insert' + user);
+                                    var user = [openid, addTime, editTime,body.nickname, body.sex, body.province, body.city, body.country, body.headimgurl, body.subscribe_time,body.subscribe];
                                     connection.query($sql.addWxUser, user, function(err, result) {
                                         if(err){
                                             console.log(err);
@@ -124,7 +126,7 @@ weixin.eventMsg(function(msg) {
                                         if(result.changedRows>0){
                                             console.log('changedRows');
                                         }
-                                        connection.release();           //用户关注订阅号后，将用户的openId存入数据库中
+                                        connection.release();           //用户关注订阅号后，将用户的openid存入数据库中
                                     });
                                 }
                             });
@@ -147,9 +149,9 @@ weixin.eventMsg(function(msg) {
         };
         weixin.sendMsg(resMsg);
         $dbc.pool.getConnection(function(err, connection) {
-            connection.query($sql.queryByOpenId, [openId], function(err, result) {   //查询openId是否存在，存在的话就更新数据库
+            connection.query($sql.queryByOpenId, [openid], function(err, result) {   //查询openid是否存在，存在的话就更新数据库
                 if(result&&result.length>0&&result[0].id){         //取消关注的时候把subscribe字段重置为0
-                    var user = [0, openId];
+                    var user = [0, openid];
                     connection.query($sql.unsubscribe, user, function(err, result) {
                         if(err){
                             console.log(err);
@@ -160,7 +162,7 @@ weixin.eventMsg(function(msg) {
                         if(result.changedRows>0){
                             console.log('changedRows');
                         }
-                        connection.release();           //用户关注订阅号后，将用户的openId存入数据库中
+                        connection.release();           //用户关注订阅号后，将用户的openid存入数据库中
                     });
                 }
             });

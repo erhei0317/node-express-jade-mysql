@@ -91,13 +91,17 @@ $(function(){
         e = e || event;
         e.stopPropagation();  //阻止事件冒泡
         $('#levelList').hide();
-        $('#productList').show();
+        if(!($('#productList').children().length==0)){      //存在时才显示
+            $('#productList').show();
+        }
     });
     $('#product').focus(function(e){
         e = e || event;
         e.stopPropagation();  //阻止事件冒泡
         $('#levelList').hide();
-        $('#productList').show();
+        if(!($('#productList').children().length==0)){  //存在时才显示
+            $('#productList').show();
+        }
     });
     $('#productList li').click(function(){
         $('#product').val(this.innerHTML);
@@ -107,13 +111,17 @@ $(function(){
         e = e || event;
         e.stopPropagation();  //阻止事件冒泡
         $('#productList').hide();
-        $('#levelList').show();
+        if(!($('#levelList').children().length==0)){      //存在时才显示
+            $('#levelList').show();
+        }
     });
     $('#level').focus(function(e){
         e = e || event;
         e.stopPropagation();  //阻止事件冒泡
         $('#productList').hide();
-        $('#levelList').show();
+        if(!($('#levelList').children().length==0)){      //存在时才显示
+            $('#levelList').show();
+        }
     });
     $('#levelList li').click(function(){
         $('#level').val(this.innerHTML);
