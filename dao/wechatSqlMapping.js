@@ -2,8 +2,8 @@
 // CRUD SQL语句
 var wechat = {
     addWxOpenId:'INSERT IGNORE INTO user(wxOpenId,addTime,editTime) VALUES(?,?,?)',
-    insertWxUser: 'INSERT IGNORE INTO user (nickname,sex,province,city,country,headimgurl,privilege,unionid) values (?,?,?,?,?,?,?,?);',      //数据库中建立了name和userId的唯一索引，这里如果name和userId已存在的话将不会插入，影响行数为0，否则插入影响行数为1（insert ignore）
-    updateWxUser: 'UPDATE IGNORE user set nickname=?,sex=?,province=?,city=?,country=?,headimgurl=?,unionid=?,editTime=? where wxOpenId=?',      //数据库中建立了name和userId的唯一索引，这里如果name和userId已存在的话将不会插入，影响行数为0，否则插入影响行数为1（insert ignore）
+    addWxUser: 'INSERT IGNORE INTO user (wxOpenId,addTime,editTime,nickname,sex,province,city,country,headimgurl,subscribe_time,subscribe) values (?,?,?,?,?,?,?,?,?,FROM_UNIXTIME(?),?);',      //数据库中建立了name和userId的唯一索引，这里如果name和userId已存在的话将不会插入，影响行数为0，否则插入影响行数为1（insert ignore）
+    updateWxUser: 'UPDATE IGNORE user set editTime=?,nickname=?,sex=?,province=?,city=?,country=?,headimgurl=?,subscribe=?,subscribe_time=FROM_UNIXTIME(?) where wxOpenId=?',      //数据库中建立了name和userId的唯一索引，这里如果name和userId已存在的话将不会插入，影响行数为0，否则插入影响行数为1（insert ignore）
     addLevel: 'INSERT IGNORE INTO level (name,userId,userName,addTime) values (?,?,?,?);',
     queryLevelByUId: 'select name from level where userId=?',
     queryProductByUId: 'select name from product where userId=?',
