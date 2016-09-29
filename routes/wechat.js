@@ -23,7 +23,6 @@ router.get('/oauth', function(req, res, next) {
 router.get('/oauthCallback', function(req, res, next) {
     wechatDao.oauthCallback(req, res, next);
 });
-
 /*router.get('/interface', function(req, res, next) {
     wechatDao.openAddIn(req, res, next);
 });*/

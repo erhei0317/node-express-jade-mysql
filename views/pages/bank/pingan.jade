@@ -1,0 +1,59 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1,user-scalable=0')
+    title= title
+    //-  引入公共文件
+    include ../../includes/head
+  body(ontouchstart="")
+    .container
+      img.title-img(src='/img/bank/pingan-title.png')
+      div.pa-content
+        ul
+          li 交易时间：
+            span#date(contenteditable="true") 2016-09-29&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易类型：
+            span.out-font 转出
+            span.in-font 转入
+          li 付&nbsp;&nbsp;款&nbsp;&nbsp;人：
+            span(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
+          li 付款账号：
+            span(contenteditable="true") 6222****7670&nbsp;&nbsp;&nbsp;&nbsp;
+          li 付&nbsp;&nbsp;款&nbsp;&nbsp;行：
+            span(contenteditable="true") 平安银行深圳布吉支行&nbsp;&nbsp;&nbsp;&nbsp;
+          li 收&nbsp;&nbsp;款&nbsp;&nbsp;人：
+            span(contenteditable="true") 李四&nbsp;&nbsp;&nbsp;&nbsp;
+          li 收款账号：
+            span(contenteditable="true") 6214****7158&nbsp;&nbsp;&nbsp;&nbsp;
+          li 收&nbsp;&nbsp;款&nbsp;&nbsp;行：
+            span(contenteditable="true") 广发银行股份有限公司&nbsp;&nbsp;&nbsp;&nbsp;
+          li 币&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种：
+            | 人民币
+          li 金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额：
+            span.color-money(contenteditable="true") 1,000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li 摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要：
+            span(contenteditable="true") 网银转账&nbsp;&nbsp;&nbsp;&nbsp;
+  script.
+    $(function () {
+      $('#date').html(show());
+      $('.in-font').hide();
+      $('.out-font').click(function(){
+        $(this).hide();
+        $('.in-font').show();
+      });
+      $('.in-font').click(function () {
+        $(this).hide();
+        $('.out-font').show();
+      });
+      function show(){
+        var mydate = new Date();
+        var year = mydate.getFullYear();
+        var month = mydate.getMonth()+1;
+        var day = mydate.getDate() ;
+        month = month>=10?month:'0'+month;
+        day = day>=10?day:'0'+day;
+        var str = "" + year + "-" + month + '-' + day + '&nbsp;&nbsp;&nbsp;&nbsp;';
+        return str;
+      }
+    })

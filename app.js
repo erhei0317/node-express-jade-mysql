@@ -15,6 +15,7 @@ var deals = require('./routes/deals');   //进出货管理
 var statisticss = require('./routes/statisticss');   //进出货统计管理
 var agency = require('./routes/agency');   //代理管理
 var wechat = require('./routes/wechat');   //微信接口管理
+var bank = require('./routes/bank');   //微信接口管理
 
 var app = express();
 
@@ -49,7 +50,7 @@ app.use('/', routes);
 app.use('/wechat', wechat); // 自定义cgi路径   定义在app.all前面可以不需要验证session，因为关注那些操作不需要验证session（即登录）
 //在所有路由之前加一个登录的拦截，如果没登录，则跳转到home，登录后会将向session存入user属性
 app.all('*', function(req, res, next) {
-  //req.session.name = 'dearpiggy';
+  req.session.name = 'dearpiggy';
   //req.session.uid = '2';
   if(!req.session.name){
     res.render('fail', {title: '登录超时', msg: '请重新从公众号菜单进入',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
@@ -64,6 +65,7 @@ app.use('/products', products); // 自定义cgi路径
 app.use('/deals', deals); // 自定义cgi路径
 app.use('/statisticss', statisticss); // 自定义cgi路径
 app.use('/agency', agency); // 自定义cgi路径
+app.use('/bank', bank); // 自定义cgi路径
 
 
 // catch 404 and forward to error handler

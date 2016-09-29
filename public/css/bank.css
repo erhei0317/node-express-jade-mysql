@@ -1,0 +1,37 @@
+body{
+    background-color: #F1F1F1;
+}
+.container {
+    padding: 0;
+    padding-bottom: 30px;
+}
+.title-img{
+    width: 100%;
+}
+.pa-content ul{
+    background-color:#F8F8F8;
+    margin:4px 10px 0;
+    list-style:none;
+    border:1px solid #C6C6C6;
+    color: #4F5257;
+}
+.pa-content ul li{
+    line-height:40px;
+    border-bottom:1px solid #E0E3E4;
+    padding:0 9px;
+}
+.pa-content ul li:last-child{
+    border-bottom:none;
+}
+.pa-content ul li input{
+    width:20%;
+}
+.out-font{
+    color: #2C934E;
+}
+.in-font{
+    color: #DD5522;
+}
+.color-money{
+    color: #DD5522;
+}
