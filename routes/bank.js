@@ -11,8 +11,13 @@ router.get('/bankList', function(req, res, next) {
 router.get('/pa', function(req, res, next) {
     res.render('bank/pa', { title: '验证信息' });
 });
-/*router.get('/interface', function(req, res, next) {
-    wechatDao.openAddIn(req, res, next);
-});*/
+//进入广发银行APP
+router.get('/gf', function(req, res, next) {
+    res.render('bank/gf', { title: '交易明细' });
+});
+//进入农业银行APP
+router.get('/ny', function(req, res, next) {
+    res.render('bank/ny', { title: '交易明细' });
+});
 module.exports = router;
 

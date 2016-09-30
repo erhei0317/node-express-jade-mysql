@@ -8,6 +8,11 @@ body{
 .title-img{
     width: 100%;
 }
+.bottom-img{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
 .weui_btn_primary{
     width: 85%;
 }
@@ -38,4 +43,41 @@ body{
 }
 .pa-color-money{
     color: #DD5522;
+}
+/*广发银行*/
+.gf-content{
+    color: #0d0d0d;
+}
+.gf-content .page{
+    margin: 28px 20px;
+}
+.gf-content ul{
+    background-color: #ffffff;
+    padding:20px 10px;
+    margin-bottom: 13px;
+    margin-left: 10px;
+    margin-right: 10px;
+    list-style: none;
+    border-radius: 5px;
+}
+.gf-content ul li{
+}
+.gf-content ul li span{
+    float:right;
+    color: #848484;
+}
+.gf-content .list{
+    margin-bottom: 80px;
+}
+.gf-content .list li{
+    margin-bottom: 29px;
+}
+.gf-content .list li:last-child{
+    margin-bottom: 0;
+}
+#expend .gf-out-font{
+    color: #80c797;
+}
+#income .gf-in-font{
+    color: #ff0000;
 }

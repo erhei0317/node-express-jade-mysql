@@ -1,0 +1,72 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1,user-scalable=0')
+    title= title
+    //-  引入公共文件
+    include ../../includes/head
+  body(ontouchstart="", style='background-color:#F0F0F0;')
+    .container(style='margin-bottom:30px;')
+      img.title-img(src='/img/bank/gf-title.png')
+      div.gf-content
+        div.page 第1/1页，共1条符合条件的记录。
+        ul
+          li 账户
+            span(contenteditable="true") 6214****7158
+        ul.list
+          li 交易日期
+            span#date(contenteditable="true") &nbsp;&nbsp;&nbsp;&nbsp;2016-09-29
+          li 币种
+            span 人民币
+          li#income 收入
+            span.gf-in-font(contenteditable="true") 1,000.00
+          li#expend 支出
+            span.gf-out-font(contenteditable="true") 1,000.00
+          li 交易渠道
+            span#inqd 网上支付跨行清算系统
+            span#outqd 客户端手机银行渠道
+          li 交易说明
+            span#inwy 网银入账
+            span#outwy 网银扣款
+          li 对方户名
+            span(contenteditable="true") 张三
+          li 对方账号
+            span(contenteditable="true") 6214850285260276
+        div.page 第1/1页，共1条符合条件的记录。
+        img.bottom-img(src='/img/bank/gf-bottom.png')
+  script.
+    $(function () {
+      $('#date').html(show());
+      $('#expend').hide();
+      $('#outqd').hide();
+      $('#outwy').hide();
+      $('#expend').click(function(){
+        $(this).hide();
+        $('#outqd').hide();
+        $('#outwy').hide();
+        $('#income').show();
+        $('#inqd').show();
+        $('#inwy').show();
+      });
+      $('#income').click(function () {
+        $(this).hide();
+        $('#inqd').hide();
+        $('#inwy').hide();
+        $('#expend').show();
+        $('#outqd').show();
+        $('#outwy').show();
+      });
+      function show(){
+        var mydate = new Date();
+        var year = mydate.getFullYear();
+        var month = mydate.getMonth()+1;
+        var day = mydate.getDate() ;
+        month = month>=10?month:'0'+month;
+        day = day>=10?day:'0'+day;
+        var str = "&nbsp;&nbsp;&nbsp;&nbsp;" + year + "-" + month + '-' + day;
+        return str;
+      }
+      var usAgent = navigator.userAgent;
+      console.log(usAgent)
+    })
