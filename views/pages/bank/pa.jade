@@ -8,14 +8,14 @@ html
     include ../../includes/head
   body(ontouchstart="")
     .container
-      img.title-img(src='/img/bank/pingan-title.png')
+      img.title-img(src='/img/bank/pa-title.png')
       div.pa-content
         ul
           li 交易时间：
             span#date(contenteditable="true") 2016-09-29&nbsp;&nbsp;&nbsp;&nbsp;
           li 交易类型：
-            span.out-font 转出
-            span.in-font 转入
+            span.pa-out-font 转出
+            span.pa-in-font 转入
           li 付&nbsp;&nbsp;款&nbsp;&nbsp;人：
             span(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
           li 付款账号：
@@ -31,20 +31,20 @@ html
           li 币&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种：
             | 人民币
           li 金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额：
-            span.color-money(contenteditable="true") 1,000.00&nbsp;&nbsp;&nbsp;&nbsp;
+            span.pa-color-money(contenteditable="true") 1,000.00&nbsp;&nbsp;&nbsp;&nbsp;
           li 摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要：
             span(contenteditable="true") 网银转账&nbsp;&nbsp;&nbsp;&nbsp;
   script.
     $(function () {
       $('#date').html(show());
-      $('.in-font').hide();
-      $('.out-font').click(function(){
+      $('.pa-in-font').hide();
+      $('.pa-out-font').click(function(){
         $(this).hide();
-        $('.in-font').show();
+        $('.pa-in-font').show();
       });
-      $('.in-font').click(function () {
+      $('.pa-in-font').click(function () {
         $(this).hide();
-        $('.out-font').show();
+        $('.pa-out-font').show();
       });
       function show(){
         var mydate = new Date();

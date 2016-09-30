@@ -8,6 +8,10 @@ body{
 .title-img{
     width: 100%;
 }
+.weui_btn_primary{
+    width: 85%;
+}
+/*平安银行*/
 .pa-content ul{
     background-color:#F8F8F8;
     margin:4px 10px 0;
@@ -26,12 +30,12 @@ body{
 .pa-content ul li input{
     width:20%;
 }
-.out-font{
+.pa-out-font{
     color: #2C934E;
 }
-.in-font{
+.pa-in-font{
     color: #DD5522;
 }
-.color-money{
+.pa-color-money{
     color: #DD5522;
 }
