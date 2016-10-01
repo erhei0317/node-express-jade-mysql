@@ -35,7 +35,7 @@ module.exports = {
         res.redirect(url)
     },
     oauthCallback: function (req, res, next) {          //微信网页授权
-        var code = req.query.code;;
+        var code = req.query.code;
         client.getAccessToken(code, function(err, result) {  //根据code获取token
             var accessToken = result.data.access_token;
             var openid = result.data.openid;
@@ -53,6 +53,45 @@ module.exports = {
                             req.session.name = result[0].nickname;
                             req.session.openid = openid;
                             res.redirect('../index')
+                        }else{
+                            res.render('fail', {title: '没有关注公众号', msg: '您还没有关注我们的公众号哦，可搜索微信公众号“微商记账小能手”',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
+                        }
+                    };
+                    connection.release();
+                });
+            });
+        });
+        //res.status(200).send(code);
+    },
+    //生成银行账单的授权页面
+    oauthBank: function (req, res, next) {
+        var url = client.getAuthorizeURL('http://' + config.wechat.domain + '/wechat/oauthBankCallback','STATE','snsapi_base');
+        res.redirect(url)
+    },
+    oauthBankCallback: function (req, res, next) {          //微信网页授权  生成银行账单的授权页面
+        var code = req.query.code;
+        client.getAccessToken(code, function(err, result) {  //根据code获取token
+            var accessToken = result.data.access_token;
+            var openid = result.data.openid;
+            $dbc.pool.getConnection(function(err, connection) {
+                connection.query($sql.checkBankByOpenId, [openid], function(err, result) {
+                    if(err){                                         //错误就返回给原post处 状态码为500的错误
+                        res.send(500);
+                        console.log(err);
+                    }
+                    if(result == ''){       //查询不到,说明还没有关注公众号
+                        res.render('fail', {title: '没有关注公众号', msg: '您还没有关注我们的公众号哦，可搜索微信公众号“微商记账小能手”',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
+                    }else{
+                        if(result[0].subscribe==1){     //微信获取到的信息已经存入数据库中，并且是已关注
+                            if(result[0].isBank==1){        //支持使用银行账单生成
+                                req.session.uid = result[0].id;
+                                req.session.name = result[0].nickname;
+                                req.session.openid = openid;
+                                req.session.isBank = result[0].isBank;      //是否支持使用银行账单生成模块
+                                res.redirect('../bank/bankList')
+                            }else{
+                                res.render('fail', {title: '没有权限', msg: '您没有权限使用当前功能哦，请联系管理员购买激活码！',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
+                            }
                         }else{
                             res.render('fail', {title: '没有关注公众号', msg: '您还没有关注我们的公众号哦，可搜索微信公众号“微商记账小能手”',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
                         }

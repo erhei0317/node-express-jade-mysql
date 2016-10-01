@@ -7,6 +7,7 @@ var wechat = {
     unsubscribe: 'UPDATE IGNORE user set subscribe=? where wxOpenId=?',      //取消关注
     edit:'update ignore agent set name=?, productName=?, levelName=?, price=?, editTime=?, remark=? where id=? and userId=?',
     queryByOpenId: 'select id,subscribe,nickname from user where wxOpenId=?',        //根据微信openid查询，查询数据库中是否存在当前openid
+    checkBankByOpenId: 'select id,subscribe,nickname,isBank from user where wxOpenId=?',        //根据微信openid查询，查询数据库中是否存在当前openid并isBank为1
     queryAll: 'select id,name,levelName,productName,userId,price,remark from agent where userId=?',
     delete: 'delete from agent where id=? and userId=?'
 };

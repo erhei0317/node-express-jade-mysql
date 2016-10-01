@@ -7,16 +7,18 @@ body{
 }
 .title-img{
     width: 100%;
+    vertical-align: bottom;
 }
 .bottom-img{
     width: 100%;
     position: fixed;
     bottom: 0;
+    vertical-align: bottom;
 }
 .weui_btn_primary{
     width: 85%;
 }
-/*平安银行*/
+/*骞冲畨閾惰*/
 .pa-content ul{
     background-color:#F8F8F8;
     margin:4px 10px 0;
@@ -44,7 +46,7 @@ body{
 .pa-color-money{
     color: #DD5522;
 }
-/*广发银行*/
+/*骞垮彂閾惰*/
 .gf-content{
     color: #0d0d0d;
 }
@@ -80,4 +82,72 @@ body{
 }
 #income .gf-in-font{
     color: #ff0000;
+}
+/*鍐滀笟閾惰--浠樻*/
+.ny-color-money{
+    color: #ff6549;
+}
+.ny-content ul{
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    color: #535353;
+    background-color: #ffffff;
+    padding: 0 17px;
+    list-style: none;
+}
+.ny-content ul li{
+    border-bottom: 1px solid #e5e5e5;
+    line-height: 50px;
+}
+.ny-content ul li:last-child{
+    border-bottom: none;
+}
+.ny-content p{
+    line-height: 45px;
+    color: #ff6549;
+    font-size: 13px;
+    margin: 0 17px;
+}
+.ny-content .buttons{
+    margin: 0 17px;
+}
+.ny-content .buttons button{
+    background-color: #ffa900;
+    border: 1px solid #ffa900;
+    border-radius: 5px;
+    line-height: 45px;
+    width: 48%;
+    color: #ffffff;
+    font-size: 16px;
+    float: right;
+}
+.ny-content .buttons .button-gray{
+    background-color: #dddddd;
+    border: 1px solid #dddddd;
+    float: left;
+}
+/*鍐滀笟閾惰--浜ゆ槗鍒楄〃*/
+.nyl-number{
+    position: fixed;
+    top: 69px;
+    left: 17px;
+}
+.nyl-money-in{
+    color: #ff6549;
+}
+.nyl-money-out{
+    color: #00aa91;
+}
+.nyl-content ul{
+    margin-top: 11px;
+    color: #535353;
+    background-color: #ffffff;
+    padding: 8px 17px 0;
+    list-style: none;
+}
+.nyl-content ul li{
+    line-height: 22px;
+}
+.nyl-content ul li:last-child{
+    border-bottom: none;
 }

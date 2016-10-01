@@ -52,8 +52,16 @@ app.use('/wechat', wechat); // 自定义cgi路径   定义在app.all前面可以
 app.all('*', function(req, res, next) {
   req.session.name = 'dearpiggy';
   req.session.uid = '2';
-  if(!req.session.name){
+  if(!req.session.name||!req.session.uid){
     res.render('fail', {title: '登录超时', msg: '请重新从公众号菜单进入',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
+  }else{
+    next();
+  }
+});
+app.all('/bank/*', function(req, res, next) {
+  req.session.isBank = 1;
+  if(req.session.isBank!=1){
+    res.render('fail', {title: '没有权限', msg: '您没有权限使用当前功能哦，请联系管理员购买激活码！',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
   }else{
     next();
   }

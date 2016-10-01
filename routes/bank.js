@@ -15,9 +15,13 @@ router.get('/pa', function(req, res, next) {
 router.get('/gf', function(req, res, next) {
     res.render('bank/gf', { title: '交易明细' });
 });
-//进入农业银行APP
+//进入农业银行APP--付款
 router.get('/ny', function(req, res, next) {
-    res.render('bank/ny', { title: '交易明细' });
+    res.render('bank/ny', { title: '转账' });
+});
+//进入农业银行APP--交易列表
+router.get('/nyl', function(req, res, next) {
+    res.render('bank/nyl', { title: '借记卡明细' });
 });
 module.exports = router;
 

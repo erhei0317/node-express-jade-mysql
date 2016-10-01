@@ -23,6 +23,14 @@ router.get('/oauth', function(req, res, next) {
 router.get('/oauthCallback', function(req, res, next) {
     wechatDao.oauthCallback(req, res, next);
 });
+//用户进入此访问地址，会重定向到网页授权发起页面，用户是否有使用生成银行订单的权限
+router.get('/oauthBank', function(req, res, next) {
+    wechatDao.oauthBank(req, res, next);
+});
+//用户进入此访问地址，会重定向到网页授权发起页面，用户是否有使用生成银行订单的权限
+router.get('/oauthBankCallback', function(req, res, next) {
+    wechatDao.oauthBankCallback(req, res, next);
+});
 /*router.get('/interface', function(req, res, next) {
     wechatDao.openAddIn(req, res, next);
 });*/

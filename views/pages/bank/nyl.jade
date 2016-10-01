@@ -1,0 +1,139 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1,user-scalable=0')
+    title= title
+    //-  引入公共文件
+    include ../../includes/head
+    link(rel='stylesheet', href='/css/bank.css')
+  body(ontouchstart="")
+    .container(style='padding-bottom: 11px;')
+      img.title-img(src='/img/bank/nyl-title.jpg', style='position:fixed;top:0;')
+      img.title-img(src='/img/bank/nyl-title.jpg')
+      div.nyl-number(contenteditable="true") 6228****1234&nbsp;&nbsp;&nbsp;&nbsp;
+      div.nyl-content
+        ul
+          li 交易时间：
+            span#date(contenteditable="true") 2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易摘要：
+            span(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
+          li#income 收入金额：
+            span.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li#expend 支出金额：
+            span.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li 本次余额：
+            span(contenteditable="true") 25208.34&nbsp;&nbsp;&nbsp;&nbsp;
+          li 对方姓名：
+            span(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
+          li 对方账户：
+            span(contenteditable="true") 6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易类型：
+            span(contenteditable="true") 转账&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易渠道：
+            span#inqd(contenteditable="true") 超级网银&nbsp;&nbsp;&nbsp;&nbsp;
+            span#outqd(contenteditable="true") 掌上银行&nbsp;&nbsp;&nbsp;&nbsp;
+        ul
+          li 交易时间：
+            span#date1(contenteditable="true") 2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易摘要：
+            span(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
+          li#income1 收入金额：
+            span.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li#expend1 支出金额：
+            span.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li 本次余额：
+            span(contenteditable="true") 25208.34&nbsp;&nbsp;&nbsp;&nbsp;
+          li 对方姓名：
+            span(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
+          li 对方账户：
+            span(contenteditable="true") 6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易类型：
+            span(contenteditable="true") 转账&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易渠道：
+            span#inqd1(contenteditable="true") 超级网银&nbsp;&nbsp;&nbsp;&nbsp;
+            span#outqd1(contenteditable="true") 掌上银行&nbsp;&nbsp;&nbsp;&nbsp;
+        ul
+          li 交易时间：
+            span#date2(contenteditable="true") 2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易摘要：
+            span(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
+          li#income2 收入金额：
+            span.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li#expend2 支出金额：
+            span.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li 本次余额：
+            span(contenteditable="true") 25208.34&nbsp;&nbsp;&nbsp;&nbsp;
+          li 对方姓名：
+            span(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
+          li 对方账户：
+            span(contenteditable="true") 6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易类型：
+            span(contenteditable="true") 转账&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易渠道：
+            span#inqd2(contenteditable="true") 超级网银&nbsp;&nbsp;&nbsp;&nbsp;
+            span#outqd2(contenteditable="true") 掌上银行&nbsp;&nbsp;&nbsp;&nbsp;
+  script.
+    $(function () {
+      console.log(Math.random() * 3600 * 1000)
+      $('#date').html(format(new Date().getTime() - (Math.random()*13+11)*3600*1000));    //比data2早11-24个小时
+      $('#date1').html(format(new Date().getTime() - (Math.random()*9+1)*3600*1000));  //比data2早1-10个小时
+      $('#date2').html(format(new Date().getTime()));
+      $('#expend').hide();
+      $('#outqd').hide();
+      $('#income1').hide();
+      $('#inqd1').hide();
+      $('#expend2').hide();
+      $('#outqd2').hide();
+      $('#expend').click(function(){
+        $(this).hide();
+        $('#outqd').hide();
+        $('#inqd').show();
+        $('#income').show();
+      });
+      $('#income').click(function () {
+        $(this).hide();
+        $('#inqd').hide();
+        $('#outqd').show();
+        $('#expend').show();
+      });
+      $('#expend1').click(function(){
+        $(this).hide();
+        $('#outqd1').hide();
+        $('#inqd1').show();
+        $('#income1').show();
+      });
+      $('#income1').click(function () {
+        $(this).hide();
+        $('#inqd1').hide();
+        $('#outqd1').show();
+        $('#expend1').show();
+      });
+      $('#expend2').click(function(){
+        $(this).hide();
+        $('#outqd2').hide();
+        $('#inqd2').show();
+        $('#income2').show();
+      });
+      $('#income2').click(function () {
+        $(this).hide();
+        $('#inqd2').hide();
+        $('#outqd2').show();
+        $('#expend2').show();
+      });
+      function add0(m) {
+        return m < 10 ? '0' + m : m
+      }
+      function format(shijianchuo) {
+        //shijianchuo是整数，否则要parseInt转换
+        shijianchuo = parseInt(shijianchuo)
+        var time = new Date(shijianchuo);
+        var y = time.getFullYear();
+        var m = time.getMonth() + 1;
+        var d = time.getDate();
+        var h = time.getHours();
+        var mm = time.getMinutes();
+        var s = time.getSeconds();
+        return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+      }
+    })

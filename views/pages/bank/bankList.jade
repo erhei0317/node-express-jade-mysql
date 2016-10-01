@@ -6,11 +6,14 @@ html
     title= title
     //-  引入公共文件
     include ../../includes/head
+    link(rel='stylesheet', href='/css/bank.css')
   body(ontouchstart="")
     include ../../includes/header
-    .container
+    .container(style='padding-top:0;')
       a.weui_btn.weui_btn_primary(href='pa' style='margin-top:58px;') 平安银行微信公众号版
       a.weui_btn.weui_btn_primary(href='gf') 广发银行APP版
+      a.weui_btn.weui_btn_primary(href='ny') 农业银行APP版--付款
+      a.weui_btn.weui_btn_primary(href='nyl') 农业银行APP版--交易列表
   script.
     $(function () {
     })
