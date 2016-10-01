@@ -208,3 +208,64 @@ weixin.eventMsg(function(msg) {
         });
     }
 });
+// 监听文本消息
+weixin.textMsg(function(msg) {
+    var resMsg = {};
+    var text = msg.content;         //用户发送过来的文本信息
+    var openid = msg.fromUserName;      //用户openid
+    resMsg = {          // 返回文本消息
+        fromUserName : msg.toUserName,
+        toUserName : msg.fromUserName,
+        msgType : "text",
+        content : "客官，我不知道你在说什么！",
+        funcFlag : 0
+    };
+    if(text.indexOf('银行账单生成')==0){
+        var bankKey = text.split('银行账单生成')[1];      //获取银行账单生成激活码
+        $dbc.pool.getConnection(function(err, connection) {     //查询用户是否已经激活过了
+            connection.query($sql.checkBankByOpenId, [openid], function(err, result) {
+                if(err){                                         //错误就返回给原post处 状态码为500的错误
+                    resMsg.content = '好像出错了，请联系管理员哦';
+                    weixin.sendMsg(resMsg);
+                }else{
+                    if(result == ''){       //查询不到,说明还没有关注公众号
+                        resMsg.content = '您好像没有关注我们的公众号耶，您是怎么进来的？';      //当前id查询不到数据，返回数据异常页面
+                        weixin.sendMsg(resMsg);
+                    }else{
+                        if(result[0].subscribe==1){     //微信获取到的信息已经存入数据库中，并且是已关注
+                            if(result[0].isBank==1){        //支持使用银行账单生成
+                                resMsg.content = '您已经激活过咯，不要重复激活！';      //已经激活
+                                weixin.sendMsg(resMsg);
+                            }else{
+                                var useTime = new Date();
+                                connection.query($sql.checkBankKey, [useTime,openid,bankKey], function(err, result) {
+                                    if(result&&result.affectedRows>0){      //激活码可用
+                                        connection.query($sql.activeBank, [bankKey,openid], function(err, result) {
+                                            if(result&&result.affectedRows>0) {      //激活码可用
+                                                resMsg.content = '恭喜您激活成功';      //激活成功
+                                                weixin.sendMsg(resMsg);
+                                            }else{
+                                                resMsg.content = '激活失败，请联系管理员';      //激活失败
+                                                weixin.sendMsg(resMsg);
+                                            }
+                                        });
+                                    }else{
+                                        resMsg.content = '激活失败，您的激活码已被使用，如果是新购激活码，请联系管理员';      //激活失败
+                                        weixin.sendMsg(resMsg);
+                                    }
+                                });
+                            }
+                        }else{
+                            resMsg.content = '您好像没有关注我们的公众号耶，您是怎么进来的？';      //当前id查询不到数据，返回数据异常页面
+                            weixin.sendMsg(resMsg);
+                        }
+                    };
+                }
+                connection.release();
+            });
+        });
+    }else{
+        resMsg.content = '如果您想激活“银行账单生成”功能的话，请发送“银行账单生成+激活码”，如“银行账单生成8888888888”';
+        weixin.sendMsg(resMsg);
+    }
+});

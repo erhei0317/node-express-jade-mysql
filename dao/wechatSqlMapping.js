@@ -8,6 +8,8 @@ var wechat = {
     edit:'update ignore agent set name=?, productName=?, levelName=?, price=?, editTime=?, remark=? where id=? and userId=?',
     queryByOpenId: 'select id,subscribe,nickname from user where wxOpenId=?',        //根据微信openid查询，查询数据库中是否存在当前openid
     checkBankByOpenId: 'select id,subscribe,nickname,isBank from user where wxOpenId=?',        //根据微信openid查询，查询数据库中是否存在当前openid并isBank为1
+    checkBankKey: 'update bankKey set isUse=1,useTime=?,wxOpenId=? where bankKey=? and isUse=0',        //验证银行账单生成激活码
+    activeBank: 'update user set isBank=1,bankKey=? where wxOpenId=?',        //根据微信openid查询，查询数据库中是否存在当前openid并isBank为1
     queryAll: 'select id,name,levelName,productName,userId,price,remark from agent where userId=?',
     delete: 'delete from agent where id=? and userId=?'
 };
