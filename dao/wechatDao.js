@@ -240,7 +240,7 @@ weixin.textMsg(function(msg) {
                                 var useTime = new Date();
                                 connection.query($sql.checkBankKey, [useTime,openid,bankKey], function(err, result) {
                                     if(result&&result.affectedRows>0){      //激活码可用
-                                        connection.query($sql.activeBank, [bankKey,openid], function(err, result) {
+                                        connection.query($sql.activeBank, [bankKey,useTime,openid], function(err, result) {
                                             if(result&&result.affectedRows>0) {      //激活码可用
                                                 resMsg.content = '恭喜您激活成功';      //激活成功
                                                 weixin.sendMsg(resMsg);
@@ -250,7 +250,7 @@ weixin.textMsg(function(msg) {
                                             }
                                         });
                                     }else{
-                                        resMsg.content = '激活失败，您的激活码已被使用，如果是新购激活码，请联系管理员';      //激活失败
+                                        resMsg.content = '激活失败，无效激活码或您的激活码已被使用，如果是新购激活码，请联系管理员';      //激活失败
                                         weixin.sendMsg(resMsg);
                                     }
                                 });
