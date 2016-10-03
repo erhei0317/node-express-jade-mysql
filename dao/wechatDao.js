@@ -114,7 +114,7 @@ weixin.eventMsg(function(msg) {
             fromUserName : msg.toUserName,
             toUserName : msg.fromUserName,
             msgType : "text",
-            content : "猪猪霞早点休息，爱你，啵啵！",
+            content : "欢迎关注微商记账小能手<br/>发送“银行账单生成+激活码”，如“银行账单生成8888888888”可以激活银行账单生成功能哦，如您还没有激活码，可以联系管理员哦",
             funcFlag : 0
         };
         weixin.sendMsg(resMsg);

@@ -3,6 +3,8 @@ var router = express.Router();
 
 var loginDao = require('../dao/loginDao');
 var indexDao = require('../dao/indexDao');
+var bankDao = require('../dao/bankDao');
+
 
 /* GET home pages. */
 router.get('/', function(req, res, next) {
@@ -36,6 +38,10 @@ router.get('/fail', function(req, res, next) {
   var err = req.session.error;   //获取错误信息
   delete req.session.error;
   res.render('fail', { title:'操作异常', msg: err, backUrl:'/'});
+});
+//批量生成激活码，存入数据库中
+router.get('/productBankKey', function(req, res, next) {
+    bankDao.productBankKey(req, res, next);
 });
 
 module.exports = router;

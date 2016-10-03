@@ -1,4 +1,3 @@
-// dao/userDao.js
 // 实现与MySQL交互
 var $sql = require('./agencySqlMapping');
 var $dbc = require('./dbCommon');

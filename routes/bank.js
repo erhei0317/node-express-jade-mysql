@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var wechatDao = require('../dao/wechatDao');
+var bankDao = require('../dao/bankDao');
 
 //进入银行选择列表
 router.get('/bankList', function(req, res, next) {
