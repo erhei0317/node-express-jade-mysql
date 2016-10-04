@@ -82,18 +82,26 @@ module.exports = {
                     if(result == ''){       //查询不到,说明还没有关注公众号
                         res.render('fail', {title: '没有关注公众号', msg: '您还没有关注我们的公众号哦，可搜索微信公众号“微商记账小能手”',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
                     }else{
-                        if(result[0].subscribe==1){     //微信获取到的信息已经存入数据库中，并且是已关注
-                            if(result[0].isBank==1){        //支持使用银行账单生成
-                                req.session.uid = result[0].id;
-                                req.session.name = result[0].nickname;
-                                req.session.openid = openid;
-                                req.session.isBank = result[0].isBank;      //是否支持使用银行账单生成模块
-                                res.redirect('../bank/bankList')
-                            }else{
-                                res.render('fail', {title: '没有权限', msg: '您没有权限使用当前功能哦，请联系管理员购买激活码！',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
-                            }
+                        if(result[0].tryTime > Date.now()/1000){   //试用期内
+                            req.session.uid = result[0].id;
+                            req.session.name = result[0].nickname;
+                            req.session.openid = openid;
+                            req.session.isBank = 1;      //是否支持使用银行账单生成模块
+                            res.redirect('../bank/bankList');
                         }else{
-                            res.render('fail', {title: '没有关注公众号', msg: '您还没有关注我们的公众号哦，可搜索微信公众号“微商记账小能手”',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
+                            if(result[0].subscribe==1){     //微信获取到的信息已经存入数据库中，并且是已关注
+                                if(result[0].isBank==1){        //支持使用银行账单生成
+                                    req.session.uid = result[0].id;
+                                    req.session.name = result[0].nickname;
+                                    req.session.openid = openid;
+                                    req.session.isBank = result[0].isBank;      //是否支持使用银行账单生成模块
+                                    res.redirect('../bank/bankList');
+                                }else{
+                                    res.render('fail', {title: '没有权限', msg: '您没有权限使用当前功能哦，请联系管理员购买激活码！',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
+                                }
+                            }else{
+                                res.render('fail', {title: '没有关注公众号', msg: '您还没有关注我们的公众号哦，可搜索微信公众号“微商记账小能手”',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
+                            }
                         }
                     };
                     connection.release();
@@ -114,7 +122,7 @@ weixin.eventMsg(function(msg) {
             fromUserName : msg.toUserName,
             toUserName : msg.fromUserName,
             msgType : "text",
-            content : "欢迎关注微商记账小能手<br/>发送“银行账单生成+激活码”，如“银行账单生成8888888888”可以激活银行账单生成功能哦，如您还没有激活码，可以联系管理员哦",
+            content : "欢迎关注微商记账小能手。\n初次关注的话，您有24小时的试用期，试用期过后可以联系客服购买激活码，获取永久使用权。\n激活：发送“银行账单生成+激活码”，如“银行账单生成8888888888”可以激活银行账单生成功能，如您还没有激活码，可以联系我们的客服。\n客服微信：clicli168_kf",
             funcFlag : 0
         };
         weixin.sendMsg(resMsg);
@@ -154,7 +162,8 @@ weixin.eventMsg(function(msg) {
                                 }else{          //插入数据库数据
                                     var addTime = new Date();
                                     var editTime = addTime;
-                                    var user = [openid, addTime, editTime,body.nickname, body.sex, body.province, body.city, body.country, body.headimgurl, body.subscribe_time,body.subscribe];
+                                    var tryTime = Date.now()/1000+24*60*60;   //试用时间24小时,不计算毫秒
+                                    var user = [openid, addTime, editTime,body.nickname, body.sex, body.province, body.city, body.country, body.headimgurl, body.subscribe_time,body.subscribe,tryTime];
                                     connection.query($sql.addWxUser, user, function(err, result) {
                                         if(err){
                                             console.log(err);
@@ -250,7 +259,7 @@ weixin.textMsg(function(msg) {
                                             }
                                         });
                                     }else{
-                                        resMsg.content = '激活失败，无效激活码或您的激活码已被使用，如果是新购激活码，请联系管理员';      //激活失败
+                                        resMsg.content = '激活失败，无效激活码或您的激活码已被使用，如果是新购激活码，请联系客服，客服微信：clicli168_kf';      //激活失败
                                         weixin.sendMsg(resMsg);
                                     }
                                 });
@@ -265,7 +274,7 @@ weixin.textMsg(function(msg) {
             });
         });
     }else{
-        resMsg.content = '如果您想激活“银行账单生成”功能的话，请发送“银行账单生成+激活码”，如“银行账单生成8888888888”';
+        resMsg.content = '如果您想激活“银行账单生成”功能的话，请发送“银行账单生成+激活码”，如“银行账单生成8888888888”，其他问题请联系客服，客服微信：clicli168_kf';
         weixin.sendMsg(resMsg);
     }
 });

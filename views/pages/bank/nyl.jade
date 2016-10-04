@@ -18,10 +18,12 @@ html
             span#date(contenteditable="true") 2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;
           li 交易摘要：
             span(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
-          li#income 收入金额：
-            span.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
-          li#expend 支出金额：
-            span.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span#income 收入金额：
+            span#income02.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span#expend 支出金额：
+            span#expend02.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
           li 本次余额：
             span(contenteditable="true") 25208.34&nbsp;&nbsp;&nbsp;&nbsp;
           li 对方姓名：
@@ -38,10 +40,12 @@ html
             span#date1(contenteditable="true") 2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;
           li 交易摘要：
             span(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
-          li#income1 收入金额：
-            span.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
-          li#expend1 支出金额：
-            span.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span#income1 收入金额：
+            span#income12.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span#expend1 支出金额：
+            span#expend12.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
           li 本次余额：
             span(contenteditable="true") 25208.34&nbsp;&nbsp;&nbsp;&nbsp;
           li 对方姓名：
@@ -58,10 +62,12 @@ html
             span#date2(contenteditable="true") 2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;
           li 交易摘要：
             span(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
-          li#income2 收入金额：
-            span.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
-          li#expend2 支出金额：
-            span.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span#income2 收入金额：
+            span#income22.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span#expend2 支出金额：
+            span#expend22.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
           li 本次余额：
             span(contenteditable="true") 25208.34&nbsp;&nbsp;&nbsp;&nbsp;
           li 对方姓名：
@@ -80,46 +86,61 @@ html
       $('#date1').html(format(new Date().getTime() - (Math.random()*9+1)*3600*1000));  //比data2早1-10个小时
       $('#date2').html(format(new Date().getTime()));
       $('#expend').hide();
+      $('#expend02').hide();
       $('#outqd').hide();
       $('#income1').hide();
+      $('#income12').hide();
       $('#inqd1').hide();
       $('#expend2').hide();
+      $('#expend22').hide();
       $('#outqd2').hide();
       $('#expend').click(function(){
         $(this).hide();
+        $('#expend02').hide();
         $('#outqd').hide();
         $('#inqd').show();
         $('#income').show();
+        $('#income02').show();
       });
       $('#income').click(function () {
         $(this).hide();
+        $('#income02').hide();
         $('#inqd').hide();
         $('#outqd').show();
         $('#expend').show();
+        $('#expend02').show();
       });
       $('#expend1').click(function(){
         $(this).hide();
+        $('#expend12').hide();
         $('#outqd1').hide();
         $('#inqd1').show();
         $('#income1').show();
+        $('#income12').show();
       });
       $('#income1').click(function () {
         $(this).hide();
+        $('#income12').hide();
         $('#inqd1').hide();
         $('#outqd1').show();
         $('#expend1').show();
+        $('#expend12').show();
       });
       $('#expend2').click(function(){
         $(this).hide();
+        $('#expend22').hide();
         $('#outqd2').hide();
         $('#inqd2').show();
         $('#income2').show();
+        $('#income22').show();
       });
       $('#income2').click(function () {
         $(this).hide();
+        $('#income22').hide();
         $('#inqd2').hide();
         $('#outqd2').show();
         $('#expend2').show();
+        $('#expend22').show();
       });
       function add0(m) {
         return m < 10 ? '0' + m : m
