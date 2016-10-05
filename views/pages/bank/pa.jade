@@ -13,30 +13,90 @@ html
       div.pa-content
         ul
           li 交易时间：
-            span#date(contenteditable="true") 2016-09-29&nbsp;&nbsp;&nbsp;&nbsp;
+            span#date(contenteditable="true") 2016-09-29
           li 交易类型：
             span.pa-out-font 转出
             span.pa-in-font 转入
           li 付&nbsp;&nbsp;款&nbsp;&nbsp;人：
-            span(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
+            span#fkr(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
           li 付款账号：
-            span(contenteditable="true") 6222****1234&nbsp;&nbsp;&nbsp;&nbsp;
+            span#fkzh(contenteditable="true") 6222****1234&nbsp;&nbsp;&nbsp;&nbsp;
           li 付&nbsp;&nbsp;款&nbsp;&nbsp;行：
-            span(contenteditable="true") 平安银行深圳布吉支行&nbsp;&nbsp;&nbsp;&nbsp;
+            span#fkh(contenteditable="true") 平安银行深圳布吉支行&nbsp;&nbsp;&nbsp;&nbsp;
           li 收&nbsp;&nbsp;款&nbsp;&nbsp;人：
-            span(contenteditable="true") 李四&nbsp;&nbsp;&nbsp;&nbsp;
+            span#skr(contenteditable="true") 李四&nbsp;&nbsp;&nbsp;&nbsp;
           li 收款账号：
-            span(contenteditable="true") 6214****1234&nbsp;&nbsp;&nbsp;&nbsp;
+            span#skzh(contenteditable="true") 6214****1234&nbsp;&nbsp;&nbsp;&nbsp;
           li 收&nbsp;&nbsp;款&nbsp;&nbsp;行：
-            span(contenteditable="true") 广发银行股份有限公司&nbsp;&nbsp;&nbsp;&nbsp;
+            span#skh(contenteditable="true") 广发银行股份有限公司&nbsp;&nbsp;&nbsp;&nbsp;
           li 币&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种：
             | 人民币
           li 金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额：
-            span.pa-color-money(contenteditable="true") 1,000.00&nbsp;&nbsp;&nbsp;&nbsp;
+            span#je.pa-color-money(contenteditable="true") 1,000.00&nbsp;&nbsp;&nbsp;&nbsp;
           li 摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要：
             span(contenteditable="true") 网银转账&nbsp;&nbsp;&nbsp;&nbsp;
   script.
     $(function () {
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
+      if(window.localStorage.pafkr){
+        $('#fkr').html(window.localStorage.pafkr);
+      }else{
+        window.localStorage.pafkr = $('#fkr').html();
+      }
+      if (window.localStorage.pafkzh) {
+        $('#fkzh').html(window.localStorage.pafkzh);
+      } else {
+        window.localStorage.pafkzh = $('#fkzh').html();
+      }
+      if (window.localStorage.pafkh) {
+        $('#fkh').html(window.localStorage.pafkh);
+      } else {
+        window.localStorage.pafkh = $('#fkh').html();
+      }
+      if (window.localStorage.paskr) {
+        $('#skr').html(window.localStorage.paskr);
+      } else {
+        window.localStorage.paskr = $('#skr').html();
+      }
+      if (window.localStorage.paskzh) {
+        $('#skzh').html(window.localStorage.paskzh);
+      } else {
+        window.localStorage.paskzh = $('#skzh').html();
+      }
+      if (window.localStorage.paskh) {
+        $('#skh').html(window.localStorage.paskh);
+      } else {
+        window.localStorage.paskh = $('#skh').html();
+      }
+      if (window.localStorage.paje) {
+        $('#je').html(window.localStorage.paje);
+      } else {
+        window.localStorage.paje = $('#je').html();
+      }
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---end
+      // 修改数据时，失焦后存入localStorage--start
+      $('#fkr').blur(function () {
+        window.localStorage.pafkr = $(this).html();
+      });
+      $('#fkzh').blur(function () {
+        window.localStorage.pafkzh = $(this).html();
+      });
+      $('#fkh').blur(function () {
+        window.localStorage.pafkh = $(this).html();
+      });
+      $('#skr').blur(function () {
+        window.localStorage.paskr = $(this).html();
+      });
+      $('#skzh').blur(function () {
+        window.localStorage.paskzh = $(this).html();
+      });
+      $('#skh').blur(function () {
+        window.localStorage.paskh = $(this).html();
+      });
+      $('#je').blur(function () {
+        window.localStorage.paje = $(this).html();
+      });
+      // 修改数据时，失焦后存入localStorage--end
       $('#date').html(show());
       $('.pa-in-font').hide();
       $('.pa-out-font').click(function(){
@@ -54,7 +114,7 @@ html
         var day = mydate.getDate() ;
         month = month>=10?month:'0'+month;
         day = day>=10?day:'0'+day;
-        var str = "" + year + "-" + month + '-' + day + '&nbsp;&nbsp;&nbsp;&nbsp;';
+        var str = "" + year + "-" + month + '-' + day;
         return str;
-      }
+      };
     })

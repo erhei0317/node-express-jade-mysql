@@ -14,47 +14,98 @@ html
         div.page 第1/1页，共1条符合条件的记录。
         ul
           li 账户
-            span(contenteditable="true") 6214****1234
+            span#zh.pull-right(contenteditable="true") 6214****1234
         ul.list
           li 交易日期
-            span#date(contenteditable="true") &nbsp;&nbsp;&nbsp;&nbsp;2016-09-29
+            span#date.pull-right(contenteditable="true") &nbsp;&nbsp;&nbsp;&nbsp;2016-09-29
           li 币种
-            span 人民币
-          li#income 收入
-            span.gf-in-font(contenteditable="true") 1,000.00
-          li#expend 支出
-            span.gf-out-font(contenteditable="true") 1,000.00
+            span.pull-right 人民币
+          li
+            span#income 收入
+            span#sr.gf-in-font.pull-right(contenteditable="true") 1,000.00
+          li
+            span#expend 支出
+            span#zc.gf-out-font.pull-right(contenteditable="true") 1,000.00
           li 交易渠道
-            span#inqd 网上支付跨行清算系统
-            span#outqd 客户端手机银行渠道
+            span#inqd.pull-right 网上支付跨行清算系统
+            span#outqd.pull-right 客户端手机银行渠道
           li 交易说明
-            span#inwy 网银入账
-            span#outwy 网银扣款
+            span#inwy.pull-right 网银入账
+            span#outwy.pull-right 网银扣款
           li 对方户名
-            span(contenteditable="true") 张三
+            span#dfhm.pull-right(contenteditable="true") 张三
           li 对方账号
-            span(contenteditable="true") 6214850285261234
+            span#dfzh.pull-right(contenteditable="true") 6214850285261234
         div.page 第1/1页，共1条符合条件的记录。
         img.bottom-img(src='/img/bank/gf-bottom.png')
   script.
     $(function () {
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
+      if (window.localStorage.gfzh) {
+        $('#zh').html(window.localStorage.gfzh);
+      } else {
+        window.localStorage.gfzh = $('#zh').html();
+      }
+      if (window.localStorage.gfsr) {
+        $('#sr').html(window.localStorage.gfsr);
+      } else {
+        window.localStorage.gfsr = $('#sr').html();
+      }
+      if (window.localStorage.gfzc) {
+        $('#zc').html(window.localStorage.gfzc);
+      } else {
+        window.localStorage.gfzc = $('#zc').html();
+      }
+      if (window.localStorage.gfdfhm) {
+        $('#dfhm').html(window.localStorage.gfdfhm);
+      } else {
+        window.localStorage.gfdfhm = $('#dfhm').html();
+      }
+      if (window.localStorage.gfdfzh) {
+        $('#dfzh').html(window.localStorage.gfdfzh);
+      } else {
+        window.localStorage.gfdfzh = $('#dfzh').html();
+      }
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---end
+      // 修改数据时，失焦后存入localStorage--start
+      $('#zh').blur(function () {
+        window.localStorage.gfzh = $(this).html();
+      });
+      $('#sr').blur(function () {
+        window.localStorage.gfsr = $(this).html();
+      });
+      $('#zc').blur(function () {
+        window.localStorage.gfzc = $(this).html();
+      });
+      $('#dfhm').blur(function () {
+        window.localStorage.gfdfhm = $(this).html();
+      });
+      $('#dfzh').blur(function () {
+        window.localStorage.gfdfzh = $(this).html();
+      });
+      // 修改数据时，失焦后存入localStorage--end
       $('#date').html(show());
       $('#expend').hide();
+      $('#zc').hide();
       $('#outqd').hide();
       $('#outwy').hide();
       $('#expend').click(function(){
         $(this).hide();
+        $('#zc').hide();
         $('#outqd').hide();
         $('#outwy').hide();
         $('#income').show();
+        $('#sr').show();
         $('#inqd').show();
         $('#inwy').show();
       });
       $('#income').click(function () {
         $(this).hide();
+        $('#sr').hide();
         $('#inqd').hide();
         $('#inwy').hide();
         $('#expend').show();
+        $('#zc').show();
         $('#outqd').show();
         $('#outwy').show();
       });

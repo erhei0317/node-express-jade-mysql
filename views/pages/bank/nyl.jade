@@ -15,43 +15,21 @@ html
       div.nyl-content
         ul
           li 交易时间：
-            span#date(contenteditable="true") 2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;
-          li 交易摘要：
-            span(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
-          li
-            span#income 收入金额：
-            span#income02.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
-          li
-            span#expend 支出金额：
-            span#expend02.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
-          li 本次余额：
-            span(contenteditable="true") 25208.34&nbsp;&nbsp;&nbsp;&nbsp;
-          li 对方姓名：
-            span(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
-          li 对方账户：
-            span(contenteditable="true") 6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;
-          li 交易类型：
-            span(contenteditable="true") 转账&nbsp;&nbsp;&nbsp;&nbsp;
-          li 交易渠道：
-            span#inqd(contenteditable="true") 超级网银&nbsp;&nbsp;&nbsp;&nbsp;
-            span#outqd(contenteditable="true") 掌上银行&nbsp;&nbsp;&nbsp;&nbsp;
-        ul
-          li 交易时间：
             span#date1(contenteditable="true") 2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;
           li 交易摘要：
-            span(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
+            span#jyzy1(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
           li
             span#income1 收入金额：
-            span#income12.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+            span#income12.nyl-money-in(contenteditable="true") 1000.00
           li
             span#expend1 支出金额：
-            span#expend12.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+            span#expend12.nyl-money-out(contenteditable="true") -1000.00
           li 本次余额：
-            span(contenteditable="true") 25208.34&nbsp;&nbsp;&nbsp;&nbsp;
+            span#bcye1(contenteditable="true") 25208.34
           li 对方姓名：
-            span(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
+            span#dfxm1(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
           li 对方账户：
-            span(contenteditable="true") 6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;
+            span#dfzh1(contenteditable="true") 6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;
           li 交易类型：
             span(contenteditable="true") 转账&nbsp;&nbsp;&nbsp;&nbsp;
           li 交易渠道：
@@ -61,55 +39,60 @@ html
           li 交易时间：
             span#date2(contenteditable="true") 2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;
           li 交易摘要：
-            span(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
+            span#jyzy2(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
           li
             span#income2 收入金额：
-            span#income22.nyl-money-in(contenteditable="true") 1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+            span#income22.nyl-money-in(contenteditable="true") 1000.00
           li
             span#expend2 支出金额：
-            span#expend22.nyl-money-out(contenteditable="true") -1000.00&nbsp;&nbsp;&nbsp;&nbsp;
+            span#expend22.nyl-money-out(contenteditable="true") -1000.00
           li 本次余额：
-            span(contenteditable="true") 25208.34&nbsp;&nbsp;&nbsp;&nbsp;
+            span#bcye2(contenteditable="true") 25208.34
           li 对方姓名：
-            span(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
+            span#dfxm2(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
           li 对方账户：
-            span(contenteditable="true") 6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;
+            span#dfzh2(contenteditable="true") 6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;
           li 交易类型：
             span(contenteditable="true") 转账&nbsp;&nbsp;&nbsp;&nbsp;
           li 交易渠道：
             span#inqd2(contenteditable="true") 超级网银&nbsp;&nbsp;&nbsp;&nbsp;
             span#outqd2(contenteditable="true") 掌上银行&nbsp;&nbsp;&nbsp;&nbsp;
+        ul
+          li 交易时间：
+            span#date3(contenteditable="true") 2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易摘要：
+            span#jyzy3(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span#income3 收入金额：
+            span#income32.nyl-money-in(contenteditable="true") 1000.00
+          li
+            span#expend3 支出金额：
+            span#expend32.nyl-money-out(contenteditable="true") -1000.00
+          li 本次余额：
+            span#bcye3(contenteditable="true") 25208.34
+          li 对方姓名：
+            span#dfxm3(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
+          li 对方账户：
+            span#dfzh3(contenteditable="true") 6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易类型：
+            span(contenteditable="true") 转账&nbsp;&nbsp;&nbsp;&nbsp;
+          li 交易渠道：
+            span#inqd3(contenteditable="true") 超级网银&nbsp;&nbsp;&nbsp;&nbsp;
+            span#outqd3(contenteditable="true") 掌上银行&nbsp;&nbsp;&nbsp;&nbsp;
   script.
     $(function () {
-      console.log(Math.random() * 3600 * 1000)
-      $('#date').html(format(new Date().getTime() - (Math.random()*13+11)*3600*1000));    //比data2早11-24个小时
-      $('#date1').html(format(new Date().getTime() - (Math.random()*9+1)*3600*1000));  //比data2早1-10个小时
-      $('#date2').html(format(new Date().getTime()));
-      $('#expend').hide();
-      $('#expend02').hide();
-      $('#outqd').hide();
-      $('#income1').hide();
-      $('#income12').hide();
-      $('#inqd1').hide();
-      $('#expend2').hide();
-      $('#expend22').hide();
-      $('#outqd2').hide();
-      $('#expend').click(function(){
-        $(this).hide();
-        $('#expend02').hide();
-        $('#outqd').hide();
-        $('#inqd').show();
-        $('#income').show();
-        $('#income02').show();
-      });
-      $('#income').click(function () {
-        $(this).hide();
-        $('#income02').hide();
-        $('#inqd').hide();
-        $('#outqd').show();
-        $('#expend').show();
-        $('#expend02').show();
-      });
+      $('#date1').html(format(new Date().getTime() - (Math.random()*13+11)*3600*1000));    //比data2早11-24个小时
+      $('#date2').html(format(new Date().getTime() - (Math.random()*9+1)*3600*1000));  //比data2早1-10个小时
+      $('#date3').html(format(new Date().getTime()));
+      $('#expend1').hide();
+      $('#expend12').hide();
+      $('#outqd1').hide();
+      $('#income2').hide();
+      $('#income22').hide();
+      $('#inqd2').hide();
+      $('#expend3').hide();
+      $('#expend32').hide();
+      $('#outqd3').hide();
       $('#expend1').click(function(){
         $(this).hide();
         $('#expend12').hide();
@@ -133,6 +116,8 @@ html
         $('#inqd2').show();
         $('#income2').show();
         $('#income22').show();
+        $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#income22').html())).toFixed(2));
+        $('#bcye3').html((parseFloat($('#bcye3').html()) + parseFloat($('#income22').html()) - parseFloat($('#expend22').html())).toFixed(2));
       });
       $('#income2').click(function () {
         $(this).hide();
@@ -141,6 +126,26 @@ html
         $('#outqd2').show();
         $('#expend2').show();
         $('#expend22').show();
+        $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#expend22').html())).toFixed(2));
+        $('#bcye3').html((parseFloat($('#bcye3').html()) - parseFloat($('#income22').html()) + parseFloat($('#expend22').html())).toFixed(2));
+      });
+      $('#expend3').click(function(){
+        $(this).hide();
+        $('#expend32').hide();
+        $('#outqd3').hide();
+        $('#inqd3').show();
+        $('#income3').show();
+        $('#income32').show();
+        $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+      });
+      $('#income3').click(function () {
+        $(this).hide();
+        $('#income32').hide();
+        $('#inqd3').hide();
+        $('#outqd3').show();
+        $('#expend3').show();
+        $('#expend32').show();
+        $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
       });
       function add0(m) {
         return m < 10 ? '0' + m : m
@@ -157,4 +162,212 @@ html
         var s = time.getSeconds();
         return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
       }
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
+      // 第一条数据
+      if (window.localStorage.nyljyzy1) {
+        $('#jyzy1').html(window.localStorage.nyljyzy1);
+      } else {
+        window.localStorage.nyljyzy1 = $('#jyzy1').html();
+      }
+      if (window.localStorage.nylincome12) {
+        $('#income12').html(window.localStorage.nylincome12);
+      } else {
+        window.localStorage.nylincome12 = $('#income12').html();
+      }
+      if (window.localStorage.nylexpend12) {
+        $('#expend12').html(window.localStorage.nylexpend12);
+      } else {
+        window.localStorage.nylexpend12 = $('#expend12').html();
+      }
+      if (window.localStorage.nylbcye1) {
+        $('#bcye1').html(window.localStorage.nylbcye1);
+      } else {
+        window.localStorage.nylbcye1 = $('#bcye1').html();
+      }
+      if (window.localStorage.nyldfxm1) {
+        $('#dfxm1').html(window.localStorage.nyldfxm1);
+      } else {
+        window.localStorage.nyldfxm1 = $('#dfxm1').html();
+      }
+      if (window.localStorage.nyldfzh1) {
+        $('#dfzh1').html(window.localStorage.nyldfzh1);
+      } else {
+        window.localStorage.nyldfzh1 = $('#dfzh1').html();
+      }
+      // 第二条数据
+      if (window.localStorage.nyljyzy2) {
+        $('#jyzy2').html(window.localStorage.nyljyzy2);
+      } else {
+        window.localStorage.nyljyzy2 = $('#jyzy2').html();
+      }
+      if (window.localStorage.nylincome22) {
+        $('#income22').html(window.localStorage.nylincome22);
+      } else {
+        window.localStorage.nylincome22 = $('#income22').html();
+      }
+      if (window.localStorage.nylexpend22) {
+        $('#expend22').html(window.localStorage.nylexpend22);
+      } else {
+        window.localStorage.nylexpend22 = $('#expend22').html();
+      }
+      if (window.localStorage.nylbcye2) {
+        $('#bcye2').html(window.localStorage.nylbcye2);
+      } else {
+        window.localStorage.nylbcye2 = $('#bcye2').html();
+      }
+      if (window.localStorage.nyldfxm2) {
+        $('#dfxm2').html(window.localStorage.nyldfxm2);
+      } else {
+        window.localStorage.nyldfxm2 = $('#dfxm2').html();
+      }
+      if (window.localStorage.nyldfzh2) {
+        $('#dfzh2').html(window.localStorage.nyldfzh2);
+      } else {
+        window.localStorage.nyldfzh2 = $('#dfzh2').html();
+      }
+      // 第三条数据
+      if (window.localStorage.nyljyzy3) {
+        $('#jyzy3').html(window.localStorage.nyljyzy3);
+      } else {
+        window.localStorage.nyljyzy3 = $('#jyzy3').html();
+      }
+      if (window.localStorage.nylincome32) {
+        $('#income32').html(window.localStorage.nylincome32);
+      } else {
+        window.localStorage.nylincome32 = $('#income32').html();
+      }
+      if (window.localStorage.nylexpend32) {
+        $('#expend32').html(window.localStorage.nylexpend32);
+      } else {
+        window.localStorage.nylexpend32 = $('#expend32').html();
+      }
+      if (window.localStorage.nylbcye3) {
+        $('#bcye3').html(window.localStorage.nylbcye3);
+      } else {
+        window.localStorage.nylbcye3 = $('#bcye3').html();
+      }
+      if (window.localStorage.nyldfxm3) {
+        $('#dfxm3').html(window.localStorage.nyldfxm3);
+      } else {
+        window.localStorage.nyldfxm3 = $('#dfxm3').html();
+      }
+      if (window.localStorage.nyldfzh3) {
+        $('#dfzh3').html(window.localStorage.nyldfzh3);
+      } else {
+        window.localStorage.nyldfzh3 = $('#dfzh3').html();
+      }
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---end
+      // 修改数据时，失焦后存入localStorage--start
+      //第一条数据
+      $('#jyzy1').blur(function () {
+        window.localStorage.nyljyzy1 = $(this).html();
+      });
+      $('#income12').blur(function () {
+        window.localStorage.nylincome12 = $(this).html();
+      });
+      $('#expend12').blur(function () {
+        window.localStorage.nylexpend12 = $(this).html();
+      });
+      $('#bcye1').blur(function () {
+        window.localStorage.nylbcye1 = $(this).html();
+        if($("#income22").is(":hidden")){
+          $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#expend22').html())).toFixed(2));
+        }
+        if($("#expend22").is(":hidden")){
+          $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#income22').html())).toFixed(2));
+        }
+        if($("#income32").is(":hidden")){
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+        }
+        if($("#expend32").is(":hidden")){
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+        }
+      });
+      $('#dfxm1').blur(function () {
+        window.localStorage.nyldfxm1 = $(this).html();
+      });
+      $('#dfzh1').blur(function () {
+        window.localStorage.nyldfzh1 = $(this).html();
+      });
+      //第二条数据
+      $('#jyzy2').blur(function () {
+        window.localStorage.nyljyzy2 = $(this).html();
+      });
+      $('#income22').blur(function () {
+        window.localStorage.nylincome22 = $(this).html();
+        $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#income22').html())).toFixed(2));
+        if ($("#income32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+        }
+        if ($("#expend32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+        }
+      });
+      $('#expend22').blur(function () {
+        window.localStorage.nylexpend22 = $(this).html();
+        $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#expend22').html())).toFixed(2));
+        if ($("#income32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+        }
+        if ($("#expend32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+        }
+      });
+      $('#bcye2').blur(function () {
+        window.localStorage.nylbcye2 = $(this).html();
+        if ($("#income22").is(":hidden")) {
+          $('#bcye1').html((parseFloat($('#bcye2').html()) - parseFloat($('#expend22').html())).toFixed(2));
+        }
+        if ($("#expend22").is(":hidden")) {
+          $('#bcye1').html((parseFloat($('#bcye2').html()) - parseFloat($('#income22').html())).toFixed(2));
+        }
+        if ($("#income32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+        }
+        if ($("#expend32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+        }
+      });
+      $('#dfxm2').blur(function () {
+        window.localStorage.nyldfxm2 = $(this).html();
+      });
+      $('#dfzh2').blur(function () {
+        window.localStorage.nyldfzh2 = $(this).html();
+      });
+      //第三条数据
+      $('#jyzy3').blur(function () {
+        window.localStorage.nyljyzy3 = $(this).html();
+      });
+      $('#income32').blur(function () {
+        window.localStorage.nylincome32 = $(this).html();
+        $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+      });
+      $('#expend32').blur(function () {
+        window.localStorage.nylexpend32 = $(this).html();
+        $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+      });
+      $('#bcye3').blur(function () {
+        window.localStorage.nylbcye3 = $(this).html();
+        if ($("#income32").is(":hidden")) {
+          $('#bcye2').html((parseFloat($('#bcye3').html()) - parseFloat($('#expend32').html())).toFixed(2));
+        }
+        if ($("#expend32").is(":hidden")) {
+          $('#bcye2').html((parseFloat($('#bcye3').html()) - parseFloat($('#income32').html())).toFixed(2));
+        }
+        if ($("#income22").is(":hidden")) {
+          $('#bcye1').html((parseFloat($('#bcye2').html()) - parseFloat($('#expend22').html())).toFixed(2));
+        }
+        if ($("#expend22").is(":hidden")) {
+          $('#bcye1').html((parseFloat($('#bcye2').html()) - parseFloat($('#income22').html())).toFixed(2));
+        }
+      });
+      $('#dfxm3').blur(function () {
+        window.localStorage.nyldfxm3 = $(this).html();
+      });
+      $('#dfzh3').blur(function () {
+        window.localStorage.nyldfzh3 = $(this).html();
+      });
+      //$('#bcye1').html((parseFloat($('#income12').html())+25000).toFixed(2));
+      $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#expend22').html())).toFixed(2));
+      $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
     })

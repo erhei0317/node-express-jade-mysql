@@ -13,19 +13,62 @@ html
       div.ny-content
         ul
           li 付款账户：
-            span(contenteditable="true") 6228****1234&nbsp;&nbsp;&nbsp;&nbsp;
+            span#fkzh(contenteditable="true") 6228****1234&nbsp;&nbsp;&nbsp;&nbsp;
           li 收款账户：
-            span(contenteditable="true") 6222****1234&nbsp;&nbsp;&nbsp;&nbsp;
+            span#skzh(contenteditable="true") 6222****1234&nbsp;&nbsp;&nbsp;&nbsp;
           li 收款人：
-            span(contenteditable="true",style='margin-left:13px;') 张三&nbsp;&nbsp;&nbsp;&nbsp;
+            span#skr(contenteditable="true",style='margin-left:13px;') 张三&nbsp;&nbsp;&nbsp;&nbsp;
           li 收款银行：
-            span(contenteditable="true") 平安银行&nbsp;&nbsp;&nbsp;&nbsp;
+            span#skyh(contenteditable="true") 平安银行&nbsp;&nbsp;&nbsp;&nbsp;
           li 转账金额：
-            span.ny-color-money(contenteditable="true") 1,000.00元&nbsp;&nbsp;&nbsp;&nbsp;
+            span#zzje.ny-color-money(contenteditable="true") 1,000.00元&nbsp;&nbsp;&nbsp;&nbsp;
         p 您的资金已汇出，实际到账时间取决于收款行系统
         div.buttons
           button.button-gray 继续转账
           button 完成
   script.
     $(function () {
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
+      if (window.localStorage.nyfkzh) {
+        $('#fkzh').html(window.localStorage.nyfkzh);
+      } else {
+        window.localStorage.nyfkzh = $('#fkzh').html();
+      }
+      if (window.localStorage.nyskzh) {
+        $('#skzh').html(window.localStorage.nyskzh);
+      } else {
+        window.localStorage.nyskzh = $('#skzh').html();
+      }
+      if (window.localStorage.nyskr) {
+        $('#skr').html(window.localStorage.nyskr);
+      } else {
+        window.localStorage.nyskr = $('#skr').html();
+      }
+      if (window.localStorage.nyskyh) {
+        $('#skyh').html(window.localStorage.nyskyh);
+      } else {
+        window.localStorage.nyskyh = $('#skyh').html();
+      }
+      if (window.localStorage.nyzzje) {
+        $('#zzje').html(window.localStorage.nyzzje);
+      } else {
+        window.localStorage.gfdfzh = $('#zzje').html();
+      }
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---end
+      // 修改数据时，失焦后存入localStorage--start
+      $('#fkzh').blur(function () {
+        window.localStorage.nyfkzh = $(this).html();
+      });
+      $('#skzh').blur(function () {
+        window.localStorage.nyskzh = $(this).html();
+      });
+      $('#skr').blur(function () {
+        window.localStorage.nyskr = $(this).html();
+      });
+      $('#skyh').blur(function () {
+        window.localStorage.nyskyh = $(this).html();
+      });
+      $('#zzje').blur(function () {
+        window.localStorage.nyzzje = $(this).html();
+      });
     })

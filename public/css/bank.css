@@ -64,7 +64,7 @@ body{
 }
 .gf-content ul li{
 }
-.gf-content ul li span{
+.gf-content .pull-right{
     float:right;
     color: #848484;
 }
@@ -77,10 +77,10 @@ body{
 .gf-content .list li:last-child{
     margin-bottom: 0;
 }
-#expend .gf-out-font{
+.gf-content .gf-out-font{
     color: #80c797;
 }
-#income .gf-in-font{
+.gf-content .gf-in-font{
     color: #ff0000;
 }
 /*农业银行--付款*/

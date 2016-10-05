@@ -14,6 +14,7 @@
     "jade": "~1.9.2",
     "morgan": "~1.5.1",
     "mysql": "latest",
+    "node-uuid": "^1.4.7",
     "request": "^2.75.0",
     "serve-favicon": "~2.2.0",
     "wechat-oauth": "^1.1.1",
