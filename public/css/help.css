@@ -1,0 +1,33 @@
+/*帮助中心列表*/
+.ul-list{
+    margin-top: 10px;
+    border-top: 1px solid #09bb09;
+    border-bottom: 1px solid #09bb09;
+    padding: 0 10px;
+}
+.ul-list li{
+    line-height: 42px;
+    border-bottom: 1px solid #09cc09;
+    font-size: 16px;
+}
+.ul-list a:last-of-type li{
+    border-bottom: none;
+}
+/*如何激活银行账单生成*/
+.hab-title{
+    text-align: center;
+    margin-top:10px;
+    margin-bottom:16px;
+}
+.hab-ul{
+    padding: 0 10px;
+}
+.hab-ul li{
+    text-align: justify;
+ }
+.hab-ul li p{
+      line-height: 24px;
+}
+.hab-ul li img{
+    width: 100%;
+}

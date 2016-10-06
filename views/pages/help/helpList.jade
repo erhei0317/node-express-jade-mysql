@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1,user-scalable=0')
+    title #{title || '帮助中心'}
+    include ../../includes/head
+    link(rel='stylesheet', href='/css/help.css')
+  body(ontouchstart="")
+    include ../../includes/header
+    .container
+      ul.ul-list
+        a(href='helpActiveBill')
+          li 1、如何激活银行账单生成功能
+        a(href='helpQuick')
+          li 2、如何快速进入公众号
+        a(href='helpUseBank')
+          li 3、如何使用银行账单生成功能

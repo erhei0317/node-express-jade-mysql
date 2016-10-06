@@ -43,5 +43,21 @@ router.get('/fail', function(req, res, next) {
 router.get('/productBankKey', function(req, res, next) {
     bankDao.productBankKey(req, res, next);
 });
+//微信公众号帮助中心，问题列表
+router.get('/help', function(req, res, next) {
+  res.render('help/helpList', { title:'帮助中心', msg: ''});
+});
+//微信公众号帮助中心--如何激活银行账单生成
+router.get('/helpActiveBill', function(req, res, next) {
+  res.render('help/helpActiveBill', { title:'激活银行账单生成', msg: ''});
+});
+//微信公众号帮助中心--如何快速找到我们的公众号，添加到桌面快捷方式
+router.get('/helpQuick', function(req, res, next) {
+  res.render('help/helpQuick', { title:'添加到桌面', msg: ''});
+});
+//微信公众号帮助中心--如何使用银行账单生成功能
+router.get('/helpUseBank', function(req, res, next) {
+  res.render('help/helpUseBank', { title:'如何使用银行账单生成功能', msg: ''});
+});
 
 module.exports = router;
