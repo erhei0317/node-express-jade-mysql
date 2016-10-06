@@ -122,7 +122,7 @@ weixin.eventMsg(function(msg) {
             fromUserName : msg.toUserName,
             toUserName : msg.fromUserName,
             msgType : "text",
-            content : "欢迎关注微商记账小能手。\n初次关注的话，您有24小时的试用期，试用期过后可以联系客服购买激活码，获取永久使用权。\n激活：发送“银行账单生成+激活码”，如“银行账单生成8888888888”可以激活银行账单生成功能，如您还没有激活码，可以联系我们的客服。\n客服微信：clicli168_kf",
+            content : "欢迎关注微商记账小能手。\n初次关注的话，您有24小时的试用期，试用期过后可以联系客服购买激活码，获取永久使用权。\n更多帮助可以点击下方菜单“帮助中心”或者联系我们的客服，微信：clicli168_kf",
             funcFlag : 0
         };
         weixin.sendMsg(resMsg);
