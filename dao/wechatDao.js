@@ -97,7 +97,7 @@ module.exports = {
                                     req.session.isBank = result[0].isBank;      //是否支持使用银行账单生成模块
                                     res.redirect('../bank/bankList');
                                 }else{
-                                    res.render('fail', {title: '没有权限', msg: '您没有权限使用当前功能哦，请联系管理员购买激活码！',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
+                                    res.render('fail', {title: '没有权限', msg: '您没有权限使用当前功能哦，请联系客服购买激活码！',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
                                 }
                             }else{
                                 res.render('fail', {title: '没有关注公众号', msg: '您还没有关注我们的公众号哦，可搜索微信公众号“微商记账小能手”',  backUrl:''});      //当前id查询不到数据，返回数据异常页面
@@ -234,7 +234,7 @@ weixin.textMsg(function(msg) {
         $dbc.pool.getConnection(function(err, connection) {     //查询用户是否已经激活过了
             connection.query($sql.checkBankByOpenId, [openid], function(err, result) {
                 if(err){                                         //错误就返回给原post处 状态码为500的错误
-                    resMsg.content = '好像出错了，请联系管理员哦';
+                    resMsg.content = '好像出错了，请联系客服哦';
                     weixin.sendMsg(resMsg);
                 }else{
                     if(result == ''){       //查询不到,说明还没有关注公众号
@@ -254,7 +254,7 @@ weixin.textMsg(function(msg) {
                                                 resMsg.content = '恭喜您激活成功';      //激活成功
                                                 weixin.sendMsg(resMsg);
                                             }else{
-                                                resMsg.content = '激活失败，请联系管理员';      //激活失败
+                                                resMsg.content = '激活失败，请联系客服';      //激活失败
                                                 weixin.sendMsg(resMsg);
                                             }
                                         });
