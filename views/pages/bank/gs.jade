@@ -1,0 +1,130 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1,user-scalable=0')
+    title= title
+    //-  引入公共文件
+    include ../../includes/head
+    link(rel='stylesheet', href='/css/bank.css')
+  body(ontouchstart="",style='background-color:#F3F3F3;')
+    .container
+      div.gs-content
+        ul
+          li
+            span.left-font 交易日期
+            span#date(contenteditable="true") 2016-10-03
+          li
+            span.left-font 业务摘要
+            span#ywzy(contenteditable="true") 跨行汇款&nbsp;&nbsp;&nbsp;&nbsp;
+          li#income
+            span.left-font 收支标志
+            span 收入&nbsp;&nbsp;&nbsp;&nbsp;
+          li#expend
+            span.left-font 收支标志
+            span 支出&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span.left-font-jydu
+              span 交易国家或地区
+              span 简称
+            span(style='position: absolute;margin-top: 10px;margin-left:-13px;color: #95ADB7') ：
+            span(style='position: absolute;margin-top: 11px;') CHN
+          li#injycs
+            span.left-font 交易场所
+            span --&nbsp;&nbsp;&nbsp;&nbsp;
+          li#outjycs
+            span.left-font 交易场所
+            span 手机银行&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span.left-font 交易金额
+            span#jyje(contenteditable="true") 1,000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span.left-font 交易币种
+            span 人民币
+          li
+            span.left-font 记账金额
+            span --
+          li
+            span.left-font 记账币种
+            span --
+          li
+            span.left-font 余额
+            span#ye(contenteditable="true") 1,000.00&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span.left-font 对方交易账户
+            span#dfjyzh(contenteditable="true") 6222 9800 2267 1234&nbsp;&nbsp;&nbsp;&nbsp;
+          li
+            span.left-font 对方户名
+            span#dfhm(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
+  script.
+    $(function () {
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
+      if (window.localStorage.gsywzy) {
+        $('#ywzy').html(window.localStorage.gsywzy);
+      } else {
+        window.localStorage.gsywzy = $('#ywzy').html();
+      }
+      if (window.localStorage.gsjyje) {
+        $('#jyje').html(window.localStorage.gsjyje);
+      } else {
+        window.localStorage.gsjyje = $('#jyje').html();
+      }
+      if (window.localStorage.gsye) {
+        $('#ye').html(window.localStorage.gsye);
+      } else {
+        window.localStorage.gsye = $('#ye').html();
+      }
+      if (window.localStorage.gsdfjyzh) {
+        $('#dfjyzh').html(window.localStorage.gsdfjyzh);
+      } else {
+        window.localStorage.gsdfjyzh = $('#dfjyzh').html();
+      }
+      if (window.localStorage.gsdfhm) {
+        $('#dfhm').html(window.localStorage.gsdfhm);
+      } else {
+        window.localStorage.gsdfhm = $('#dfhm').html();
+      }
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---end
+      // 修改数据时，失焦后存入localStorage--start
+      $('#ywzy').blur(function () {
+        window.localStorage.gsywzy = $(this).html();
+      });
+      $('#jyje').blur(function () {
+        window.localStorage.gsjyje = $(this).html();
+      });
+      $('#ye').blur(function () {
+        window.localStorage.gsye = $(this).html();
+      });
+      $('#dfjyzh').blur(function () {
+        window.localStorage.gsdfjyzh = $(this).html();
+      });
+      $('#dfhm').blur(function () {
+        window.localStorage.gsdfhm = $(this).html();
+      });
+      // 修改数据时，失焦后存入localStorage--end
+      $('#date').html(show());
+      $('#expend').hide();
+      $('#outjycs').hide();
+      $('#expend').click(function(){
+        $(this).hide();
+        $('#outjycs').hide();
+        $('#income').show();
+        $('#injycs').show();
+      });
+      $('#income').click(function () {
+        $(this).hide();
+        $('#injycs').hide();
+        $('#expend').show();
+        $('#outjycs').show();
+      });
+      function show() {
+        var mydate = new Date();
+        var year = mydate.getFullYear();
+        var month = mydate.getMonth() + 1;
+        var day = mydate.getDate();
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        var str = "" + year + "-" + month + '-' + day;
+        return str;
+      };
+    })

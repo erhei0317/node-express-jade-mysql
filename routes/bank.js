@@ -23,5 +23,13 @@ router.get('/ny', function(req, res, next) {
 router.get('/nyl', function(req, res, next) {
     res.render('bank/nyl', { title: '借记卡明细' });
 });
+//进入工商银行APP
+router.get('/gs', function(req, res, next) {
+    res.render('bank/gs', { title: '查询明细' });
+});
+//进入建设银行APP
+router.get('/js', function(req, res, next) {
+    res.render('bank/js', { title: '查询明细' });
+});
 module.exports = router;
 

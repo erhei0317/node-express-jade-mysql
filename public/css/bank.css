@@ -151,3 +151,40 @@ body{
 .nyl-content ul li:last-child{
     border-bottom: none;
 }
+/*工商银行App*/
+.gs-content ul{
+    margin-top: 5px;
+    background-color: #ffffff;
+    border-top: 1px solid #E3E3E5;
+    border-bottom: 1px solid #E3E3E5;
+    padding: 11px 20px;
+    list-style: none;
+}
+.gs-content ul li{
+    line-height: 21px;
+}
+.gs-content ul li span{
+    color: #607483;
+}
+.gs-content .left-font{
+    color: #95ADB7;
+    width: 120px;
+    text-align: right;
+    display: inline-block;
+}
+.gs-content .left-font span{
+    color: #95ADB7;
+}
+.gs-content .left-font:after{
+    content: '：';
+}
+.gs-content .left-font-jydu{
+    color: #95ADB7;
+    width: 120px;
+    text-align: right;
+    display: inline-block;
+}
+.gs-content .left-font-jydu span{
+    margin-right:14px;
+    color: #95ADB7;
+}
