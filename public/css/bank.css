@@ -188,3 +188,100 @@ body{
     margin-right:14px;
     color: #95ADB7;
 }
+/*建设银行APP*/
+.js-body{
+}
+.js-content img{
+    height: 100%;
+    float: left;
+}
+.js-content .js-content-right{
+    background: -webkit-linear-gradient(left, #72a2b0 , #dfe2e1); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #72a2b0 , #dfe2e1); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #72a2b0 , #dfe2e1); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #72a2b0 , #dfe2e1); /* 标准的语法 */
+    height: 100%;
+}
+.js-content .js-content-wrap{
+    /*border-left: 1px solid #6d97a3;*/
+    /*border-right: 1px solid #d0d2d2;*/
+    border-bottom: 1px solid transparent ;
+    border-top: 1px solid transparent ;
+    background: -webkit-linear-gradient(left, #aac7d0 , #eceeed); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #aac7d0 , #eceeed); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #aac7d0 , #eceeed); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #aac7d0  , #eceeed); /* 标准的语法 */
+    height: 90%;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    left: 46px;
+    border-radius: 5px;
+}
+.js-content .js-ul-t{
+    list-style: none;
+    background-color: #ffffff;
+    margin: 9px 5px;
+    border-radius: 5px;
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    padding:21px 9px 17px;
+    color: #555555;
+ }
+.js-content .js-ul-t .ul-t-ze-l{
+    float: left;
+    font-size: 28px;
+    color: #be0000;
+    margin-bottom: 15px;
+ }
+.js-content .js-ul-t .ul-t-ze-r{
+    float: right;
+ }
+.js-content .js-ul-t .ul-t-ze-r span{
+    display: block;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: right;
+ }
+.js-content .js-ul-t li{
+    line-height: 26px;
+    margin-left: 6px;
+}
+.js-content .js-ul-t li:first-child{
+    margin-left: 0;
+}
+.js-content .js-ul-t .pull-right{
+    float:right;
+    color: #6395e2;
+    margin-right: 6px;
+}
+.js-content .js-ul-c{
+    list-style: none;
+    margin: 9px 5px;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 14px 2px 4px;
+    background: -webkit-linear-gradient(left, #576468 , #787979); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #576468 , #787979); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #576468 , #787979); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #576468   , #787979); /* 标准的语法 */
+}
+.js-content .js-ul-c .ul-c-t{
+    border-bottom: 1px dashed #d6d8d9;
+    padding-bottom: 11px;
+    margin-bottom: 6px;
+    line-height: 20px;
+}
+.js-content .js-ul-c li{
+    line-height: 29px;
+    padding-left: 7px;
+}
+.js-content .js-ul-c li:last-child{
+    margin-top: 5px;
+}
+.js-content .color-green{
+    color: #3bb63a;
+}
+.js-content .color-red{
+    color: #be0000;
+}

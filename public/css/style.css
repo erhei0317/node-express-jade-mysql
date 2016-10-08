@@ -12,6 +12,17 @@ a {
 .primary-color{
     color: #09bb07;
 }
+.clear-fix{
+    zoom:1;    /*==for IE6/7 Maxthon2==*/
+}
+.clear-fix:after {             /*==for FF/chrome/opera/IE8==*/
+    clear:both;
+    content:'.';
+    display:block;
+    width: 0;
+    height: 0;
+    visibility:hidden;
+}
 /*字体图标star*/
 @font-face {
     font-family: 'tiny';

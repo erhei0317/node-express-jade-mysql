@@ -1,0 +1,172 @@
+doctype html
+html(style='height: 100%')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width,initial-scale=1,user-scalable=0')
+    title= title
+    //-  引入公共文件
+    include ../../includes/head
+    link(rel='stylesheet', href='/css/bank.css')
+  body.js-body(ontouchstart="",style='height: 100%;overflow:hidden;')
+    .container(style='height: 100%;padding:0;')
+      div.js-content(style='height: 100%')
+        img#leftImg(src='/img/bank/js-left1.png')
+        div.js-content-right
+          div.js-content-wrap
+            ul.js-ul-t
+              li.clear-fix
+                div.ul-t-ze-l 1,000.00
+                div.ul-t-ze-r
+                  span 活期储蓄
+                  span#ll(contenteditable="true") 利率：0.01%
+              li 币种：
+                span 人民币
+              li 开户日期：
+                span#khrq(contenteditable="true") 2015/07/14&nbsp;&nbsp;&nbsp;&nbsp;
+                span.pull-right 收支图
+              li 龙卡通：
+                span#lkt(contenteditable="true") 6217007200030671234&nbsp;&nbsp;&nbsp;&nbsp;
+            ul.js-ul-c
+              li.ul-c-t 交易日期：
+                span#date(contenteditable="true") 2016/10/03 17:39:26
+              li
+                span#income  收入：
+                span#sr.color-red(contenteditable="true") 10,000.00&nbsp;&nbsp;&nbsp;&nbsp;
+              li
+                span#expend 支出：
+                span#zc.color-green(contenteditable="true") 1,000.00&nbsp;&nbsp;&nbsp;&nbsp;
+              li 余额：
+                span#ye(contenteditable="true") 1,000.00&nbsp;&nbsp;&nbsp;&nbsp;
+              li 对方账户：
+                span#dfzhin(contenteditable="true") 6222***7670&nbsp;&nbsp;张三
+                span#dfzhout(contenteditable="true") 6222***7670&nbsp;&nbsp;李四
+              li 摘要：
+                span#zy(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
+              li 交易地点/附言：
+                span#jydd(contenteditable="true") 跨行转账&nbsp;&nbsp;&nbsp;&nbsp;
+  script.
+    $(function () {
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
+      if (window.localStorage.jsll) {
+        $('#ll').html(window.localStorage.jsll);
+      } else {
+        window.localStorage.jsll = $('#ll').html();
+      }
+      if (window.localStorage.jskhrq) {
+        $('#khrq').html(window.localStorage.jskhrq);
+      } else {
+        window.localStorage.jskhrq = $('#khrq').html();
+      }
+      if (window.localStorage.jslkt) {
+        $('#lkt').html(window.localStorage.jslkt);
+      } else {
+        window.localStorage.jslkt = $('#lkt').html();
+      }
+      if (window.localStorage.jssr) {
+        $('#sr').html(window.localStorage.jssr);
+      } else {
+        window.localStorage.jssr = $('#sr').html();
+      }
+      if (window.localStorage.jszc) {
+        $('#zc').html(window.localStorage.jszc);
+      } else {
+        window.localStorage.jszc = $('#zc').html();
+      }
+      if (window.localStorage.jsye) {
+        $('#ye').html(window.localStorage.jsye);
+      } else {
+        window.localStorage.jsye = $('#ye').html();
+      }
+      if (window.localStorage.jsdfzhin) {
+        $('#dfzhin').html(window.localStorage.jsdfzhin);
+      } else {
+        window.localStorage.jsdfzhin = $('#dfzhin').html();
+      }
+      if (window.localStorage.jsdfzhout) {
+        $('#dfzhout').html(window.localStorage.jsdfzhout);
+      } else {
+        window.localStorage.jsdfzhout = $('#dfzhout').html();
+      }
+      if (window.localStorage.jszy) {
+        $('#zy').html(window.localStorage.jszy);
+      } else {
+        window.localStorage.jszy = $('#zy').html();
+      }
+      if (window.localStorage.jsjydd) {
+        $('#jydd').html(window.localStorage.jsjydd);
+      } else {
+        window.localStorage.jsjydd = $('#jydd').html();
+      }
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---end
+      // 修改数据时，失焦后存入localStorage--start
+      $('#ll').blur(function () {
+        window.localStorage.jsll = $(this).html();
+      });
+      $('#khrq').blur(function () {
+        window.localStorage.jskhrq = $(this).html();
+      });
+      $('#lkt').blur(function () {
+        window.localStorage.jslkt = $(this).html();
+      });
+      $('#sr').blur(function () {
+        window.localStorage.jssr = $(this).html();
+      });
+      $('#zc').blur(function () {
+        window.localStorage.jszc = $(this).html();
+      });
+      $('#ye').blur(function () {
+        window.localStorage.jsye = $(this).html();
+        $('.ul-t-ze-l').html($('#ye').html());
+      });
+      $('#dfzhin').blur(function () {
+        window.localStorage.jsdfzhin = $(this).html();
+      });
+      $('#dfzhout').blur(function () {
+        window.localStorage.jsdfzhout = $(this).html();
+      });
+      $('#zy').blur(function () {
+        window.localStorage.jszy = $(this).html();
+      });
+      $('#jydd').blur(function () {
+        window.localStorage.jsjydd = $(this).html();
+      });
+      // 修改数据时，失焦后存入localStorage--end
+      $('#date').html(format(new Date().getTime()));
+      $('.js-content-right').css('marginLeft',parseInt($('#leftImg').width())+'px');
+      $('.js-content-wrap').css('left',parseInt($('#leftImg').width())+2+'px');
+      $('.ul-t-ze-l').html($('#ye').html());
+      $('#expend').hide();
+      $('#zc').hide();
+      $('#dfzhout').hide();
+      $('#expend').click(function(){
+        $(this).hide();
+        $('#zc').hide();
+        $('#dfzhout').hide();
+        $('#income').show();
+        $('#sr').show();
+        $('#dfzhin').show();
+      });
+      $('#income').click(function () {
+        $(this).hide();
+        $('#sr').hide();
+        $('#dfzhin').hide();
+        $('#expend').show();
+        $('#zc').show();
+        $('#dfzhout').show();
+      });
+      function add0(m) {
+        return m < 10 ? '0' + m : m
+      }
+      function format(shijianchuo) {
+        //shijianchuo是整数，否则要parseInt转换
+        shijianchuo = parseInt(shijianchuo)
+        var time = new Date(shijianchuo);
+        var y = time.getFullYear();
+        var m = time.getMonth() + 1;
+        var d = time.getDate();
+        var h = time.getHours();
+        var mm = time.getMinutes();
+        var s = time.getSeconds();
+        return y + '/' + add0(m) + '/' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+      }
+    })
