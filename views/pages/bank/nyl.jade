@@ -11,7 +11,7 @@ html
     .container(style='padding-bottom: 11px;')
       img.title-img(src='/img/bank/nyl-title.jpg', style='position:fixed;top:0;')
       img.title-img(src='/img/bank/nyl-title.jpg')
-      div.nyl-number(contenteditable="true") 6228****1234&nbsp;&nbsp;&nbsp;&nbsp;
+      div#wdzh.nyl-number(contenteditable="true") 6228****1234&nbsp;&nbsp;&nbsp;&nbsp;
       div.nyl-content
         ul
           li 交易时间：
@@ -163,6 +163,11 @@ html
         return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
       }
       //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
+      if (window.localStorage.nylwdzh) {
+        $('#wdzh').html(window.localStorage.nylwdzh);
+      } else {
+        window.localStorage.nylwdzh = $('#wdzh').html();
+      }
       // 第一条数据
       if (window.localStorage.nyljyzy1) {
         $('#jyzy1').html(window.localStorage.nyljyzy1);
@@ -258,6 +263,9 @@ html
       }
       //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---end
       // 修改数据时，失焦后存入localStorage--start
+      $('#wdzh').blur(function () {
+        window.localStorage.nylwdzh = $(this).html();
+      });
       //第一条数据
       $('#jyzy1').blur(function () {
         window.localStorage.nyljyzy1 = $(this).html();
