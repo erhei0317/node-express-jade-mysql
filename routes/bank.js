@@ -29,7 +29,7 @@ router.get('/gs', function(req, res, next) {
 });
 //进入建设银行APP
 router.get('/js', function(req, res, next) {
-    res.render('bank/js', { title: '查询明细' });
+    res.render('bank/js', { title: '账户明细' });
 });
 module.exports = router;
 

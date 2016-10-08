@@ -211,7 +211,7 @@ body{
     background: -o-linear-gradient(right, #aac7d0 , #eceeed); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(right, #aac7d0 , #eceeed); /* Firefox 3.6 - 15 */
     background: linear-gradient(to right, #aac7d0  , #eceeed); /* 标准的语法 */
-    height: 90%;
+    height: 97.5%;
     position: absolute;
     top: 6px;
     right: 6px;
