@@ -71,11 +71,31 @@ html
       $('#zh').blur(function () {
         window.localStorage.gfzh = $(this).html();
       });
-      $('#sr').blur(function () {
-        window.localStorage.gfsr = $(this).html();
+      $('#sr').click(function () {
+        var num = prompt("请输入金额如：1000", ""); //将输入的内容赋给变量 name ，
+        if (num) {   //如果返回的有内容
+          num = parseFloat(num);
+          if(isNaN(num)){
+            alert('您的输入有误！')
+          }else{
+            num = numFormat(num);
+            $(this).html(num);
+            window.localStorage.gfsr = $(this).html();
+          }
+        }
       });
-      $('#zc').blur(function () {
-        window.localStorage.gfzc = $(this).html();
+      $('#zc').click(function () {
+        var num = prompt("请输入金额如：1000", ""); //将输入的内容赋给变量 name ，
+        if (num) {   //如果返回的有内容
+          num = parseFloat(num);
+          if(isNaN(num)){
+            alert('您的输入有误！')
+          }else{
+            num = numFormat(num);
+            $(this).html(num);
+            window.localStorage.gfzc = $(this).html();
+          }
+        }
       });
       $('#dfhm').blur(function () {
         window.localStorage.gfdfhm = $(this).html();
@@ -119,6 +139,16 @@ html
         var str = "&nbsp;&nbsp;&nbsp;&nbsp;" + year + "-" + month + '-' + day;
         return str;
       }
-      var usAgent = navigator.userAgent;
-      console.log(usAgent)
+      function numFormat(num){
+        num = parseFloat(num.toFixed(2)).toLocaleString();
+        var aNum = num.split('.');
+        if(aNum.length<=1){
+          num += '.00';
+        }else{
+          if(aNum[1].length==1){
+            num += '0';
+          }
+        }
+        return num;
+      }
     })

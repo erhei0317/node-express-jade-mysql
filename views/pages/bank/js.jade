@@ -108,15 +108,45 @@ html(style='height: 100%')
       $('#lkt').blur(function () {
         window.localStorage.jslkt = $(this).html();
       });
-      $('#sr').blur(function () {
-        window.localStorage.jssr = $(this).html();
+      $('#sr').click(function () {
+        var num = prompt("请输入金额如：1000", ""); //将输入的内容赋给变量 name ，
+        if (num) {   //如果返回的有内容
+          num = parseFloat(num);
+          if(isNaN(num)){
+            alert('您的输入有误！')
+          }else{
+            num = numFormat(num);
+            $(this).html(num);
+            window.localStorage.jssr = $(this).html();
+          }
+        }
       });
-      $('#zc').blur(function () {
-        window.localStorage.jszc = $(this).html();
+      $('#zc').click(function () {
+        var num = prompt("请输入金额如：1000", ""); //将输入的内容赋给变量 name ，
+        if (num) {   //如果返回的有内容
+          num = parseFloat(num);
+          if(isNaN(num)){
+            alert('您的输入有误！')
+          }else{
+            num = numFormat(num);
+            $(this).html(num);
+            window.localStorage.jszc = $(this).html();
+          }
+        }
       });
-      $('#ye').blur(function () {
-        window.localStorage.jsye = $(this).html();
-        $('.ul-t-ze-l').html($('#ye').html());
+      $('#ye').click(function () {
+        var num = prompt("请输入金额如：1000", ""); //将输入的内容赋给变量 name ，
+        if (num) {   //如果返回的有内容
+          num = parseFloat(num);
+          if(isNaN(num)){
+            alert('您的输入有误！')
+          }else{
+            num = numFormat(num);
+            $(this).html(num);
+            window.localStorage.jsye = $(this).html();
+            $('.ul-t-ze-l').html($('#ye').html());
+          }
+        }
       });
       $('#dfzhin').blur(function () {
         window.localStorage.jsdfzhin = $(this).html();
@@ -168,5 +198,17 @@ html(style='height: 100%')
         var mm = time.getMinutes();
         var s = time.getSeconds();
         return y + '/' + add0(m) + '/' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+      }
+      function numFormat(num) {
+        num = parseFloat(num.toFixed(2)).toLocaleString();
+        var aNum = num.split('.');
+        if (aNum.length <= 1) {
+          num += '.00';
+        } else {
+          if (aNum[1].length == 1) {
+            num += '0';
+          }
+        }
+        return num;
       }
     })

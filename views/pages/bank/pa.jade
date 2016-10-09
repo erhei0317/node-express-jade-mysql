@@ -93,8 +93,18 @@ html
       $('#skh').blur(function () {
         window.localStorage.paskh = $(this).html();
       });
-      $('#je').blur(function () {
-        window.localStorage.paje = $(this).html();
+      $('#je').click(function () {
+        var num = prompt("请输入金额如：1000", ""); //将输入的内容赋给变量 name ，
+        if (num) {   //如果返回的有内容
+          num = parseFloat(num);
+          if(isNaN(num)){
+            alert('您的输入有误！')
+          }else{
+            num = numFormat(num);
+            $(this).html(num);
+            window.localStorage.paje = $(this).html();
+          }
+        }
       });
       // 修改数据时，失焦后存入localStorage--end
       $('#date').html(show());
@@ -117,4 +127,16 @@ html
         var str = "" + year + "-" + month + '-' + day;
         return str;
       };
+      function numFormat(num) {
+        num = parseFloat(num.toFixed(2)).toLocaleString();
+        var aNum = num.split('.');
+        if (aNum.length <= 1) {
+          num += '.00';
+        } else {
+          if (aNum[1].length == 1) {
+            num += '0';
+          }
+        }
+        return num;
+      }
     })
