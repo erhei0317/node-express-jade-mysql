@@ -71,26 +71,39 @@ html
       $('#zzje').click(function () {
         var num = prompt("请输入金额如：1000", ""); //将输入的内容赋给变量 name ，
         if (num) {   //如果返回的有内容
-          num = parseFloat(num);
-          if(isNaN(num)){
-            alert('您的输入有误！')
-          }else{
-           num = numFormat(num);
+          if(num.indexOf(',')>=0){
+            var aNum = num.split('.');
+            if (aNum.length <= 1) {
+              num += '.00';
+            } else {
+              if (aNum[1].length == 1) {
+                num += '0';
+              }
+            }
             $(this).html(num+'元');
             window.localStorage.nyzzje = $(this).html();
+          }else{
+            num = parseFloat(num);
+            if(isNaN(num)){
+              alert('您的输入有误！')
+            }else{
+             num = numFormat(num);
+              $(this).html(num+'元');
+              window.localStorage.nyzzje = $(this).html();
+            }
           }
         }
       });
       function numFormat(num){
-        num = parseFloat(num.toFixed(2)).toLocaleString();
-        var aNum = num.split('.');
-        if(aNum.length<=1){
-          num += '.00';
-        }else{
-          if(aNum[1].length==1){
-            num += '0';
+          num = parseFloat(num.toFixed(2)).toLocaleString();
+          var aNum = num.split('.');
+          if (aNum.length <= 1) {
+            num += '.00';
+          } else {
+            if (aNum[1].length == 1) {
+              num += '0';
+            }
           }
-        }
         return num;
       }
       // 修改数据时，失焦后存入localStorage--end
