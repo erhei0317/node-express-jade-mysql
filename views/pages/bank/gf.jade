@@ -74,26 +74,38 @@ html
       $('#sr').click(function () {
         var num = prompt("请输入金额如：1000", ""); //将输入的内容赋给变量 name ，
         if (num) {   //如果返回的有内容
-          num = parseFloat(num);
-          if(isNaN(num)){
-            alert('您的输入有误！')
-          }else{
-            num = numFormat(num);
+          if(num.indexOf(',')>=0){
+            num = numFormat2(num);
             $(this).html(num);
             window.localStorage.gfsr = $(this).html();
+          } else {
+            num = parseFloat(num);
+            if (isNaN(num)) {
+              alert('您的输入有误！')
+            } else {
+              num = numFormat(num);
+              $(this).html(num);
+              window.localStorage.gfsr = $(this).html();
+            }
           }
         }
       });
       $('#zc').click(function () {
         var num = prompt("请输入金额如：1000", ""); //将输入的内容赋给变量 name ，
         if (num) {   //如果返回的有内容
-          num = parseFloat(num);
-          if(isNaN(num)){
-            alert('您的输入有误！')
-          }else{
-            num = numFormat(num);
+          if(num.indexOf(',')>=0){
+            num = numFormat2(num);
             $(this).html(num);
             window.localStorage.gfzc = $(this).html();
+          } else {
+            num = parseFloat(num);
+            if (isNaN(num)) {
+              alert('您的输入有误！')
+            } else {
+              num = numFormat(num);
+              $(this).html(num);
+              window.localStorage.gfzc = $(this).html();
+            }
           }
         }
       });
@@ -145,7 +157,25 @@ html
         if(aNum.length<=1){
           num += '.00';
         }else{
+          if (aNum[1].length == 0) {
+            num += '00';
+          }
           if(aNum[1].length==1){
+            num += '0';
+          }
+        }
+        return num;
+      }
+
+      function numFormat2(num) {
+        var aNum = num.split('.');
+        if (aNum.length <= 1) {
+          num += '.00';
+        } else {
+          if (aNum[1].length == 0) {
+            num += '00';
+          }
+          if (aNum[1].length == 1) {
             num += '0';
           }
         }
