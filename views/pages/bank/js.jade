@@ -12,13 +12,13 @@ html(style='height: 100%')
       div.js-content(style='height: 100%')
         img#leftImg(src='/img/bank/js-left.png')
         div.js-content-right
-          div.js-content-wrap
+          div.js-content-wrap(style='overflow-y:auto;')
             ul.js-ul-t
               li.clear-fix
                 div.ul-t-ze-l 1,000.00
                 div.ul-t-ze-r
                   span 活期储蓄
-                  span#ll(contenteditable="true") 利率：0.01%
+                  span#ll(contenteditable="true") 利率：0.30%
               li 币种：
                 span 人民币
               li 开户日期：
@@ -44,6 +44,25 @@ html(style='height: 100%')
                 span#zy(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
               li 交易地点/附言：
                 span#jydd(contenteditable="true") 跨行转账&nbsp;&nbsp;&nbsp;&nbsp;
+                //-第二条数据
+            ul.js-ul-c
+              li.ul-c-t 交易日期：
+                span#date1(contenteditable="true") 2016/10/03 17:39:26
+              li
+                span#income1  收入：
+                span#sr1.color-red(contenteditable="true") 10,000.00
+              li
+                span#expend1 支出：
+                span#zc1.color-green(contenteditable="true") 1,000.00
+              li 余额：
+                span#ye1(contenteditable="true") 10,000.00
+              li 对方账户：
+                span#dfzhin1(contenteditable="true") 6222***7670&nbsp;&nbsp;张三
+                span#dfzhout1(contenteditable="true") 6222***7670&nbsp;&nbsp;李四
+              li 摘要：
+                span#zy1(contenteditable="true") 补货&nbsp;&nbsp;&nbsp;&nbsp;
+              li 交易地点/附言：
+                span#jydd1(contenteditable="true") 跨行转账&nbsp;&nbsp;&nbsp;&nbsp;
   script.
     $(function () {
       //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
@@ -62,6 +81,7 @@ html(style='height: 100%')
       } else {
         window.localStorage.jslkt = $('#lkt').html();
       }
+      //第一条数据
       if (window.localStorage.jssr) {
         $('#sr').html(window.localStorage.jssr);
       } else {
@@ -97,6 +117,42 @@ html(style='height: 100%')
       } else {
         window.localStorage.jsjydd = $('#jydd').html();
       }
+      //第二条数据
+      if (window.localStorage.jssr1) {
+        $('#sr1').html(window.localStorage.jssr1);
+      } else {
+        window.localStorage.jssr1 = $('#sr1').html();
+      }
+      if (window.localStorage.jszc1) {
+        $('#zc1').html(window.localStorage.jszc1);
+      } else {
+        window.localStorage.jszc1 = $('#zc1').html();
+      }
+      if (window.localStorage.jsye1) {
+        $('#ye1').html(window.localStorage.jsye1);
+      } else {
+        window.localStorage.jsye1 = $('#ye1').html();
+      }
+      if (window.localStorage.jsdfzhin1) {
+        $('#dfzhin1').html(window.localStorage.jsdfzhin1);
+      } else {
+        window.localStorage.jsdfzhin1 = $('#dfzhin1').html();
+      }
+      if (window.localStorage.jsdfzhout1) {
+        $('#dfzhout1').html(window.localStorage.jsdfzhout1);
+      } else {
+        window.localStorage.jsdfzhout1 = $('#dfzhout1').html();
+      }
+      if (window.localStorage.jszy1) {
+        $('#zy1').html(window.localStorage.jszy1);
+      } else {
+        window.localStorage.jszy1 = $('#zy1').html();
+      }
+      if (window.localStorage.jsjydd1) {
+        $('#jydd1').html(window.localStorage.jsjydd1);
+      } else {
+        window.localStorage.jsjydd1 = $('#jydd1').html();
+      }
       //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---end
       // 修改数据时，失焦后存入localStorage--start
       $('#ll').blur(function () {
@@ -108,6 +164,7 @@ html(style='height: 100%')
       $('#lkt').blur(function () {
         window.localStorage.jslkt = $(this).html();
       });
+      //第一条数据
       $('#sr').blur(function () {
         var num = $(this).html();
         if(num.indexOf(',')>=0){
@@ -173,14 +230,82 @@ html(style='height: 100%')
       $('#jydd').blur(function () {
         window.localStorage.jsjydd = $(this).html();
       });
+      //第二条数据
+      $('#sr1').blur(function () {
+        var num = $(this).html();
+        if(num.indexOf(',')>=0){
+          num = numFormat2(num);
+          $(this).html(num);
+          window.localStorage.jssr1 = $(this).html();
+        }else {
+          num = parseFloat(num);
+          if (isNaN(num)) {
+            alert('您的输入有误！')
+          } else {
+            num = formatNum(num);
+            $(this).html(num);
+            window.localStorage.jssr1 = $(this).html();
+          }
+        }
+      });
+      $('#zc1').blur(function () {
+        var num = $(this).html();
+        if(num.indexOf(',')>=0){
+          num = numFormat2(num);
+          $(this).html(num);
+          window.localStorage.jszc1 = $(this).html();
+        }else {
+          num = parseFloat(num);
+          if (isNaN(num)) {
+            alert('您的输入有误！')
+          } else {
+            num = formatNum(num);
+            $(this).html(num);
+            window.localStorage.jszc1 = $(this).html();
+          }
+        }
+      });
+      $('#ye1').blur(function () {
+        var num = $(this).html();
+        if(num.indexOf(',')>=0){
+          num = numFormat2(num);
+          $(this).html(num);
+          window.localStorage.jsye1 = $(this).html();
+        }else {
+          num = parseFloat(num);
+          if (isNaN(num)) {
+            alert('您的输入有误！')
+          } else {
+            num = formatNum(num);
+            $(this).html(num);
+            window.localStorage.jsye1 = $(this).html();
+          }
+        }
+      });
+      $('#dfzhin1').blur(function () {
+        window.localStorage.jsdfzhin1 = $(this).html();
+      });
+      $('#dfzhout1').blur(function () {
+        window.localStorage.jsdfzhout1 = $(this).html();
+      });
+      $('#zy1').blur(function () {
+        window.localStorage.jszy1 = $(this).html();
+      });
+      $('#jydd1').blur(function () {
+        window.localStorage.jsjydd1 = $(this).html();
+      });
       // 修改数据时，失焦后存入localStorage--end
       $('#date').html(format(new Date().getTime()));
+      $('#date1').html(format(new Date().getTime() - (Math.random() * 2 + 1) * 3600 * 1000));  //比data早1-2个小时
       $('.js-content-right').css('marginLeft',parseInt($('#leftImg').width())+'px');
       $('.js-content-wrap').css('left',parseInt($('#leftImg').width())+2+'px');
       $('.ul-t-ze-l').html($('#ye').html());
       $('#expend').hide();
       $('#zc').hide();
       $('#dfzhout').hide();
+      $('#expend1').hide();
+      $('#zc1').hide();
+      $('#dfzhout1').hide();
       $('#expend').click(function(){
         $(this).hide();
         $('#zc').hide();
@@ -196,6 +321,22 @@ html(style='height: 100%')
         $('#expend').show();
         $('#zc').show();
         $('#dfzhout').show();
+      });
+      $('#expend1').click(function(){
+        $(this).hide();
+        $('#zc1').hide();
+        $('#dfzhout1').hide();
+        $('#income1').show();
+        $('#sr1').show();
+        $('#dfzhin1').show();
+      });
+      $('#income1').click(function () {
+        $(this).hide();
+        $('#sr1').hide();
+        $('#dfzhin1').hide();
+        $('#expend1').show();
+        $('#zc1').show();
+        $('#dfzhout1').show();
       });
       function add0(m) {
         return m < 10 ? '0' + m : m
