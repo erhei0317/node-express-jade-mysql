@@ -37,7 +37,7 @@ html
             span 手机银行&nbsp;&nbsp;&nbsp;&nbsp;
           li
             span.left-font 交易金额
-            span#jyje(contenteditable="true") 1,000.00&nbsp;&nbsp;&nbsp;&nbsp;
+            span#jyje(contenteditable="true") 1,000.00
           li
             span.left-font 交易币种
             span 人民币
@@ -49,7 +49,7 @@ html
             span --
           li
             span.left-font 余额
-            span#ye(contenteditable="true") 1,000.00&nbsp;&nbsp;&nbsp;&nbsp;
+            span#ye(contenteditable="true") 1,000.00
           li
             span.left-font 对方交易账户
             span#dfjyzh(contenteditable="true") 6222 9800 2267 1234&nbsp;&nbsp;&nbsp;&nbsp;
@@ -89,41 +89,37 @@ html
       $('#ywzy').blur(function () {
         window.localStorage.gsywzy = $(this).html();
       });
-      $('#jyje').click(function () {
-        var num = prompt("请输入金额如：1000", ""); //将输入的内容赋给变量 name ，
-        if (num) {   //如果返回的有内容
-          if(num.indexOf(',')>=0){
-            num = numFormat2(num);
+      $('#jyje').blur(function () {
+        var num = $(this).html();
+        if(num.indexOf(',')>=0){
+          num = numFormat2(num);
+          $(this).html(num);
+          window.localStorage.gsjyje = $(this).html();
+        }else {
+          num = parseFloat(num);
+          if (isNaN(num)) {
+            alert('您的输入有误！')
+          } else {
+            num = formatNum(num);
             $(this).html(num);
             window.localStorage.gsjyje = $(this).html();
-          } else {
-            num = parseFloat(num);
-            if (isNaN(num)) {
-              alert('您的输入有误！')
-            } else {
-              num = numFormat(num);
-              $(this).html(num);
-              window.localStorage.gsjyje = $(this).html();
-            }
           }
         }
       });
-      $('#ye').click(function () {
-        var num = prompt("请输入金额如：1000", ""); //将输入的内容赋给变量 name ，
-        if (num) {   //如果返回的有内容
-          if(num.indexOf(',')>=0){
-            num = numFormat2(num);
+      $('#ye').blur(function () {
+        var num = $(this).html();
+        if(num.indexOf(',')>=0){
+          num = numFormat2(num);
+          $(this).html(num);
+          window.localStorage.gsye = $(this).html();
+        }else {
+          num = parseFloat(num);
+          if (isNaN(num)) {
+            alert('您的输入有误！')
+          } else {
+            num = formatNum(num);
             $(this).html(num);
             window.localStorage.gsye = $(this).html();
-          }else {
-            num = parseFloat(num);
-            if (isNaN(num)) {
-              alert('您的输入有误！')
-            } else {
-              num = numFormat(num);
-              $(this).html(num);
-              window.localStorage.gsye = $(this).html();
-            }
           }
         }
       });
@@ -189,4 +185,37 @@ html
         }
         return num;
       }
+
+      function formatNum(str) {
+        str += '';
+        var newStr = "";
+        var count = 0;
+        if (str.indexOf(".") == -1) {
+          for (var i = str.length - 1; i >= 0; i--) {
+            if (count % 3 == 0 && count != 0) {
+              newStr = str.charAt(i) + "," + newStr;
+            } else {
+              newStr = str.charAt(i) + newStr;
+            }
+            count++;
+          }
+          str = newStr + ".00"; //自动补小数点后两位
+          console.log(str)
+        }
+        else {
+          for (var i = str.indexOf(".") - 1; i >= 0; i--) {
+            if (count % 3 == 0 && count != 0) {
+              newStr = str.charAt(i) + "," + newStr;
+            } else {
+              newStr = str.charAt(i) + newStr; //逐个字符相接起来
+            }
+            count++;
+          }
+          str = newStr + (str + "00").substr((str + "00").indexOf("."), 3);
+          console.log(str)
+        }
+        return str;
+      }
+
+
     })
