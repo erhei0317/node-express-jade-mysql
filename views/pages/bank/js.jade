@@ -22,7 +22,7 @@ html(style='height: 100%')
               li 币种：
                 span 人民币
               li 开户日期：
-                span#khrq(contenteditable="true") 2015/07/14&nbsp;&nbsp;&nbsp;&nbsp;
+                span#khrq(contenteditable="true") 2015/6/12&nbsp;&nbsp;&nbsp;&nbsp;
                 span.pull-right 收支图
               li 龙卡通：
                 span#lkt(contenteditable="true") 6217007200030671234&nbsp;&nbsp;&nbsp;&nbsp;
@@ -168,7 +168,7 @@ html(style='height: 100%')
       $('#sr').blur(function () {
         var num = $(this).html();
         if(num.indexOf(',')>=0){
-          num = numFormat2(num);
+          num = formatNum(num);
           $(this).html(num);
           window.localStorage.jssr = $(this).html();
         }else {
@@ -181,11 +181,16 @@ html(style='height: 100%')
             window.localStorage.jssr = $(this).html();
           }
         }
+        var ye1 = beNum($('#ye1').html());
+        var sr = beNum($('#sr').html());
+        $('#ye').html(formatNum((parseFloat(ye1) + parseFloat(sr)).toFixed(2)));
+        window.localStorage.jsye = $('#ye').html();
+        $('.ul-t-ze-l').html($('#ye').html());
       });
       $('#zc').blur(function () {
         var num = $(this).html();
         if(num.indexOf(',')>=0){
-          num = numFormat2(num);
+          num = formatNum(num);
           $(this).html(num);
           window.localStorage.jszc = $(this).html();
         }else {
@@ -198,11 +203,16 @@ html(style='height: 100%')
             window.localStorage.jszc = $(this).html();
           }
         }
+        var ye1 = beNum($('#ye1').html());
+        var zc = beNum($('#zc').html());
+        $('#ye').html(formatNum((parseFloat(ye1) - parseFloat(zc)).toFixed(2)));
+        window.localStorage.jsye = $('#ye').html();
+        $('.ul-t-ze-l').html($('#ye').html());
       });
       $('#ye').blur(function () {
         var num = $(this).html();
         if(num.indexOf(',')>=0){
-          num = numFormat2(num);
+          num = formatNum(num);
           $(this).html(num);
           window.localStorage.jsye = $(this).html();
           $('.ul-t-ze-l').html($('#ye').html());
@@ -217,6 +227,16 @@ html(style='height: 100%')
             $('.ul-t-ze-l').html($('#ye').html());
           }
         }
+        var ye = beNum($('#ye').html());
+        var zc = beNum($('#zc').html());
+        var sr = beNum($('#sr').html());
+        if ($("#sr").is(":hidden")) {
+          $('#ye1').html(formatNum((parseFloat(ye) + parseFloat(zc)).toFixed(2)));
+        }
+        if ($("#zc").is(":hidden")) {
+          $('#ye1').html(formatNum((parseFloat(ye) - parseFloat(sr)).toFixed(2)));
+        }
+        window.localStorage.jsye1 = $('#ye1').html();
       });
       $('#dfzhin').blur(function () {
         window.localStorage.jsdfzhin = $(this).html();
@@ -234,7 +254,7 @@ html(style='height: 100%')
       $('#sr1').blur(function () {
         var num = $(this).html();
         if(num.indexOf(',')>=0){
-          num = numFormat2(num);
+          num = formatNum(num);
           $(this).html(num);
           window.localStorage.jssr1 = $(this).html();
         }else {
@@ -251,7 +271,7 @@ html(style='height: 100%')
       $('#zc1').blur(function () {
         var num = $(this).html();
         if(num.indexOf(',')>=0){
-          num = numFormat2(num);
+          num = formatNum(num);
           $(this).html(num);
           window.localStorage.jszc1 = $(this).html();
         }else {
@@ -268,7 +288,7 @@ html(style='height: 100%')
       $('#ye1').blur(function () {
         var num = $(this).html();
         if(num.indexOf(',')>=0){
-          num = numFormat2(num);
+          num = formatNum(num);
           $(this).html(num);
           window.localStorage.jsye1 = $(this).html();
         }else {
@@ -281,6 +301,17 @@ html(style='height: 100%')
             window.localStorage.jsye1 = $(this).html();
           }
         }
+        var ye1 = beNum($('#ye1').html());
+        var zc = beNum($('#zc').html());
+        var sr = beNum($('#sr').html());
+        if($("#sr").is(":hidden")){
+          $('#ye').html(formatNum((parseFloat(ye1) - parseFloat(zc)).toFixed(2)));
+        }
+        if($("#zc").is(":hidden")){
+          $('#ye').html(formatNum((parseFloat(ye1) + parseFloat(sr)).toFixed(2)));
+        }
+        window.localStorage.jsye = $('#ye').html();
+        $('.ul-t-ze-l').html($('#ye').html());
       });
       $('#dfzhin1').blur(function () {
         window.localStorage.jsdfzhin1 = $(this).html();
@@ -296,7 +327,7 @@ html(style='height: 100%')
       });
       // 修改数据时，失焦后存入localStorage--end
       $('#date').html(format(new Date().getTime()));
-      $('#date1').html(format(new Date().getTime() - (Math.random() * 2 + 1) * 3600 * 1000));  //比data早1-2个小时
+      $('#date1').html(format(new Date().getTime() - (Math.random() * 2 + 1) * 3600 * 1000));  //比data早1-3个小时
       $('.js-content-right').css('marginLeft',parseInt($('#leftImg').width())+'px');
       $('.js-content-wrap').css('left',parseInt($('#leftImg').width())+2+'px');
       $('.ul-t-ze-l').html($('#ye').html());
@@ -313,6 +344,11 @@ html(style='height: 100%')
         $('#income').show();
         $('#sr').show();
         $('#dfzhin').show();
+        var ye1 = beNum($('#ye1').html());
+        var sr = beNum($('#sr').html());
+        $('#ye').html(formatNum((parseFloat(ye1) + parseFloat(sr)).toFixed(2)));
+        window.localStorage.jsye = $('#ye').html();
+        $('.ul-t-ze-l').html($('#ye').html());
       });
       $('#income').click(function () {
         $(this).hide();
@@ -321,6 +357,11 @@ html(style='height: 100%')
         $('#expend').show();
         $('#zc').show();
         $('#dfzhout').show();
+        var ye1 = beNum($('#ye1').html());
+        var zc = beNum($('#zc').html());
+        $('#ye').html(formatNum((parseFloat(ye1) - parseFloat(zc)).toFixed(2)));
+        window.localStorage.jsye = $('#ye').html();
+        $('.ul-t-ze-l').html($('#ye').html());
       });
       $('#expend1').click(function(){
         $(this).hide();
@@ -353,38 +394,9 @@ html(style='height: 100%')
         var s = time.getSeconds();
         return y + '/' + add0(m) + '/' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
       }
-      function numFormat(num){
-        num = parseFloat(num.toFixed(2)).toLocaleString();
-        var aNum = num.split('.');
-        if(aNum.length<=1){
-          num += '.00';
-        }else{
-          if (aNum[1].length == 0) {
-            num += '00';
-          }
-          if(aNum[1].length==1){
-            num += '0';
-          }
-        }
-        return num;
-      }
-
-      function numFormat2(num) {
-        var aNum = num.split('.');
-        if (aNum.length <= 1) {
-          num += '.00';
-        } else {
-          if (aNum[1].length == 0) {
-            num += '00';
-          }
-          if (aNum[1].length == 1) {
-            num += '0';
-          }
-        }
-        return num;
-      }
       function formatNum(str) {
         str += '';
+        str = str.replace(/,/g, "");
         var newStr = "";
         var count = 0;
         if (str.indexOf(".") == -1) {
@@ -413,4 +425,11 @@ html(style='height: 100%')
         }
         return str;
       }
+      function beNum(str) {
+        str += '';
+        str = str.replace(/,/g, "");
+        return str;
+      }
+      $('#ye').html(formatNum((parseFloat(beNum($('#ye1').html())) + parseFloat(beNum($('#sr').html()))).toFixed(2)));
+      $('.ul-t-ze-l').html($('#ye').html());
     })
