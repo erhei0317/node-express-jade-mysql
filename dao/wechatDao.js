@@ -84,7 +84,7 @@ module.exports = {
                     }else{
                         if(result[0].tryTime > Date.now()/1000){   //试用期内
                             req.session.uid = result[0].id;
-                            req.session.name = result[0].nickname;
+                            req.session.name = result[0].nickname || 'Tina';
                             req.session.openid = openid;
                             req.session.isBank = 1;      //是否支持使用银行账单生成模块
                             res.redirect('../bank/bankList');
@@ -229,6 +229,7 @@ weixin.textMsg(function(msg) {
         content : "客官，我不知道你在说什么！",
         funcFlag : 0
     };
+    text = text.replace(/^\s+|\s+$/g,"");       //去除两头空格
     if(text.indexOf('银行账单生成')==0){
         var bankKey = text.split('银行账单生成')[1];      //获取银行账单生成激活码
         $dbc.pool.getConnection(function(err, connection) {     //查询用户是否已经激活过了

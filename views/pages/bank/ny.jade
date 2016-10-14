@@ -71,7 +71,7 @@ html
       $('#zzje').blur(function () {
           var num = $(this).html();
             if(num.indexOf(',')>=0){
-              num = numFormat2(num);
+              num = formatNum(num);
               $(this).html(num+'元');
               window.localStorage.nyzzje = $(this).html();
           }else {
@@ -85,45 +85,13 @@ html
             }
           }
       });
-      function numFormat(num){
-        num = parseFloat(num.toFixed(2)).toLocaleString();
-        var aNum = num.split('.');
-        if(aNum.length<=1){
-          num += '.00';
-        }else{
-          if (aNum[1].length == 0) {
-            num += '00';
-          }
-          if(aNum[1].length==1){
-            num += '0';
-          }
-        }
-        return num;
-      }
-
-      function numFormat2(num) {
-        if (num.indexOf('元') >= 0) {
-          num=num.substring(0,num.length-1)
-        }
-        var aNum = num.split('.');
-        if (aNum.length <= 1) {
-          num += '.00';
-        } else {
-          if (aNum[1].length == 0) {
-            num += '00';
-          }
-          if (aNum[1].length == 1) {
-            num += '0';
-          }
-        }
-        console.log(num)
-        return num;
-      }
       function formatNum(str) {
         str += '';
-        if (str.indexOf('元') >= 0) {
-          str = str.substring(0, str.length - 1)
-        }
+        str = str.replace(/,/g, "");
+        str = str.replace(/元/g, "");
+        //if (str.indexOf('元') >= 0) {
+        //  str = str.substring(0, str.length - 1)
+        //}
         var newStr = "";
         var count = 0;
         if (str.indexOf(".") == -1) {

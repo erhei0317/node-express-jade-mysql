@@ -96,9 +96,9 @@ html
       $('#je').blur(function () {
         var num = $(this).html();
         if(num.indexOf(',')>=0){
-          num = numFormat2(num);
+          num = formatNum(num);
           $(this).html(num);
-          window.localStorage.psje = $(this).html();
+          window.localStorage.paje = $(this).html();
         }else {
           num = parseFloat(num);
           if (isNaN(num)) {
@@ -106,7 +106,7 @@ html
           } else {
             num = formatNum(num);
             $(this).html(num);
-            window.localStorage.psje = $(this).html();
+            window.localStorage.paje = $(this).html();
           }
         }
       });
@@ -131,38 +131,9 @@ html
         var str = "" + year + "-" + month + '-' + day;
         return str;
       };
-      function numFormat(num){
-        num = parseFloat(num.toFixed(2)).toLocaleString();
-        var aNum = num.split('.');
-        if(aNum.length<=1){
-          num += '.00';
-        }else{
-          if (aNum[1].length == 0) {
-            num += '00';
-          }
-          if(aNum[1].length==1){
-            num += '0';
-          }
-        }
-        return num;
-      }
-
-      function numFormat2(num) {
-        var aNum = num.split('.');
-        if (aNum.length <= 1) {
-          num += '.00';
-        } else {
-          if (aNum[1].length == 0) {
-            num += '00';
-          }
-          if (aNum[1].length == 1) {
-            num += '0';
-          }
-        }
-        return num;
-      }
       function formatNum(str) {
         str += '';
+        str = str.replace(/,/g, "");
         var newStr = "";
         var count = 0;
         if (str.indexOf(".") == -1) {
@@ -175,7 +146,7 @@ html
             count++;
           }
           str = newStr + ".00"; //自动补小数点后两位
-          console.log(str)
+          console.log('a'+str)
         }
         else {
           for (var i = str.indexOf(".") - 1; i >= 0; i--) {

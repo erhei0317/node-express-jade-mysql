@@ -271,12 +271,15 @@ html
         window.localStorage.nyljyzy1 = $(this).html();
       });
       $('#income12').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
         window.localStorage.nylincome12 = $(this).html();
       });
       $('#expend12').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
         window.localStorage.nylexpend12 = $(this).html();
       });
       $('#bcye1').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
         window.localStorage.nylbcye1 = $(this).html();
         if($("#income22").is(":hidden")){
           $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#expend22').html())).toFixed(2));
@@ -290,6 +293,8 @@ html
         if($("#expend32").is(":hidden")){
           $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
         }
+        window.localStorage.nylbcye2 = $('#bcye2').html();
+        window.localStorage.nylbcye3 = $('#bcye3').html();
       });
       $('#dfxm1').blur(function () {
         window.localStorage.nyldfxm1 = $(this).html();
@@ -302,6 +307,7 @@ html
         window.localStorage.nyljyzy2 = $(this).html();
       });
       $('#income22').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
         window.localStorage.nylincome22 = $(this).html();
         $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#income22').html())).toFixed(2));
         if ($("#income32").is(":hidden")) {
@@ -310,8 +316,11 @@ html
         if ($("#expend32").is(":hidden")) {
           $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
         }
+        window.localStorage.nylbcye2 = $('#bcye2').html();
+        window.localStorage.nylbcye3 = $('#bcye3').html();
       });
       $('#expend22').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
         window.localStorage.nylexpend22 = $(this).html();
         $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#expend22').html())).toFixed(2));
         if ($("#income32").is(":hidden")) {
@@ -320,8 +329,11 @@ html
         if ($("#expend32").is(":hidden")) {
           $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
         }
+        window.localStorage.nylbcye2 = $('#bcye2').html();
+        window.localStorage.nylbcye3 = $('#bcye3').html();
       });
       $('#bcye2').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
         window.localStorage.nylbcye2 = $(this).html();
         if ($("#income22").is(":hidden")) {
           $('#bcye1').html((parseFloat($('#bcye2').html()) - parseFloat($('#expend22').html())).toFixed(2));
@@ -335,6 +347,8 @@ html
         if ($("#expend32").is(":hidden")) {
           $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
         }
+        window.localStorage.nylbcye1 = $('#bcye1').html();
+        window.localStorage.nylbcye3 = $('#bcye3').html();
       });
       $('#dfxm2').blur(function () {
         window.localStorage.nyldfxm2 = $(this).html();
@@ -347,14 +361,19 @@ html
         window.localStorage.nyljyzy3 = $(this).html();
       });
       $('#income32').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
         window.localStorage.nylincome32 = $(this).html();
         $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+        window.localStorage.nylbcye3 = $('#bcye3').html();
       });
       $('#expend32').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
         window.localStorage.nylexpend32 = $(this).html();
         $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+        window.localStorage.nylbcye3 = $('#bcye3').html();
       });
       $('#bcye3').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
         window.localStorage.nylbcye3 = $(this).html();
         if ($("#income32").is(":hidden")) {
           $('#bcye2').html((parseFloat($('#bcye3').html()) - parseFloat($('#expend32').html())).toFixed(2));
@@ -368,6 +387,8 @@ html
         if ($("#expend22").is(":hidden")) {
           $('#bcye1').html((parseFloat($('#bcye2').html()) - parseFloat($('#income22').html())).toFixed(2));
         }
+        window.localStorage.nylbcye1 = $('#bcye1').html();
+        window.localStorage.nylbcye2 = $('#bcye2').html();
       });
       $('#dfxm3').blur(function () {
         window.localStorage.nyldfxm3 = $(this).html();
