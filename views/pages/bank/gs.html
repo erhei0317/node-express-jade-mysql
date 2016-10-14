@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title></title>
+    <link rel="stylesheet" href="/libs/weui/dist/style/weui.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/bank.css">
+  </head>
+  <body ontouchstart="" style="background-color:#F3F3F3;">
+    <div class="container">
+      <div class="gs-content">
+        <ul>
+          <li><span class="left-font">交易日期</span><span id="date" contenteditable="true">2016-10-03</span></li>
+          <li><span class="left-font">业务摘要</span><span id="ywzy" contenteditable="true">跨行汇款&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li id="income"><span class="left-font">收支标志</span><span>收入&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li id="expend"><span class="left-font">收支标志</span><span>支出&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li><span class="left-font-jydu"><span>交易国家或地区</span><span>简称</span></span><span style="position: absolute;margin-top: 10px;margin-left:-13px;color: #95ADB7">：</span><span style="position: absolute;margin-top: 11px;">CHN</span></li>
+          <li id="injycs"><span class="left-font">交易场所</span><span>--&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li id="outjycs"><span class="left-font">交易场所</span><span>手机银行&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li><span class="left-font">交易金额</span><span id="jyje" contenteditable="true">1,000.00</span></li>
+          <li><span class="left-font">交易币种</span><span>人民币</span></li>
+          <li><span class="left-font">记账金额</span><span>--</span></li>
+          <li><span class="left-font">记账币种</span><span>--</span></li>
+          <li><span class="left-font">余额</span><span id="ye" contenteditable="true">1,000.00</span></li>
+          <li><span class="left-font">对方交易账户</span><span id="dfjyzh" contenteditable="true">6222 9800 2267 1234&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li><span class="left-font">对方户名</span><span id="dfhm" contenteditable="true">张三&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(function () {
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
+      if (window.localStorage.gsywzy) {
+        $('#ywzy').html(window.localStorage.gsywzy);
+      } else {
+        window.localStorage.gsywzy = $('#ywzy').html();
+      }
+      if (window.localStorage.gsjyje) {
+        $('#jyje').html(window.localStorage.gsjyje);
+      } else {
+        window.localStorage.gsjyje = $('#jyje').html();
+      }
+      if (window.localStorage.gsye) {
+        $('#ye').html(window.localStorage.gsye);
+      } else {
+        window.localStorage.gsye = $('#ye').html();
+      }
+      if (window.localStorage.gsdfjyzh) {
+        $('#dfjyzh').html(window.localStorage.gsdfjyzh);
+      } else {
+        window.localStorage.gsdfjyzh = $('#dfjyzh').html();
+      }
+      if (window.localStorage.gsdfhm) {
+        $('#dfhm').html(window.localStorage.gsdfhm);
+      } else {
+        window.localStorage.gsdfhm = $('#dfhm').html();
+      }
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---end
+      // 修改数据时，失焦后存入localStorage--start
+      $('#ywzy').blur(function () {
+        window.localStorage.gsywzy = $(this).html();
+      });
+      $('#jyje').blur(function () {
+        var num = $(this).html();
+        if(num.indexOf(',')>=0){
+          num = formatNum(num);
+          $(this).html(num);
+          window.localStorage.gsjyje = $(this).html();
+        }else {
+          num = parseFloat(num);
+          if (isNaN(num)) {
+            alert('您的输入有误！')
+          } else {
+            num = formatNum(num);
+            $(this).html(num);
+            window.localStorage.gsjyje = $(this).html();
+          }
+        }
+      });
+      $('#ye').blur(function () {
+        var num = $(this).html();
+        if(num.indexOf(',')>=0){
+          num = formatNum(num);
+          $(this).html(num);
+          window.localStorage.gsye = $(this).html();
+        }else {
+          num = parseFloat(num);
+          if (isNaN(num)) {
+            alert('您的输入有误！')
+          } else {
+            num = formatNum(num);
+            $(this).html(num);
+            window.localStorage.gsye = $(this).html();
+          }
+        }
+      });
+      $('#dfjyzh').blur(function () {
+        window.localStorage.gsdfjyzh = $(this).html();
+      });
+      $('#dfhm').blur(function () {
+        window.localStorage.gsdfhm = $(this).html();
+      });
+      // 修改数据时，失焦后存入localStorage--end
+      $('#date').html(show());
+      $('#expend').hide();
+      $('#outjycs').hide();
+      $('#expend').click(function(){
+        $(this).hide();
+        $('#outjycs').hide();
+        $('#income').show();
+        $('#injycs').show();
+      });
+      $('#income').click(function () {
+        $(this).hide();
+        $('#injycs').hide();
+        $('#expend').show();
+        $('#outjycs').show();
+      });
+      function show() {
+        var mydate = new Date();
+        var year = mydate.getFullYear();
+        var month = mydate.getMonth() + 1;
+        var day = mydate.getDate();
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        var str = "" + year + "-" + month + '-' + day;
+        return str;
+      };
+    
+      function formatNum(str) {
+        str += '';
+        str = str.replace(/,/g, "");
+        var newStr = "";
+        var count = 0;
+        if (str.indexOf(".") == -1) {
+          for (var i = str.length - 1; i >= 0; i--) {
+            if (count % 3 == 0 && count != 0) {
+              newStr = str.charAt(i) + "," + newStr;
+            } else {
+              newStr = str.charAt(i) + newStr;
+            }
+            count++;
+          }
+          str = newStr + ".00"; //自动补小数点后两位
+          console.log(str)
+        }
+        else {
+          for (var i = str.indexOf(".") - 1; i >= 0; i--) {
+            if (count % 3 == 0 && count != 0) {
+              newStr = str.charAt(i) + "," + newStr;
+            } else {
+              newStr = str.charAt(i) + newStr; //逐个字符相接起来
+            }
+            count++;
+          }
+          str = newStr + (str + "00").substr((str + "00").indexOf("."), 3);
+          console.log(str)
+        }
+        return str;
+      }
+    
+    
+    })
+  </script>
+</html>

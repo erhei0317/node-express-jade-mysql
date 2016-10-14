@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title></title>
+    <link rel="stylesheet" href="/libs/weui/dist/style/weui.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/bank.css">
+  </head>
+  <body ontouchstart="">
+    <div style="padding-bottom: 11px;" class="container"><img src="/img/bank/nyl-title.jpg" style="position:fixed;top:0;" class="title-img"><img src="/img/bank/nyl-title.jpg" class="title-img">
+      <div id="wdzh" contenteditable="true" class="nyl-number">6228****1234&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="nyl-content">
+        <ul>
+          <li>交易时间：<span id="date1" contenteditable="true">2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>交易摘要：<span id="jyzy1" contenteditable="true">补货&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li><span id="income1">收入金额：</span><span id="income12" contenteditable="true" class="nyl-money-in">1000.00</span></li>
+          <li><span id="expend1">支出金额：</span><span id="expend12" contenteditable="true" class="nyl-money-out">-1000.00</span></li>
+          <li>本次余额：<span id="bcye1" contenteditable="true">25208.34</span></li>
+          <li>对方姓名：<span id="dfxm1" contenteditable="true">张三&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>对方账户：<span id="dfzh1" contenteditable="true">6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>交易类型：<span contenteditable="true">转账&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>交易渠道：<span id="inqd1" contenteditable="true">超级网银&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="outqd1" contenteditable="true">掌上银行&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+        </ul>
+        <ul>
+          <li>交易时间：<span id="date2" contenteditable="true">2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>交易摘要：<span id="jyzy2" contenteditable="true">补货&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li><span id="income2">收入金额：</span><span id="income22" contenteditable="true" class="nyl-money-in">1000.00</span></li>
+          <li><span id="expend2">支出金额：</span><span id="expend22" contenteditable="true" class="nyl-money-out">-1000.00</span></li>
+          <li>本次余额：<span id="bcye2" contenteditable="true">25208.34</span></li>
+          <li>对方姓名：<span id="dfxm2" contenteditable="true">张三&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>对方账户：<span id="dfzh2" contenteditable="true">6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>交易类型：<span contenteditable="true">转账&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>交易渠道：<span id="inqd2" contenteditable="true">超级网银&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="outqd2" contenteditable="true">掌上银行&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+        </ul>
+        <ul>
+          <li>交易时间：<span id="date3" contenteditable="true">2016-10-01&nbsp;00:10:27&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>交易摘要：<span id="jyzy3" contenteditable="true">补货&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li><span id="income3">收入金额：</span><span id="income32" contenteditable="true" class="nyl-money-in">1000.00</span></li>
+          <li><span id="expend3">支出金额：</span><span id="expend32" contenteditable="true" class="nyl-money-out">-1000.00</span></li>
+          <li>本次余额：<span id="bcye3" contenteditable="true">25208.34</span></li>
+          <li>对方姓名：<span id="dfxm3" contenteditable="true">张三&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>对方账户：<span id="dfzh3" contenteditable="true">6222980022671234&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>交易类型：<span contenteditable="true">转账&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>交易渠道：<span id="inqd3" contenteditable="true">超级网银&nbsp;&nbsp;&nbsp;&nbsp;</span><span id="outqd3" contenteditable="true">掌上银行&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(function () {
+      $('#date1').html(format(new Date().getTime() - (Math.random()*13+11)*3600*1000));    //比data2早11-24个小时
+      $('#date2').html(format(new Date().getTime() - (Math.random()*9+1)*3600*1000));  //比data2早1-10个小时
+      $('#date3').html(format(new Date().getTime()));
+      $('#expend1').hide();
+      $('#expend12').hide();
+      $('#outqd1').hide();
+      $('#income2').hide();
+      $('#income22').hide();
+      $('#inqd2').hide();
+      $('#expend3').hide();
+      $('#expend32').hide();
+      $('#outqd3').hide();
+      $('#expend1').click(function(){
+        $(this).hide();
+        $('#expend12').hide();
+        $('#outqd1').hide();
+        $('#inqd1').show();
+        $('#income1').show();
+        $('#income12').show();
+      });
+      $('#income1').click(function () {
+        $(this).hide();
+        $('#income12').hide();
+        $('#inqd1').hide();
+        $('#outqd1').show();
+        $('#expend1').show();
+        $('#expend12').show();
+      });
+      $('#expend2').click(function(){
+        $(this).hide();
+        $('#expend22').hide();
+        $('#outqd2').hide();
+        $('#inqd2').show();
+        $('#income2').show();
+        $('#income22').show();
+        $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#income22').html())).toFixed(2));
+        $('#bcye3').html((parseFloat($('#bcye3').html()) + parseFloat($('#income22').html()) - parseFloat($('#expend22').html())).toFixed(2));
+      });
+      $('#income2').click(function () {
+        $(this).hide();
+        $('#income22').hide();
+        $('#inqd2').hide();
+        $('#outqd2').show();
+        $('#expend2').show();
+        $('#expend22').show();
+        $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#expend22').html())).toFixed(2));
+        $('#bcye3').html((parseFloat($('#bcye3').html()) - parseFloat($('#income22').html()) + parseFloat($('#expend22').html())).toFixed(2));
+      });
+      $('#expend3').click(function(){
+        $(this).hide();
+        $('#expend32').hide();
+        $('#outqd3').hide();
+        $('#inqd3').show();
+        $('#income3').show();
+        $('#income32').show();
+        $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+      });
+      $('#income3').click(function () {
+        $(this).hide();
+        $('#income32').hide();
+        $('#inqd3').hide();
+        $('#outqd3').show();
+        $('#expend3').show();
+        $('#expend32').show();
+        $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+      });
+      function add0(m) {
+        return m < 10 ? '0' + m : m
+      }
+      function format(shijianchuo) {
+        //shijianchuo是整数，否则要parseInt转换
+        shijianchuo = parseInt(shijianchuo)
+        var time = new Date(shijianchuo);
+        var y = time.getFullYear();
+        var m = time.getMonth() + 1;
+        var d = time.getDate();
+        var h = time.getHours();
+        var mm = time.getMinutes();
+        var s = time.getSeconds();
+        return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+      }
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
+      if (window.localStorage.nylwdzh) {
+        $('#wdzh').html(window.localStorage.nylwdzh);
+      } else {
+        window.localStorage.nylwdzh = $('#wdzh').html();
+      }
+      // 第一条数据
+      if (window.localStorage.nyljyzy1) {
+        $('#jyzy1').html(window.localStorage.nyljyzy1);
+      } else {
+        window.localStorage.nyljyzy1 = $('#jyzy1').html();
+      }
+      if (window.localStorage.nylincome12) {
+        $('#income12').html(window.localStorage.nylincome12);
+      } else {
+        window.localStorage.nylincome12 = $('#income12').html();
+      }
+      if (window.localStorage.nylexpend12) {
+        $('#expend12').html(window.localStorage.nylexpend12);
+      } else {
+        window.localStorage.nylexpend12 = $('#expend12').html();
+      }
+      if (window.localStorage.nylbcye1) {
+        $('#bcye1').html(window.localStorage.nylbcye1);
+      } else {
+        window.localStorage.nylbcye1 = $('#bcye1').html();
+      }
+      if (window.localStorage.nyldfxm1) {
+        $('#dfxm1').html(window.localStorage.nyldfxm1);
+      } else {
+        window.localStorage.nyldfxm1 = $('#dfxm1').html();
+      }
+      if (window.localStorage.nyldfzh1) {
+        $('#dfzh1').html(window.localStorage.nyldfzh1);
+      } else {
+        window.localStorage.nyldfzh1 = $('#dfzh1').html();
+      }
+      // 第二条数据
+      if (window.localStorage.nyljyzy2) {
+        $('#jyzy2').html(window.localStorage.nyljyzy2);
+      } else {
+        window.localStorage.nyljyzy2 = $('#jyzy2').html();
+      }
+      if (window.localStorage.nylincome22) {
+        $('#income22').html(window.localStorage.nylincome22);
+      } else {
+        window.localStorage.nylincome22 = $('#income22').html();
+      }
+      if (window.localStorage.nylexpend22) {
+        $('#expend22').html(window.localStorage.nylexpend22);
+      } else {
+        window.localStorage.nylexpend22 = $('#expend22').html();
+      }
+      if (window.localStorage.nylbcye2) {
+        $('#bcye2').html(window.localStorage.nylbcye2);
+      } else {
+        window.localStorage.nylbcye2 = $('#bcye2').html();
+      }
+      if (window.localStorage.nyldfxm2) {
+        $('#dfxm2').html(window.localStorage.nyldfxm2);
+      } else {
+        window.localStorage.nyldfxm2 = $('#dfxm2').html();
+      }
+      if (window.localStorage.nyldfzh2) {
+        $('#dfzh2').html(window.localStorage.nyldfzh2);
+      } else {
+        window.localStorage.nyldfzh2 = $('#dfzh2').html();
+      }
+      // 第三条数据
+      if (window.localStorage.nyljyzy3) {
+        $('#jyzy3').html(window.localStorage.nyljyzy3);
+      } else {
+        window.localStorage.nyljyzy3 = $('#jyzy3').html();
+      }
+      if (window.localStorage.nylincome32) {
+        $('#income32').html(window.localStorage.nylincome32);
+      } else {
+        window.localStorage.nylincome32 = $('#income32').html();
+      }
+      if (window.localStorage.nylexpend32) {
+        $('#expend32').html(window.localStorage.nylexpend32);
+      } else {
+        window.localStorage.nylexpend32 = $('#expend32').html();
+      }
+      if (window.localStorage.nylbcye3) {
+        $('#bcye3').html(window.localStorage.nylbcye3);
+      } else {
+        window.localStorage.nylbcye3 = $('#bcye3').html();
+      }
+      if (window.localStorage.nyldfxm3) {
+        $('#dfxm3').html(window.localStorage.nyldfxm3);
+      } else {
+        window.localStorage.nyldfxm3 = $('#dfxm3').html();
+      }
+      if (window.localStorage.nyldfzh3) {
+        $('#dfzh3').html(window.localStorage.nyldfzh3);
+      } else {
+        window.localStorage.nyldfzh3 = $('#dfzh3').html();
+      }
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---end
+      // 修改数据时，失焦后存入localStorage--start
+      $('#wdzh').blur(function () {
+        window.localStorage.nylwdzh = $(this).html();
+      });
+      //第一条数据
+      $('#jyzy1').blur(function () {
+        window.localStorage.nyljyzy1 = $(this).html();
+      });
+      $('#income12').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
+        window.localStorage.nylincome12 = $(this).html();
+      });
+      $('#expend12').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
+        window.localStorage.nylexpend12 = $(this).html();
+      });
+      $('#bcye1').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
+        window.localStorage.nylbcye1 = $(this).html();
+        if($("#income22").is(":hidden")){
+          $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#expend22').html())).toFixed(2));
+        }
+        if($("#expend22").is(":hidden")){
+          $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#income22').html())).toFixed(2));
+        }
+        if($("#income32").is(":hidden")){
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+        }
+        if($("#expend32").is(":hidden")){
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+        }
+        window.localStorage.nylbcye2 = $('#bcye2').html();
+        window.localStorage.nylbcye3 = $('#bcye3').html();
+      });
+      $('#dfxm1').blur(function () {
+        window.localStorage.nyldfxm1 = $(this).html();
+      });
+      $('#dfzh1').blur(function () {
+        window.localStorage.nyldfzh1 = $(this).html();
+      });
+      //第二条数据
+      $('#jyzy2').blur(function () {
+        window.localStorage.nyljyzy2 = $(this).html();
+      });
+      $('#income22').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
+        window.localStorage.nylincome22 = $(this).html();
+        $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#income22').html())).toFixed(2));
+        if ($("#income32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+        }
+        if ($("#expend32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+        }
+        window.localStorage.nylbcye2 = $('#bcye2').html();
+        window.localStorage.nylbcye3 = $('#bcye3').html();
+      });
+      $('#expend22').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
+        window.localStorage.nylexpend22 = $(this).html();
+        $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#expend22').html())).toFixed(2));
+        if ($("#income32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+        }
+        if ($("#expend32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+        }
+        window.localStorage.nylbcye2 = $('#bcye2').html();
+        window.localStorage.nylbcye3 = $('#bcye3').html();
+      });
+      $('#bcye2').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
+        window.localStorage.nylbcye2 = $(this).html();
+        if ($("#income22").is(":hidden")) {
+          $('#bcye1').html((parseFloat($('#bcye2').html()) - parseFloat($('#expend22').html())).toFixed(2));
+        }
+        if ($("#expend22").is(":hidden")) {
+          $('#bcye1').html((parseFloat($('#bcye2').html()) - parseFloat($('#income22').html())).toFixed(2));
+        }
+        if ($("#income32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+        }
+        if ($("#expend32").is(":hidden")) {
+          $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+        }
+        window.localStorage.nylbcye1 = $('#bcye1').html();
+        window.localStorage.nylbcye3 = $('#bcye3').html();
+      });
+      $('#dfxm2').blur(function () {
+        window.localStorage.nyldfxm2 = $(this).html();
+      });
+      $('#dfzh2').blur(function () {
+        window.localStorage.nyldfzh2 = $(this).html();
+      });
+      //第三条数据
+      $('#jyzy3').blur(function () {
+        window.localStorage.nyljyzy3 = $(this).html();
+      });
+      $('#income32').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
+        window.localStorage.nylincome32 = $(this).html();
+        $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+        window.localStorage.nylbcye3 = $('#bcye3').html();
+      });
+      $('#expend32').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
+        window.localStorage.nylexpend32 = $(this).html();
+        $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#expend32').html())).toFixed(2));
+        window.localStorage.nylbcye3 = $('#bcye3').html();
+      });
+      $('#bcye3').blur(function () {
+        $(this).html(parseFloat($(this).html()).toFixed(2));
+        window.localStorage.nylbcye3 = $(this).html();
+        if ($("#income32").is(":hidden")) {
+          $('#bcye2').html((parseFloat($('#bcye3').html()) - parseFloat($('#expend32').html())).toFixed(2));
+        }
+        if ($("#expend32").is(":hidden")) {
+          $('#bcye2').html((parseFloat($('#bcye3').html()) - parseFloat($('#income32').html())).toFixed(2));
+        }
+        if ($("#income22").is(":hidden")) {
+          $('#bcye1').html((parseFloat($('#bcye2').html()) - parseFloat($('#expend22').html())).toFixed(2));
+        }
+        if ($("#expend22").is(":hidden")) {
+          $('#bcye1').html((parseFloat($('#bcye2').html()) - parseFloat($('#income22').html())).toFixed(2));
+        }
+        window.localStorage.nylbcye1 = $('#bcye1').html();
+        window.localStorage.nylbcye2 = $('#bcye2').html();
+      });
+      $('#dfxm3').blur(function () {
+        window.localStorage.nyldfxm3 = $(this).html();
+      });
+      $('#dfzh3').blur(function () {
+        window.localStorage.nyldfzh3 = $(this).html();
+      });
+      //$('#bcye1').html((parseFloat($('#income12').html())+25000).toFixed(2));
+      $('#bcye2').html((parseFloat($('#bcye1').html()) + parseFloat($('#expend22').html())).toFixed(2));
+      $('#bcye3').html((parseFloat($('#bcye2').html()) + parseFloat($('#income32').html())).toFixed(2));
+    })
+  </script>
+</html>

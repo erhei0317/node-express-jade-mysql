@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title></title>
+    <link rel="stylesheet" href="/libs/weui/dist/style/weui.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/bank.css">
+  </head>
+  <body ontouchstart="">
+    <div class="container"><img src="/img/bank/pa-title.png" class="title-img">
+      <div class="pa-content">
+        <ul>
+          <li>交易时间：<span id="date" contenteditable="true">2016-09-29</span></li>
+          <li>交易类型：<span class="pa-out-font">转出</span><span class="pa-in-font">转入</span></li>
+          <li>付&nbsp;&nbsp;款&nbsp;&nbsp;人：<span id="fkr" contenteditable="true">张三&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>付款账号：<span id="fkzh" contenteditable="true">6222****1234&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>付&nbsp;&nbsp;款&nbsp;&nbsp;行：<span id="fkh" contenteditable="true">平安银行深圳布吉支行&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>收&nbsp;&nbsp;款&nbsp;&nbsp;人：<span id="skr" contenteditable="true">李四&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>收款账号：<span id="skzh" contenteditable="true">6214****1234&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>收&nbsp;&nbsp;款&nbsp;&nbsp;行：<span id="skh" contenteditable="true">广发银行股份有限公司&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+          <li>
+            币&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;种：
+            人民币
+          </li>
+          <li>金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额：<span id="je" contenteditable="true" class="pa-color-money">1,000.00</span></li>
+          <li>摘&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要：<span contenteditable="true">网银转账&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+        </ul>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(function () {
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
+      if(window.localStorage.pafkr){
+        $('#fkr').html(window.localStorage.pafkr);
+      }else{
+        window.localStorage.pafkr = $('#fkr').html();
+      }
+      if (window.localStorage.pafkzh) {
+        $('#fkzh').html(window.localStorage.pafkzh);
+      } else {
+        window.localStorage.pafkzh = $('#fkzh').html();
+      }
+      if (window.localStorage.pafkh) {
+        $('#fkh').html(window.localStorage.pafkh);
+      } else {
+        window.localStorage.pafkh = $('#fkh').html();
+      }
+      if (window.localStorage.paskr) {
+        $('#skr').html(window.localStorage.paskr);
+      } else {
+        window.localStorage.paskr = $('#skr').html();
+      }
+      if (window.localStorage.paskzh) {
+        $('#skzh').html(window.localStorage.paskzh);
+      } else {
+        window.localStorage.paskzh = $('#skzh').html();
+      }
+      if (window.localStorage.paskh) {
+        $('#skh').html(window.localStorage.paskh);
+      } else {
+        window.localStorage.paskh = $('#skh').html();
+      }
+      if (window.localStorage.paje) {
+        $('#je').html(window.localStorage.paje);
+      } else {
+        window.localStorage.paje = $('#je').html();
+      }
+      //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---end
+      // 修改数据时，失焦后存入localStorage--start
+      $('#fkr').blur(function () {
+        window.localStorage.pafkr = $(this).html();
+      });
+      $('#fkzh').blur(function () {
+        window.localStorage.pafkzh = $(this).html();
+      });
+      $('#fkh').blur(function () {
+        window.localStorage.pafkh = $(this).html();
+      });
+      $('#skr').blur(function () {
+        window.localStorage.paskr = $(this).html();
+      });
+      $('#skzh').blur(function () {
+        window.localStorage.paskzh = $(this).html();
+      });
+      $('#skh').blur(function () {
+        window.localStorage.paskh = $(this).html();
+      });
+      $('#je').blur(function () {
+        var num = $(this).html();
+        if(num.indexOf(',')>=0){
+          num = formatNum(num);
+          $(this).html(num);
+          window.localStorage.paje = $(this).html();
+        }else {
+          num = parseFloat(num);
+          if (isNaN(num)) {
+            alert('您的输入有误！')
+          } else {
+            num = formatNum(num);
+            $(this).html(num);
+            window.localStorage.paje = $(this).html();
+          }
+        }
+      });
+      // 修改数据时，失焦后存入localStorage--end
+      $('#date').html(show());
+      $('.pa-in-font').hide();
+      $('.pa-out-font').click(function(){
+        $(this).hide();
+        $('.pa-in-font').show();
+      });
+      $('.pa-in-font').click(function () {
+        $(this).hide();
+        $('.pa-out-font').show();
+      });
+      function show(){
+        var mydate = new Date();
+        var year = mydate.getFullYear();
+        var month = mydate.getMonth()+1;
+        var day = mydate.getDate() ;
+        month = month>=10?month:'0'+month;
+        day = day>=10?day:'0'+day;
+        var str = "" + year + "-" + month + '-' + day;
+        return str;
+      };
+      function formatNum(str) {
+        str += '';
+        str = str.replace(/,/g, "");
+        var newStr = "";
+        var count = 0;
+        if (str.indexOf(".") == -1) {
+          for (var i = str.length - 1; i >= 0; i--) {
+            if (count % 3 == 0 && count != 0) {
+              newStr = str.charAt(i) + "," + newStr;
+            } else {
+              newStr = str.charAt(i) + newStr;
+            }
+            count++;
+          }
+          str = newStr + ".00"; //自动补小数点后两位
+          console.log('a'+str)
+        }
+        else {
+          for (var i = str.indexOf(".") - 1; i >= 0; i--) {
+            if (count % 3 == 0 && count != 0) {
+              newStr = str.charAt(i) + "," + newStr;
+            } else {
+              newStr = str.charAt(i) + newStr; //逐个字符相接起来
+            }
+            count++;
+          }
+          str = newStr + (str + "00").substr((str + "00").indexOf("."), 3);
+          console.log(str)
+        }
+        return str;
+      }
+    })
+  </script>
+</html>
