@@ -138,6 +138,8 @@ module.exports = {
                                 connection.release();
                             });
                         });
+                    }else{
+                        res.render('fail', {title: '获取数据失败', msg: '获取微信服务器数据失败',  backUrl:''});         //获取服务器数据失败
                     }
                 } else {
                     console.log(err)

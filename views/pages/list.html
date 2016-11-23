@@ -14,7 +14,8 @@
     </div>
     <div class="container">
       <div class="main">
-        <div id="list"></div>
+        <p id="count"></p>
+        <ol id="list"></ol>
       </div>
       <script>
         $(function () {
@@ -22,14 +23,17 @@
           var localDatas = 
           var localDatasArray = [];
           var wd,ld;
+          var count = 0;
           for(ld in localDatas){
             localDatasArray.push(localDatas[ld].wxOpenId);
           }
           for(wd in wechatDatas.data.openid){
             if($.inArray(wechatDatas.data.openid[wd], localDatasArray) == -1){
-              $('#list').append('<p style="border-bottom:1px solid #ccc;">'+wechatDatas.data.openid[wd]+'</p>')
+              count++;
+              $('#list').append('<li style="border-bottom:1px solid #ccc;line-height:2;list-style-position: inside;">'+wechatDatas.data.openid[wd]+'</li>')
             }
           }
+          $('#count').html('总数：'+count++);
         })
       </script>
     </div>

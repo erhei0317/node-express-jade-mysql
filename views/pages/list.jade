@@ -2,20 +2,24 @@ extends ../layout
 
 block content
   .main
-    div#list
+    p#count
+    ol#list
   script.
     $(function () {
       var wechatDatas = !{JSON.stringify(wechatDatas)}
       var localDatas = !{JSON.stringify(localDatas)}
       var localDatasArray = [];
       var wd,ld;
+      var count = 0;
       for(ld in localDatas){
         localDatasArray.push(localDatas[ld].wxOpenId);
       }
       for(wd in wechatDatas.data.openid){
         if($.inArray(wechatDatas.data.openid[wd], localDatasArray) == -1){
-          $('#list').append('<p style="border-bottom:1px solid #ccc;">'+wechatDatas.data.openid[wd]+'</p>')
+          count++;
+          $('#list').append('<li style="border-bottom:1px solid #ccc;line-height:2;list-style-position: inside;">'+wechatDatas.data.openid[wd]+'</li>')
         }
       }
+      $('#count').html('总数：'+count++);
     })
 //{"total":1,"count":1,"data":{"openid":["oE7gquMJRrRbBo4mdWkQm4D2dmS0"]},"next_openid":"oE7gquMJRrRbBo4mdWkQm4D2dmS0"}><[{"wxOpenId":"121212"}   微信返回的数据格式
