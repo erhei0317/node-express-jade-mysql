@@ -11,7 +11,8 @@ var wechat = {
     checkBankKey: 'update bankKey set isUse=1,useTime=?,wxOpenId=? where bankKey=? and owner="Tiny" and isSale=1 and isUse=0 limit 1',        //验证银行账单生成激活码
     activeBank: 'update user set isBank=1,bankKey=?,editTime=? where wxOpenId=?',        //根据微信openid查询，查询数据库中是否存在当前openid并isBank为1
     queryAll: 'select id,name,levelName,productName,userId,price,remark from agent where userId=?',
-    delete: 'delete from agent where id=? and userId=?'
+    delete: 'delete from agent where id=? and userId=?',
+    getOpenId: 'select wxOpenId from user where 1=1'
 };
 
 module.exports = wechat;

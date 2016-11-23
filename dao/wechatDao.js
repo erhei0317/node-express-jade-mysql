@@ -109,6 +109,42 @@ module.exports = {
             });
         });
         //res.status(200).send(code);
+    },
+    getDiffOpenId: function (req, res, next) {          //微信网页授权  生成银行账单的授权页面
+        var next_openid = req.query.openid || '';
+        wechatUtil.getAccessToken(function(accessToken) {
+            var queryParams = {
+                'access_token': accessToken,
+                'next_openid': next_openid
+            };
+            var wxGetUserOpenIdListBaseUrl = wechatUtil.apiPrefix + 'user/get?' + qs.stringify(queryParams);
+            var options = {
+                method: 'GET',
+                url: wxGetUserOpenIdListBaseUrl
+            };
+            request(options, function (err, ress, body) {        //获取微信服务器上的所有用户openId
+                console.log(wxGetUserOpenIdListBaseUrl)
+                console.log(body)
+                body = JSON.parse(body);
+                if (body) {
+                    if (!body.errmsg) {   //没有返回错误码，即获取用户信息成功
+                        $dbc.pool.getConnection(function(err, connection) {
+                            connection.query($sql.getOpenId, '', function(err, result) {   //查询数据库中的所有openId
+                                if(result&&result.length>0){         //查询成功
+                                    res.render('list', {title: '获取差异openId', wechatDatas: body, localDatas: result});   //返回两组数据到前台处理
+                                }else{
+                                    res.render('fail', {title: '获取数据失败', msg: '获取数据库数据失败',  backUrl:''});       //获取数据库数据失败
+                                }
+                                connection.release();
+                            });
+                        });
+                    }
+                } else {
+                    console.log(err)
+                    res.render('fail', {title: '获取数据失败', msg: '获取微信服务器数据失败',  backUrl:''});         //获取服务器数据失败
+                }
+            })
+        })
     }
 
 };
@@ -239,7 +275,7 @@ weixin.textMsg(function(msg) {
                     weixin.sendMsg(resMsg);
                 }else{
                     if(result == ''){       //查询不到,说明还没有关注公众号
-                        resMsg.content = '您好像没有关注我们的公众号耶，您是怎么进来的？';      //当前id查询不到数据，返回数据异常页面
+                        resMsg.content = '您好像没有关注我们的公众号耶，您是怎么进来的？如已关注，请重新关注！';      //当前id查询不到数据，返回数据异常页面
                         weixin.sendMsg(resMsg);
                     }else{
                         if(result[0].subscribe==1){     //微信获取到的信息已经存入数据库中，并且是已关注
@@ -266,7 +302,7 @@ weixin.textMsg(function(msg) {
                                 });
                             }
                         }else{
-                            resMsg.content = '您好像没有关注我们的公众号耶，您是怎么进来的？';      //当前id查询不到数据，返回数据异常页面
+                            resMsg.content = '您好像没有关注我们的公众号耶，您是怎么进来的？如已关注，请重新关注！';      //当前id查询不到数据，返回数据异常页面
                             weixin.sendMsg(resMsg);
                         }
                     };

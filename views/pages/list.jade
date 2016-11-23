@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+  .main
+    div#list
+  script.
+    $(function () {
+      var wechatDatas = !{JSON.stringify(wechatDatas)}
+      var localDatas = !{JSON.stringify(localDatas)}
+      var localDatasArray = [];
+      var wd,ld;
+      for(ld in localDatas){
+        localDatasArray.push(localDatas[ld].wxOpenId);
+      }
+      for(wd in wechatDatas.data.openid){
+        if($.inArray(wechatDatas.data.openid[wd], localDatasArray) == -1){
+          $('#list').append('<p style="border-bottom:1px solid #ccc;">'+wechatDatas.data.openid[wd]+'</p>')
+        }
+      }
+    })
+//{"total":1,"count":1,"data":{"openid":["oE7gquMJRrRbBo4mdWkQm4D2dmS0"]},"next_openid":"oE7gquMJRrRbBo4mdWkQm4D2dmS0"}><[{"wxOpenId":"121212"}   微信返回的数据格式

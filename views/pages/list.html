@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title></title>
+    <link rel="stylesheet" href="/libs/weui/dist/style/weui.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/dist/jquery.min.js" type="text/javascript"></script>
+  </head>
+  <body ontouchstart="">
+    <div class="weui_navbar">
+      <div class="weui_navbar_item"><a id="back" href="javascript:history.go(-1);"><span class="arrow-left">返回</span></a></div>
+    </div>
+    <div class="container">
+      <div class="main">
+        <div id="list"></div>
+      </div>
+      <script>
+        $(function () {
+          var wechatDatas = 
+          var localDatas = 
+          var localDatasArray = [];
+          var wd,ld;
+          for(ld in localDatas){
+            localDatasArray.push(localDatas[ld].wxOpenId);
+          }
+          for(wd in wechatDatas.data.openid){
+            if($.inArray(wechatDatas.data.openid[wd], localDatasArray) == -1){
+              $('#list').append('<p style="border-bottom:1px solid #ccc;">'+wechatDatas.data.openid[wd]+'</p>')
+            }
+          }
+        })
+      </script>
+    </div>
+  </body>
+</html>
