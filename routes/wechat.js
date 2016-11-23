@@ -35,6 +35,10 @@ router.get('/oauthBankCallback', function(req, res, next) {
 router.get('/getDiffOpenId', function(req, res, next) {
     wechatDao.getDiffOpenId(req, res, next);
 });
+//根据openId获取用户信息并保存进数据库，如果已存在则更新数据
+router.get('/insertUserByOpenId', function(req, res, next) {
+    wechatDao.insertUserByOpenId(req, res, next);
+});
 /*router.get('/interface', function(req, res, next) {
     wechatDao.openAddIn(req, res, next);
 });*/
