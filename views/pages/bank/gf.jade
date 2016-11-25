@@ -9,7 +9,7 @@ html
     link(rel='stylesheet', href='/css/bank.css')
   body(ontouchstart="", style='background-color:#F0F0F0;')
     .container(style='margin-bottom:30px;')
-      img.title-img(src='/img/bank/gf-title.png')
+      img#init.title-img(src='/img/bank/gf-title.png')
       div.gf-content
         div.page 第1/1页，共1条符合条件的记录。
         ul
@@ -40,6 +40,17 @@ html
         img.bottom-img(src='/img/bank/gf-bottom.png')
   script.
     $(function () {
+      $('#init').click(function () {
+        var r=confirm("确定要恢复到原有内容么？")
+        if (r==true){
+          window.localStorage.gfzh = '';
+          window.localStorage.gfsr = '';
+          window.localStorage.gfzc = '';
+          window.localStorage.gfdfhm = '';
+          window.localStorage.gfdfzh = '';
+          location.reload();
+        }else{ }
+      });
       //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
       if (window.localStorage.gfzh) {
         $('#zh').html(window.localStorage.gfzh);
