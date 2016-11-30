@@ -31,6 +31,14 @@ router.get('/oauthBank', function(req, res, next) {
 router.get('/oauthBankCallback', function(req, res, next) {
     wechatDao.oauthBankCallback(req, res, next);
 });
+//获取公众号上面有，但是数据库中没有的用户openId
+router.get('/getDiffOpenId', function(req, res, next) {
+    wechatDao.getDiffOpenId(req, res, next);
+});
+//根据openId获取用户信息并保存进数据库，如果已存在则更新数据
+router.get('/insertUserByOpenId', function(req, res, next) {
+    wechatDao.insertUserByOpenId(req, res, next);
+});
 /*router.get('/interface', function(req, res, next) {
     wechatDao.openAddIn(req, res, next);
 });*/

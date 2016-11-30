@@ -109,6 +109,112 @@ module.exports = {
             });
         });
         //res.status(200).send(code);
+    },
+    getDiffOpenId: function (req, res, next) {          //微信网页授权  生成银行账单的授权页面
+        var next_openid = req.query.openid || '';
+        wechatUtil.getAccessToken(function(accessToken) {
+            var queryParams = {
+                'access_token': accessToken,
+                'next_openid': next_openid
+            };
+            var wxGetUserOpenIdListBaseUrl = wechatUtil.apiPrefix + 'user/get?' + qs.stringify(queryParams);
+            var options = {
+                method: 'GET',
+                url: wxGetUserOpenIdListBaseUrl
+            };
+            request(options, function (err, ress, body) {        //获取微信服务器上的所有用户openId
+                body = JSON.parse(body);
+                if (body) {
+                    if (!body.errmsg) {   //没有返回错误码，即获取用户信息成功
+                        $dbc.pool.getConnection(function(err, connection) {
+                            connection.query($sql.getOpenId, '', function(err, result) {   //查询数据库中的所有openId
+                                if(result&&result.length>0){         //查询成功
+                                    res.render('list', {title: '获取差异openId', wechatDatas: body, localDatas: result});   //返回两组数据到前台处理
+                                }else{
+                                    res.render('fail', {title: '获取数据失败', msg: '获取数据库数据失败',  backUrl:''});       //获取数据库数据失败
+                                }
+                                connection.release();
+                            });
+                        });
+                    }else{
+                        res.render('fail', {title: '获取数据失败', msg: '获取微信服务器数据失败',  backUrl:''});         //获取服务器数据失败
+                    }
+                } else {
+                    console.log(err)
+                    res.render('fail', {title: '获取数据失败', msg: '获取微信服务器数据失败',  backUrl:''});         //获取服务器数据失败
+                }
+            })
+        })
+    },
+    insertUserByOpenId: function (req, res, next) {
+        var openid = req.query.openid;
+        if(openid == '' || openid == undefined) {      //参数错误
+            res.render('fail', {title: '获取失败', msg: 'openid不能为空',  backUrl:''});      //参数错误，返回数据异常页面
+        }
+        wechatUtil.getAccessToken(function(accessToken){
+            var queryParams = {
+                'access_token': accessToken,
+                'openid': openid,
+                'lang':'zh_CN'
+            };
+            var wxGetUserInfoBaseUrl = wechatUtil.apiPrefix + 'user/info?' + qs.stringify(queryParams);
+            var options = {
+                method: 'GET',
+                url: wxGetUserInfoBaseUrl
+            };
+            request(options, function (err, ress, body) {
+                body = JSON.parse(body);
+                if (body) {
+                    if(!body.errmsg){   //没有返回错误码，即获取用户信息成功
+                        $dbc.pool.getConnection(function(err, connection) {
+                            connection.query($sql.queryByOpenId, [openid], function(err, result) {   //查询openid是否存在，存在的话就更新数据库
+                                if(result&&result.length>0&&result[0].id){         //openid已经存在，更新数据库的数据
+                                    var editTime = new Date();
+                                    var user = [editTime,body.nickname, body.sex, body.province, body.city, body.country, body.headimgurl,body.subscribe, body.subscribe_time, openid];
+                                    connection.query($sql.updateWxUser, user, function(err, result) {
+                                        if(err){
+                                            console.log(err);
+                                        }
+                                        if(result.affectedRows>0){          //插入成功的时候
+                                            console.log('affectedRows1');
+                                            res.render('suc', {title: '更新成功', msg: '更新数据成功',  backUrl:''});
+                                        }
+                                        if(result.changedRows>0){
+                                            console.log('changedRows');
+                                        }
+                                        connection.release();           //用户关注订阅号后，将用户的openid存入数据库中
+                                    });
+                                }else{          //插入数据库数据
+                                    var addTime = new Date();
+                                    var editTime = addTime;
+                                    var tryTime = Date.now()/1000+24*60*60;   //试用时间24小时,不计算毫秒
+                                    var user = [openid, addTime, editTime,body.nickname, body.sex, body.province, body.city, body.country, body.headimgurl, body.subscribe_time,body.subscribe,tryTime];
+                                    connection.query($sql.addWxUser, user, function(err, result) {
+                                        if(err){
+                                            console.log(err);
+                                        }
+                                        if(result.affectedRows>0){          //插入成功的时候
+                                            console.log('affectedRows2');
+                                            res.render('suc', {title: '新增成功', msg: '新增openid（'+openid+'）数据成功',  backUrl:''});
+                                        }
+                                        if(result.changedRows>0){
+                                            console.log('changedRows');
+                                        }
+                                        connection.release();           //用户关注订阅号后，将用户的openid存入数据库中
+                                    });
+                                }
+                            });
+                        });
+                    }else{
+                        res.render('fail', {title: body.errcode, msg: body.errmsg,  backUrl:''});         //获取服务器数据失败
+                    }
+                } else {
+                    console.log('2'+err)
+                    res.end();         //结束请求
+                    //return err;
+                }
+            });
+        });
     }
 
 };
@@ -138,7 +244,7 @@ weixin.eventMsg(function(msg) {
                 method: 'GET',
                 url: wxGetUserInfoBaseUrl
             };
-            request(options, function (err, res, body) {
+            request(options, function (err, ress, body) {
                 body = JSON.parse(body);
                 if (body) {
                     if(!body.errmsg){   //没有返回错误码，即获取用户信息成功
@@ -175,10 +281,14 @@ weixin.eventMsg(function(msg) {
                                             console.log('changedRows');
                                         }
                                         connection.release();           //用户关注订阅号后，将用户的openid存入数据库中
+                                        res.end();         //结束请求
                                     });
                                 }
                             });
                         });
+                    }else{
+                        console.log('1'+err)
+                        return err;
                     }
                 } else {
                     console.log('2'+err)
@@ -211,11 +321,13 @@ weixin.eventMsg(function(msg) {
                             console.log('changedRows');
                         }
                         connection.release();           //用户关注订阅号后，将用户的openid存入数据库中
+                        res.end();         //结束请求
                     });
                 }
             });
         });
     }
+    //res.end();         //结束请求
 });
 // 监听文本消息
 weixin.textMsg(function(msg) {
@@ -239,7 +351,7 @@ weixin.textMsg(function(msg) {
                     weixin.sendMsg(resMsg);
                 }else{
                     if(result == ''){       //查询不到,说明还没有关注公众号
-                        resMsg.content = '您好像没有关注我们的公众号耶，您是怎么进来的？';      //当前id查询不到数据，返回数据异常页面
+                        resMsg.content = '您好像没有关注我们的公众号耶，您是怎么进来的？如已关注，请重新关注！';      //当前id查询不到数据，返回数据异常页面
                         weixin.sendMsg(resMsg);
                     }else{
                         if(result[0].subscribe==1){     //微信获取到的信息已经存入数据库中，并且是已关注
@@ -266,7 +378,7 @@ weixin.textMsg(function(msg) {
                                 });
                             }
                         }else{
-                            resMsg.content = '您好像没有关注我们的公众号耶，您是怎么进来的？';      //当前id查询不到数据，返回数据异常页面
+                            resMsg.content = '您好像没有关注我们的公众号耶，您是怎么进来的？如已关注，请重新关注！';      //当前id查询不到数据，返回数据异常页面
                             weixin.sendMsg(resMsg);
                         }
                     };
@@ -278,4 +390,5 @@ weixin.textMsg(function(msg) {
         resMsg.content = '如果您想激活“银行账单生成”功能的话，请发送“银行账单生成+激活码”，如“银行账单生成8888888888”，其他问题请联系客服，客服微信：clicli168_kf';
         weixin.sendMsg(resMsg);
     }
+    //res.end();         //结束请求
 });
