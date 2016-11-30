@@ -92,7 +92,7 @@ module.exports = {
                             if(result[0].subscribe==1){     //微信获取到的信息已经存入数据库中，并且是已关注
                                 if(result[0].isBank==1){        //支持使用银行账单生成
                                     req.session.uid = result[0].id;
-                                    req.session.name = result[0].nickname;
+                                    req.session.name = result[0].nickname || 'Tina';
                                     req.session.openid = openid;
                                     req.session.isBank = result[0].isBank;      //是否支持使用银行账单生成模块
                                     res.redirect('../bank/bankList');
