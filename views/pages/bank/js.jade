@@ -65,6 +65,19 @@ html(style='height: 100%')
                 span#jydd1(contenteditable="true") 跨行转账&nbsp;&nbsp;&nbsp;&nbsp;
   script.
     $(function () {
+      $('#leftImg').click(function () {
+        var r=confirm("确定要恢复到原有内容么？")
+        if (r==true){
+          window.localStorage.jssr = '';
+          window.localStorage.jszc = '';
+          window.localStorage.jsye = '';
+          window.localStorage.jsdfzhin = '';
+          window.localStorage.jsdfzhout = '';
+          window.localStorage.jszy = '';
+          window.localStorage.jsjydd = '';
+          location.reload();
+        }else{ }
+      });
       //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
       if (window.localStorage.jsll) {
         $('#ll').html(window.localStorage.jsll);
