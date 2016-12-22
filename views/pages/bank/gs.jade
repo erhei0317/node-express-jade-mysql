@@ -12,7 +12,7 @@ html
       div.gs-content
         ul
           li
-            span.left-font 交易日期
+            span#init.left-font 交易日期
             span#date(contenteditable="true") 2016-10-03
           li
             span.left-font 业务摘要
@@ -58,6 +58,17 @@ html
             span#dfhm(contenteditable="true") 张三&nbsp;&nbsp;&nbsp;&nbsp;
   script.
     $(function () {
+      $('#init').click(function () {
+        var r=confirm("确定要恢复到原有内容么？")
+        if (r==true){
+          window.localStorage.gsywzy = '';
+          window.localStorage.gsjyje = '';
+          window.localStorage.gsye = '';
+          window.localStorage.gsdfjyzh = '';
+          window.localStorage.gsdfhm = '';
+          location.reload();
+        }else{ }
+      });
       //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
       if (window.localStorage.gsywzy) {
         $('#ywzy').html(window.localStorage.gsywzy);
