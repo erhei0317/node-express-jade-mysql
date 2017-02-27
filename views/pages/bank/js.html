@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title></title>
+    <title></title><meta name="format-detection" content="telephone=no" />
     <link rel="stylesheet" href="/libs/weui/dist/style/weui.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/libs/jquery/dist/jquery.min.js" type="text/javascript"></script>
@@ -49,6 +49,19 @@
   </body>
   <script>
     $(function () {
+      $('#leftImg').click(function () {
+        var r=confirm("确定要恢复到原有内容么？")
+        if (r==true){
+          window.localStorage.jssr = '';
+          window.localStorage.jszc = '';
+          window.localStorage.jsye = '';
+          window.localStorage.jsdfzhin = '';
+          window.localStorage.jsdfzhout = '';
+          window.localStorage.jszy = '';
+          window.localStorage.jsjydd = '';
+          location.reload();
+        }else{ }
+      });
       //如果localStorage中存在数据则使用localStorage中的数据，否则将数据写入localStorage---start
       if (window.localStorage.jsll) {
         $('#ll').html(window.localStorage.jsll);

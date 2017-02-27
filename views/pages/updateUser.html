@@ -7,16 +7,33 @@
     <link rel="stylesheet" href="/libs/weui/dist/style/weui.min.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/libs/jquery/dist/jquery.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="/css/bank.css">
   </head>
   <body ontouchstart="">
     <div class="weui_navbar">
       <div class="weui_navbar_item"><a id="back" href="javascript:history.go(-1);"><span class="arrow-left">返回</span></a></div>
     </div>
-    <div style="padding-top:0;" class="container"><a href="ny" style="margin-top:58px;" class="weui_btn weui_btn_primary">农业银行APP版--付款</a><a href="nyl" class="weui_btn weui_btn_primary">农业银行APP版--交易列表</a><a href="gs" class="weui_btn weui_btn_primary">工商银行APP版</a><a href="gf" class="weui_btn weui_btn_primary">广发银行APP版</a><a href="pa" class="weui_btn weui_btn_primary">平安银行微信公众号版</a><a href="js" class="weui_btn weui_btn_primary">建设银行APP版</a></div>
+    <div class="container">
+      <h1>更新用户资料</h1>
+      <form method="post" action="/p/users/updateUser">
+        <div class="form-row">
+          <label><span>ID:</span>
+            <input type="text" name="id">
+          </label>
+        </div>
+        <div class="form-row">
+          <label><span>name:</span>
+            <input type="text" name="name">
+          </label>
+        </div>
+        <div class="form-row">
+          <label><span>age:</span>
+            <input type="text" name="age">
+          </label>
+        </div>
+        <div class="form-row">
+          <input type="submit">
+        </div>
+      </form>
+    </div>
   </body>
-  <script>
-    $(function () {
-    })
-  </script>
 </html>

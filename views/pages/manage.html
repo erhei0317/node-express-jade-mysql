@@ -13,27 +13,22 @@
       <div class="weui_navbar_item"><a id="back" href="javascript:history.go(-1);"><span class="arrow-left">返回</span></a></div>
     </div>
     <div class="container">
-      <div class="main">
-        <p id="count"></p>
-        <ol id="list"></ol>
-      </div>
+      <div class="weui_cells weui_cells_access"><a href="/products/list" class="weui_cell">
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>产品管理</p>
+          </div>
+          <div class="weui_cell_ft"></div></a><a href="/levels/list" class="weui_cell">
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>代理级别管理</p>
+          </div>
+          <div class="weui_cell_ft"></div></a><a href="/agents/list" class="weui_cell">
+          <div class="weui_cell_bd weui_cell_primary">
+            <p>代理管理</p>
+          </div>
+          <div class="weui_cell_ft"></div></a></div>
       <script>
         $(function () {
-          var wechatDatas = 
-          var localDatas = 
-          var localDatasArray = [];
-          var wd,ld;
-          var count = 0;
-          for(ld in localDatas){
-            localDatasArray.push(localDatas[ld].wxOpenId);
-          }
-          for(wd in wechatDatas.data.openid){
-            if($.inArray(wechatDatas.data.openid[wd], localDatasArray) == -1){
-              count++;
-              $('#list').append('<li style="border-bottom:1px solid #ccc;line-height:2;list-style-position: inside;">'+wechatDatas.data.openid[wd]+'</li>')
-            }
-          }
-          $('#count').html('总数：'+count++);
+          $('#manage').addClass('icon-active')
         })
       </script>
     </div>
