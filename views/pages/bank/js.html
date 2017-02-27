@@ -325,8 +325,8 @@
       // 修改数据时，失焦后存入localStorage--end
       $('#date').html(format(new Date().getTime()));
       $('#date1').html(format(new Date().getTime() - (Math.random() * 2 + 1) * 3600 * 1000));  //比data早1-3个小时
-      $('.js-content-right').css('marginLeft',parseInt($('#leftImg').width())+'px');
-      $('.js-content-wrap').css('left',parseInt($('#leftImg').width())+2+'px');
+      $('.js-content-right').css('marginLeft',parseInt($('#leftImg').width()||42)+'px');
+      $('.js-content-wrap').css('left',parseInt($('#leftImg').width()||42)+2+'px');
       $('.ul-t-ze-l').html($('#ye').html());
       $('#expend').hide();
       $('#zc').hide();
