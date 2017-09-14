@@ -10,3 +10,10 @@
     ID查询 http://localhost:3000/p/users/query?id=1
 
     修改 http://localhost:3000/p/users，会返回一个页面。通过表单模拟一个post请求
+
+3. 部署：
+    在服务器上用了进程守护forever
+    进入到bin目录下
+    启动：forever start www
+    重启：forever restart www
+    停止：forever stop www
